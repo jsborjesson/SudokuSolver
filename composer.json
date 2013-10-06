@@ -1,0 +1,17 @@
+{
+    "name": "alcesleo/sudoku-solver",
+    "description": "Solves sudokus",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "alcesleo",
+            "email": "lagginglion@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}
