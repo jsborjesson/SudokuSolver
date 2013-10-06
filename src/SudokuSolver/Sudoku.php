@@ -40,15 +40,16 @@ class Sudoku
     public function getGroupContents($row, $col)
     {
         // Get top-left indexes of group
-        $row = floor($row/ 3) * 3;
-        $col = floor($col / 3) * 3;
+        $top = floor($row/ 3) * 3;
+        $left = floor($col / 3) * 3;
 
-        // Slice horizontally
-        $group = array_slice($this->sudoku, $row, $row + 3);
+        $group = array();
 
-        // Slice vertically
-        foreach ($group as &$row) {
-            $row = array_slice($row, $col, $col + 3);
+        // Extract contents of group
+        for ($row = $top; $row < $top + 3; $row++) {
+            for ($col = $left; $col < $left + 3; $col++) {
+                $group[] = $this->sudoku[$row][$col];
+            }
         }
 
         return $group;
