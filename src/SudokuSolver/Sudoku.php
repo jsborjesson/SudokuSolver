@@ -2,6 +2,9 @@
 
 namespace SudokuSolver;
 
+/**
+ * Holds a sudoku and accessor methods
+ */
 class Sudoku
 {
     protected $sudoku;
