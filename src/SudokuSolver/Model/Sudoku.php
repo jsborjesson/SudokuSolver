@@ -1,6 +1,6 @@
 <?php
 
-namespace SudokuSolver;
+namespace SudokuSolver\Model;
 
 /**
  * Holds a sudoku and accessor methods
