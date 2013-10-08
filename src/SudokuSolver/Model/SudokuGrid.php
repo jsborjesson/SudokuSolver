@@ -3,19 +3,18 @@
 namespace SudokuSolver\Model;
 
 /**
- * Contains methods for effectively working with a
- * 2-dimensional array.
+ * Methods for effectively working with a 9x9 array.
  */
-class Grid
+abstract class SudokuGrid
 {
-    protected $grid;
+    protected $sudoku;
 
     /**
-     * @param array $grid 2-dimensional grid
+     * @param array $sudoku 2-dimensional 9x9 array
      */
-    public function __construct($grid)
+    public function __construct(array $sudoku)
     {
-        $this->grid = $grid;
+        $this->sudoku = $sudoku;
     }
 
     /**
@@ -25,7 +24,7 @@ class Grid
      */
     public function getSquare($row, $col)
     {
-        return $this->grid[$row][$col];
+        return $this->sudoku[$row][$col];
     }
 
     /**
@@ -34,7 +33,7 @@ class Grid
      */
     public function getRowContents($index)
     {
-        return $this->grid[$index];
+        return $this->sudoku[$index];
     }
 
     /**
@@ -43,9 +42,8 @@ class Grid
      */
     public function getColumnContents($col)
     {
-        return array_column($this->grid, $col);
+        return array_column($this->sudoku, $col);
     }
-
 
     /**
      * Get contents of a rectangular selection
@@ -57,14 +55,12 @@ class Grid
      */
     public function getRectangleContents($top, $left, $bottom, $right)
     {
-        // TODO: Check for index out of bounds
-
         $rectangle = array();
 
         // Extract contents of rectangle
         for ($row = $top; $row < $bottom; $row++) {
             for ($col = $left; $col < $right; $col++) {
-                $rectangle[] = $this->grid[$row][$col];
+                $rectangle[] = $this->sudoku[$row][$col];
             }
         }
 
