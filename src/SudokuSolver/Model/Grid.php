@@ -4,14 +4,14 @@ namespace SudokuSolver\Model;
 
 /**
  * Contains methods for effectively working with a
- * 2-dimensional array of integers.
+ * 2-dimensional array.
  */
 class Grid
 {
     protected $grid;
 
     /**
-     * @param int[][] $grid 2-dimensional grid
+     * @param array $grid 2-dimensional grid
      */
     public function __construct($grid)
     {
@@ -21,7 +21,7 @@ class Grid
     /**
      * @param  int $row
      * @param  int $col
-     * @return int
+     * @return mixed whatever is on that square
      */
     public function getSquare($row, $col)
     {
@@ -30,7 +30,7 @@ class Grid
 
     /**
      * @param  int $row index
-     * @return int[][]
+     * @return array of all elements on row
      */
     public function getRowContents($index)
     {
@@ -39,7 +39,7 @@ class Grid
 
     /**
      * @param  int $col index
-     * @return int[][]
+     * @return array of all elements on column
      */
     public function getColumnContents($col)
     {
@@ -53,7 +53,7 @@ class Grid
      * @param  int $left
      * @param  int $bottom
      * @param  int $right
-     * @return int[][] of the contents
+     * @return array flat array of all the elements in the rectangle
      */
     public function getRectangleContents($top, $left, $bottom, $right)
     {
