@@ -5,33 +5,11 @@ namespace SudokuSolver\Model;
 /**
  * Holds a sudoku and accessor methods
  */
-class Sudoku
+class Sudoku extends Grid
 {
-    protected $sudoku;
-
-    public function __construct($sudokuArray)
+    public function __construct($grid)
     {
-        $this->sudoku = $sudokuArray;
-    }
-
-    /**
-     * Get all numbers of row
-     * @param  int $row index
-     * @return array of digits
-     */
-    public function getRowContents($index)
-    {
-        return $this->sudoku[$index];
-    }
-
-    /**
-     * Get all numbers of column
-     * @param  int $col index
-     * @return array of digits
-     */
-    public function getColumnContents($col)
-    {
-        return array_column($this->sudoku, $col);
+        parent::__construct($grid);
     }
 
     /**
@@ -42,19 +20,30 @@ class Sudoku
      */
     public function getGroupContents($row, $col)
     {
-        // Get top-left indexes of group
+        // Calculate coordinates
         $top = floor($row/ 3) * 3;
         $left = floor($col / 3) * 3;
+        $bottom = $top + 3;
+        $right = $left + 3;
 
-        $group = array();
+        return $this->getRectangleContents($top, $left, $bottom, $right);
+    }
 
-        // Extract contents of group
-        for ($row = $top; $row < $top + 3; $row++) {
-            for ($col = $left; $col < $left + 3; $col++) {
-                $group[] = $this->sudoku[$row][$col];
+    /**
+     * Useful for console debugging
+     * @return string visualization of grid
+     */
+    public function __toString()
+    {
+        $str = " -------------------\n";
+        for ($row = 0; $row < 9; $row++) {
+            $str .= '| ';
+            for ($col = 0; $col < 9; $col++) {
+                $str .= $this->grid[$row][$col] . ' ';
             }
+            $str .= "|\n";
         }
-
-        return $group;
+        $str .= " -------------------\n";
+        return $str;
     }
 }
