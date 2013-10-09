@@ -7,6 +7,9 @@ namespace SudokuSolver\Model;
  */
 abstract class SudokuGrid
 {
+    /**
+     * @var array 9x9 array
+     */
     protected $sudoku;
 
     /**
@@ -14,13 +17,14 @@ abstract class SudokuGrid
      */
     public function __construct(array $sudoku)
     {
+        // TODO: Validate constraints
         $this->sudoku = $sudoku;
     }
 
     /**
      * @param  int $row
      * @param  int $col
-     * @return mixed whatever is on that square
+     * @return mixed element on the square
      */
     public function getSquare($row, $col)
     {
@@ -51,9 +55,9 @@ abstract class SudokuGrid
      * @param  int $left
      * @param  int $bottom
      * @param  int $right
-     * @return array flat array of all the elements in the rectangle
+     * @return array flat array of elements in rectangle
      */
-    public function getRectangleContents($top, $left, $bottom, $right)
+    private function getRectangleContents($top, $left, $bottom, $right)
     {
         $rectangle = array();
 
@@ -65,5 +69,33 @@ abstract class SudokuGrid
         }
 
         return $rectangle;
+    }
+
+    /**
+     * Get all elements in the containing group
+     * @param  int $row index
+     * @param  int $col index
+     * @return array flat array of elements in group
+     */
+    public function getGroupContents($row, $col)
+    {
+        // Calculate coordinates
+        $top = floor($row/ 3) * 3;
+        $left = floor($col / 3) * 3;
+        $bottom = $top + 3;
+        $right = $left + 3;
+
+        // Use them as rectangular
+        return $this->getRectangleContents($top, $left, $bottom, $right);
+    }
+
+    // TODO: Test forEachSquare
+    public function forEachSquare(callable $func)
+    {
+        for ($row = 0; $row < 9; $row++) {
+            for ($col = 0; $col < 9; $col++) {
+                $func($this->sudoku[$row][$col], $row, $col);
+            }
+        }
     }
 }
