@@ -44,7 +44,7 @@ class Sudoku extends SudokuGrid
         for ($row = 0; $row < 9; $row++) {
             $str .= '| ';
             for ($col = 0; $col < 9; $col++) {
-                $str .= $this->grid[$row][$col] . ' ';
+                $str .= $this->sudoku[$row][$col] . ' ';
             }
             $str .= "|\n";
         }
