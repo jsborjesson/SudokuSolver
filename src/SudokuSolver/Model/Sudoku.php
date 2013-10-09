@@ -7,88 +7,31 @@ namespace SudokuSolver\Model;
  */
 class Sudoku extends SudokuGrid
 {
+
     /**
-     * @var int[][]
+     * Checks so all numbers in grid are valid digits
+     * @return boolean
      */
-    protected $sudoku;
-
-    public function __construct(array $sudoku)
-    {
-        // TODO: Validate
-        $this->sudoku = $sudoku;
-    }
-
     public function isValid()
     {
-        // TODO: Implement validation
-    }
-
-    /**
-     * @param  int $row
-     * @param  int $col
-     * @return int the number on that square
-     */
-    public function getSquare($row, $col)
-    {
-        return $this->grid[$row][$col];
-    }
-
-    /**
-     * @param  int $row index
-     * @return array of all numbers in row
-     */
-    public function getRowContents($index)
-    {
-        return $this->grid[$index];
-    }
-
-    /**
-     * @param  int $col index
-     * @return array of all numbers in column
-     */
-    public function getColumnContents($col)
-    {
-        return array_column($this->grid, $col);
-    }
-
-    /**
-     * Get contents of a rectangular selection
-     * @param  int $top
-     * @param  int $left
-     * @param  int $bottom
-     * @param  int $right
-     * @return array flat array of all the elements in the rectangle
-     */
-    private function getRectangleContents($top, $left, $bottom, $right)
-    {
-        $rectangle = array();
-
-        // Extract contents of rectangle
-        for ($row = $top; $row < $bottom; $row++) {
-            for ($col = $left; $col < $right; $col++) {
-                $rectangle[] = $this->grid[$row][$col];
+        for ($row = 0; $row < 9; $row++) {
+            for ($col = 0; $col < 9; $col++) {
+                if (! self::isDigit($this->getSquare($row, $col))) {
+                    return false;
+                }
             }
         }
-
-        return $rectangle;
+        return true;
     }
 
     /**
-     * Get all numbers in the containing group
-     * @param  int $row index
-     * @param  int $col index
-     * @return array of digits
+     * Returns true for integer values of 0-9, false for everything else
+     * @param  int  $number
+     * @return boolean
      */
-    public function getGroupContents($row, $col)
+    public static function isDigit($number)
     {
-        // Calculate coordinates
-        $top = floor($row/ 3) * 3;
-        $left = floor($col / 3) * 3;
-        $bottom = $top + 3;
-        $right = $left + 3;
-
-        // Use them as rectangular
-        return $this->getRectangleContents($top, $left, $bottom, $right);
+        return is_int($number) && $number >= 0 && $number <= 9;
     }
 
     /**
