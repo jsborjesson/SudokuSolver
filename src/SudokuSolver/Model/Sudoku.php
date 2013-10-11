@@ -3,53 +3,43 @@
 namespace SudokuSolver\Model;
 
 /**
- * Holds a sudoku and accessor methods
+ * Holds a sudoku and manages possible answers in cells
  */
-class Sudoku extends SudokuGrid
+class Sudoku
 {
+    const SIZE = 9;
 
     /**
-     * Checks so all numbers in grid are valid digits
-     * @return boolean
+     * Holds the sudoku
+     * @var array 2-dimensional 9x9 array of integers
      */
-    public function isValid()
+    private $sudoku = array();
+
+    // TODO: constructor functions
+    public static function fromString($string) {}
+
+    public function __construct($grid)
     {
-        for ($row = 0; $row < 9; $row++) {
-            for ($col = 0; $col < 9; $col++) {
-                if (! self::isDigit($this->getSquare($row, $col))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        // TODO: Lots of validation
+        $this->sudoku = $grid;
     }
 
-    /**
-     * Returns true for integer values of 0-9, false for everything else
-     * @param  int  $number
-     * @return boolean
-     */
-    public static function isDigit($number)
-    {
-        return is_int($number) && $number >= 0 && $number <= 9;
-    }
-
-    /**
-     * Useful for console debugging
-     * @return string visualization of grid
-     */
     public function __toString()
     {
-        $str = " -------------------\n";
-        for ($row = 0; $row < 9; $row++) {
-            $str .= '| ';
-            for ($col = 0; $col < 9; $col++) {
-                // The number, or empty space if it's a 0
-                $str .= $this->sudoku[$row][$col] ? $this->sudoku[$row][$col] . ' ' : '  ';
+        $str = '';
+        foreach ($this->sudoku as $rowIx => $row) {
+            // Horizontal dividers
+            $str .= ($rowIx > 0 && $rowIx % 3 == 0) ? "- - -   - - -   - - -\n" : '';
+            foreach ($row as $colIx => $cell) {
+                // Vertical dividers
+                $str .= ($colIx > 0 && $colIx % 3 == 0) ? '| ' : '';
+                // Number or empty space
+                $str .= $cell > 0 ? $cell : ' ';
+                // Alignment space
+                $str .= ' ';
             }
-            $str .= "|\n";
+            $str .= "\n";
         }
-        $str .= " -------------------\n";
         return $str;
     }
 }
