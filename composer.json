@@ -11,6 +11,9 @@
     "require": {
 
     },
+    "require-dev": {
+        "codeception/codeception": "*"
+    },
     "autoload": {
         "psr-0": {"": "src/"}
     }
