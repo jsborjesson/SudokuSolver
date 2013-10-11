@@ -2,6 +2,8 @@
 
 namespace SudokuSolver\View;
 
+use Exception;
+
 /**
  * This is meant to be an extremely simple templating engine with no fancy functionality.
  *
@@ -36,21 +38,45 @@ class Template
         $this->fileName = $fileName;
     }
 
+    /**
+     * Render the template
+     * @param  array  $options keys in template to replace with value in array
+     * @return string          the rendered template
+     */
     public function render(array $options)
     {
         $template = $this->getTemplateString();
 
         // Replace all the variables in template
         foreach ($options as $key => $value) {
-            $search = self::$begin . $key . self::$end;
+            $search = $this->getSearchString($key);
             $template = str_replace($search, $value, $template);
         }
 
         return $template;
     }
 
+    /**
+     * Surrounds $key with template tags
+     * @param  string $key
+     * @return string
+     */
+    private function getSearchString($key)
+    {
+        return self::$begin . $key . self::$end;
+    }
+
+    /**
+     * Get the template file as a string
+     * @return string
+     * @throws Exception If file not found
+     */
     private function getTemplateString()
     {
-        return 'testing {{test}} and stuff {{test2}}';
+        try {
+            return file_get_contents($this->fileName);
+        } catch (Exception $e) {
+            throw new Exception('Template not found');
+        }
     }
 }
