@@ -1,18 +1,18 @@
 <?php
-
-namespace SudokuSolver\View;
-
-use Exception;
-
 /**
  * This is meant to be an extremely simple templating engine with no fancy functionality.
  *
- * It is not meant to make templates the view-layer, as some frameworks do.
+ * It is NOT meant to make templates the view-layer, as some frameworks do.
  * Its only purpuse is to break out HTML from the View-classes to their own files.
  *
  * It does this by taking an associative array, and replacing the keys in the template-file
  * with their corresponding value. Any logic is supposed to be handled in view-classes.
  */
+
+namespace SudokuSolver\View;
+
+use Exception;
+
 class Template
 {
     /**
