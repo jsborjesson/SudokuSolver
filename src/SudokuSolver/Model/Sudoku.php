@@ -7,8 +7,8 @@ namespace SudokuSolver\Model;
  */
 class Sudoku
 {
+    // TODO: Is this really needed?
     private static $size = 9;
-
 
     /**
      * Holds the sudoku
@@ -22,6 +22,35 @@ class Sudoku
         $this->sudoku = $grid;
     }
 
+    /**
+     * Get possible solutions for a cell
+     * @param  int $row
+     * @param  int $col
+     * @return int[]
+     */
+    public function getOptionsForCell($row, $col)
+    {
+        // TODO: return empty on already filled cell
+        // all options
+        $options = range(1, 9);
+        // remove options
+        $options = array_diff($options, $this->getRow($row));
+        $options = array_diff($options, $this->getColumn($col));
+        $options = array_diff($options, $this->getGroup($row, $col));
+
+        return $options;
+    }
+
+    /**
+     * Get value of cell
+     * @param  int $row
+     * @param  int $col
+     * @return int
+     */
+    public function getCell($row, $col)
+    {
+        return $this->sudoku[$row][$col];
+    }
 
     /**
      * Array of values in column
@@ -65,6 +94,17 @@ class Sudoku
         }
 
         return $values;
+    }
+
+    /**
+     * If a number is in the cell
+     * @param  int  $row
+     * @param  int  $col
+     * @return bool
+     */
+    public function isFilled($row, $col)
+    {
+        return (bool)$this->sudoku[$row][$col];
     }
 
     /**
