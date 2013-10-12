@@ -27,10 +27,6 @@ class SudokuTest extends \Codeception\TestCase\Test
         );
     }
 
-    protected function _after()
-    {
-    }
-
     // tests
     public function testGetRow()
     {
@@ -55,5 +51,13 @@ class SudokuTest extends \Codeception\TestCase\Test
         // Both of these should give the middle group
         $this->assertEquals($middle, $this->sudoku->getGroup(4, 4));
         $this->assertEquals($middle, $this->sudoku->getGroup(3, 5));
+    }
+
+    public function testIsFilled()
+    {
+        $this->assertFalse($this->sudoku->isFilled(0, 5));
+        $this->assertFalse($this->sudoku->isFilled(5, 0));
+        $this->assertTrue($this->sudoku->isFilled(0, 0));
+        $this->assertTrue($this->sudoku->isFilled(8, 8));
     }
 }
