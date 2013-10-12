@@ -2,13 +2,13 @@
 
 namespace SudokuSolver\Model;
 
+use Exception;
+
 /**
  * Holds a sudoku and manages possible answers in cells
  */
 class Sudoku
 {
-    // TODO: Is this really needed?
-    private static $size = 9;
 
     /**
      * Holds the sudoku
@@ -16,6 +16,9 @@ class Sudoku
      */
     private $sudoku = array();
 
+    /**
+     * @param int[][] $grid 9x9 grid of digits
+     */
     public function __construct($grid)
     {
         // TODO: Lots of validation
@@ -23,7 +26,7 @@ class Sudoku
     }
 
     /**
-     * Get possible solutions for a cell
+     * Get currently valid solutions for a cell
      * @param  int $row
      * @param  int $col
      * @return int[]
@@ -39,6 +42,28 @@ class Sudoku
         $options = array_diff($options, $this->getGroup($row, $col));
 
         return $options;
+    }
+
+    /**
+     * Set the value in a cell
+     * @param int $row
+     * @param int $col
+     * @param int $val
+     */
+    public function setCell($row, $col, $val)
+    {
+        // TODO: Assert constraints
+        $this->sudoku[$row][$col] = $val;
+    }
+
+    /**
+     * Set value in cell to 0
+     * @param  int $row
+     * @param  int $col
+     */
+    public function emptyCell($row, $col)
+    {
+        $this->setCell($row, $col, 0);
     }
 
     /**
@@ -120,8 +145,8 @@ class Sudoku
             foreach ($row as $colIx => $cell) {
                 // Vertical dividers
                 $str .= ($colIx > 0 && $colIx % 3 == 0) ? '| ' : '';
-                // Number or empty space
-                $str .= $cell > 0 ? $cell : ' ';
+                // Number or dot
+                $str .= $cell > 0 ? $cell : '.';
                 // Alignment space
                 $str .= ' ';
             }
