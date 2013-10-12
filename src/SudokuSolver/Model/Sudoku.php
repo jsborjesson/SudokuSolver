@@ -7,7 +7,8 @@ namespace SudokuSolver\Model;
  */
 class Sudoku
 {
-    const SIZE = 9;
+    private static $size = 9;
+
 
     /**
      * Holds the sudoku
@@ -15,15 +16,61 @@ class Sudoku
      */
     private $sudoku = array();
 
-    // TODO: constructor functions
-    public static function fromString($string) {}
-
     public function __construct($grid)
     {
         // TODO: Lots of validation
         $this->sudoku = $grid;
     }
 
+
+    /**
+     * Array of values in column
+     * @param  int $col
+     * @return int[]
+     */
+    public function getColumn($col)
+    {
+        return array_column($this->sudoku, $col);
+    }
+
+    /**
+     * Array of values in row
+     * @param  int $row
+     * @return int[]
+     */
+    public function getRow($row)
+    {
+        return $this->sudoku[$row];
+    }
+
+    /**
+     * Flat array of values in 3x3 section
+     * @param  int $row any row in group
+     * @param  int $col any column in group
+     * @return int[]
+     */
+    public function getGroup($row, $col)
+    {
+        // Find out which group the coordinates belong to
+        $groupRow = floor($row/ 3) * 3;
+        $groupCol = floor($col / 3) * 3;
+
+        $values = array();
+
+        // Collect the values
+        for ($rowIx = $groupRow; $rowIx < $groupRow + 3; $rowIx++) {
+            for ($colIx = $groupCol; $colIx < $groupCol + 3; $colIx++) {
+                $values[] = $this->sudoku[$rowIx][$colIx];
+            }
+        }
+
+        return $values;
+    }
+
+    /**
+     * Useful for debugging
+     * @return string
+     */
     public function __toString()
     {
         $str = '';
