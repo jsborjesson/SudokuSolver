@@ -1,4 +1,10 @@
 <?php
+/**
+ * Solves sudoku puzzles.
+ *
+ * This class is based on the algorithm described by Peter Norvig at:
+ * http://norvig.com/sudoku.html
+ */
 
 namespace SudokuSolver\Model;
 
@@ -50,7 +56,7 @@ class Solver
             return $this->findSolution($index + 1);
         }
 
-        // Get possible numbers for current cell
+        // Get possible solutions for current cell
         $options = $this->sudoku->getOptionsForCell($row, $col);
 
         // Test every option
