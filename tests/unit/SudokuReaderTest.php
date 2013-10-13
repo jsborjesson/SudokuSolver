@@ -5,20 +5,6 @@ use SudokuSolver\Model\Sudoku;
 
 class SudokuReaderTest extends \Codeception\TestCase\Test
 {
-   /**
-    * @var \CodeGuy
-    */
-    protected $codeGuy;
-
-    protected function _before()
-    {
-    }
-
-    protected function _after()
-    {
-    }
-
-    // tests
 
     public function testValidSingleRowNumbers()
     {
@@ -71,7 +57,8 @@ class SudokuReaderTest extends \Codeception\TestCase\Test
      */
     public function testInvalidString()
     {
-        // TODO
+        $str = '.....6....59.....82....8....45........3........6..3.54...325..6..7................';
+        SudokuReader::fromString($str, '.');
     }
 
 }
