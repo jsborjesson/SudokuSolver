@@ -59,9 +59,10 @@ class SudokuReader
         // Convert zeroChars to zeros
         $str = str_replace($zeroChar, '0', $str);
 
-        // Ignore all characters except numbers and dots
+        // Ignore all characters except numbers
         $str = preg_replace('/[^0-9]/', '', $str);
 
+        // Exception if the fixed string is still not the right length
         if (strlen($str) !== 81) {
             throw new Exception('Invalid string');
         }
