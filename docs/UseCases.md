@@ -66,7 +66,7 @@ and lets the user fix her mistake before trying again.
 1a. The system presents an error saying that the entered text was not able to
 be parsed as a valid sudoku.
 
-## UC3: Solve multiple sudoku from a textfile
+## UC3: Solve multiple sudokus from a textfile
 
 ### Precondition
 
