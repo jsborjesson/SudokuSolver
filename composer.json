@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-
+        "gumbyframework/gumby": "*"
     },
     "require-dev": {
         "codeception/codeception": "*"
