@@ -15,15 +15,29 @@ Should eventually solve sudoku puzzles.
 - Maintain a well documented and high quality code-base
 - To learn about and use automated testing
 
+## Filestructure
+
+- `index.php`: entry point for application
+- `codeception.yml`: configuration for automatic tests
+- `config.rb`: configuration for css-framework, makes `compass compile` work
+- `composer.json`: dependency declaration: makes `composer install` work
+- `public/`: contains styles and templates
+- `docs/`: documentation for the project
+- `src/`: the php source code
+- `tests/` automatic tests
+
 ## Installing
 
-TODO: Links to instructions
+The tools needed to get this running are [Composer](http://getcomposer.org/) and [Ruby](https://www.ruby-lang.org/).
+They have their own installation instructions.
 
-The tools needed to get this running are Composer and Ruby. They have their own
-installation instructions. If you install Composer locally, you will need to replace
-every instance of `composer` with `php composer.phar`.
+Unless you're running a [very bad operating system](http://windows.microsoft.com/en-us/windows/home),
+it should only require a couple of lines in the terminal to get everything running.
 
 ### Composer
+
+If you have installed Composer locally, you will need to replace
+`composer` with `php composer.phar`.
 
 To install the projects dependancies:
 
