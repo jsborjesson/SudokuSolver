@@ -35,7 +35,25 @@ class Template
      */
     public function __construct($fileName)
     {
+        // TODO: check if file exists
         $this->fileName = $fileName;
+    }
+
+    /**
+     * Automatically finds the template file by name and creates
+     * a template from it.
+     *
+     * Example:
+     *     # template-file is in /public/templates/template.html
+     *     Template::getTemplate('template');
+     *
+     * @param  string $templateName name of template
+     * @return Template
+     */
+    public static function getTemplate($templateName)
+    {
+        // TODO: Make setters for file suffix and template path
+        return new Template("public/templates/{$templateName}.html");
     }
 
     /**
