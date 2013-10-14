@@ -33,7 +33,11 @@ class Sudoku
      */
     public function getOptionsForCell($row, $col)
     {
-        // TODO: return empty on already filled cell
+        // Return empty on already filled cell
+        if ($this->isFilled($row, $col)) {
+            return array();
+        }
+
         // all options
         $options = range(1, 9);
         // remove options
