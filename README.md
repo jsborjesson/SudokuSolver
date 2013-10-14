@@ -68,3 +68,8 @@ Note: if you do not have `codecept` in your path, it is located in the vendor/bi
 
     # Run the unit tests
     codecept run unit
+
+## Credits
+
+Huge thanks to Peter Norvig for writing the [great article](http://norvig.com/sudoku.html)
+that helped make the solving algorithm a thousand times better.
