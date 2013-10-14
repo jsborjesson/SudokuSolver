@@ -35,7 +35,9 @@ class Template
      */
     public function __construct($fileName)
     {
-        // TODO: check if file exists
+        if (! file_exists($fileName)) {
+            throw new Exception('Template file not found.');
+        }
         $this->fileName = $fileName;
     }
 
