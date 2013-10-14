@@ -32,7 +32,7 @@ and lets the user fix her mistake before trying again.
 4. Repeat step `3` until the sudoku is fully entered.
 5. `UC0`
 
-## UC2: Solve a sudoku from a string
+## UC2: Solve a sudoku from text input
 
 ### Precondition
 
