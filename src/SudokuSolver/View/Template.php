@@ -61,7 +61,7 @@ class Template
      * @param  array  $options keys in template to replace with value in array
      * @return string          the rendered template
      */
-    public function render(array $options)
+    public function render(array $options = array())
     {
         $template = $this->getTemplateString();
 
