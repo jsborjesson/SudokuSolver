@@ -1,1 +1,5 @@
+# Composer
 /vendor/
+
+# Tests
+/tests/_log
