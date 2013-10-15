@@ -1,12 +1,12 @@
 <?php
 /**
- * This is meant to be an extremely simple templating engine with no fancy functionality.
+ * This is meant to be an extremely simple templating engine.
  *
  * It is NOT meant to make templates the view-layer, as some frameworks do.
  * Its only purpuse is to break out HTML from the View-classes to their own files.
  *
- * It does this by taking an associative array, and replacing the keys in the template-file
- * with their corresponding value. Any logic is supposed to be handled in view-classes.
+ * It works by taking an associative array, and replacing the keys in the template-file
+ * with their corresponding value.
  */
 
 namespace SudokuSolver\View;
@@ -31,12 +31,25 @@ class Template
     private $fileName;
 
     /**
+     * Top level directory of the templates, with trailing slash
+     * @var string
+     */
+    private static $templateDir = 'templates/';
+
+    /**
+     * File ending of template-files, with dot
+     * @var string
+     */
+    private static $templateSuffix = '.html';
+
+    /**
      * @param string $fileName Path to file containing the template
      */
     public function __construct($fileName)
     {
         if (! file_exists($fileName)) {
-            throw new Exception('Template file not found.');
+            // TODO: Show path in error-message
+            throw new Exception("Template file not found: $fileName");
         }
         $this->fileName = $fileName;
     }
@@ -54,8 +67,26 @@ class Template
      */
     public static function getTemplate($templateName)
     {
-        // TODO: Make setters for file suffix and template path
-        return new Template("public/templates/{$templateName}.html");
+        return new Template(self::$templateDir . $templateName . self::$templateSuffix);
+    }
+
+    /**
+     * Set the path where the templates are located
+     * @param string $path
+     */
+    public static function setTemplateDirectory($path)
+    {
+        // TODO: Check if dir exists
+        self::$templateDir = $path;
+    }
+
+    /**
+     * Set the file ending of template files
+     * @param string $fileEnding including dot, ex '.html'
+     */
+    public static function setTemplateSuffix($fileEnding)
+    {
+        self::$templateSuffix = $fileEnding;
     }
 
     /**
