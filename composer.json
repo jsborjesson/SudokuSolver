@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "gumbyframework/gumby": "*"
+        "gumbyframework/gumby": "*",
+        "rhumsaa/array_column": "~1.1"
     },
     "require-dev": {
         "codeception/codeception": "*"
