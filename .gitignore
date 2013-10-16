@@ -3,7 +3,21 @@
 
 # Tests
 /tests/_log/
+# Just to make them stop popping up in my status,
+# these lines should be removed once they are in use
+tests/_data/
+tests/_helpers/
+tests/acceptance.suite.yml
+tests/acceptance/
+tests/functional.suite.yml
+tests/functional/
+tests/unit/CodeGuy.php
+tests/unit/_bootstrap.php
 
 # Styles
 /public/css/
 .sass-cache
+
+# Temporary files
+test.php
+TODO.md
