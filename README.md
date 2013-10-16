@@ -60,6 +60,13 @@ the CSS-files required for the live site:
     # ...or compile them on save
     compass watch
 
+### Optional: Automatically refresh page on save
+
+    gem install guard guard-livereload
+    guard
+
+Now you can connect your browser with livereload.
+
 ## Testing
 
     # Make sure Codeception is installed
