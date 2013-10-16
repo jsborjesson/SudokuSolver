@@ -26,7 +26,7 @@ class Solution
      */
     public function __construct(Sudoku $puzzle, Sudoku $solution)
     {
-        $this->puzzle = $sudoku;
+        $this->puzzle = $puzzle;
         $this->solution = $solution;
     }
 
@@ -50,7 +50,7 @@ class Solution
      */
     public function isSolved($row, $col)
     {
-        return $this->puzzle->isFilled($row, $col);
+        return ! $this->puzzle->isFilled($row, $col);
     }
 
     /**
