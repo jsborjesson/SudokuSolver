@@ -52,4 +52,21 @@ class Solution
     {
         return $this->puzzle->isFilled($row, $col);
     }
+
+    /**
+     * @return Sudoku
+     */
+    public function getOriginalSudoku()
+    {
+        // NOTE: Maybe return clone?
+        return $this->puzzle;
+    }
+
+    /**
+     * @return Sudoku
+     */
+    public function getSolvedSudoku()
+    {
+        return $this->solution;
+    }
 }
