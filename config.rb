@@ -1,6 +1,7 @@
 # This is the configuration for Compass
 
 # Require dependencies for gumby
+# TODO: Fallback to gumby-provided ones
 require 'modular-scale'
 require 'sassy-math'
 
