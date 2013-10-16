@@ -1,0 +1,28 @@
+html, body {
+    background: #fefefe;
+}
+
+// Title
+h1, h2 {
+    font: bold italic 100px Monaco, times new roman, serif;
+    color: #555;
+    letter-spacing: -.09em;
+    -webkit-transition-duration: 1s;
+}
+
+h2  {
+    font-size: 21px;
+    font-weight: normal;
+    line-height: 1.6;
+}
+
+
+// Sudoku
+.sudoku-cell {
+    @extend one;
+    @extend column;
+    background: papayawhip;
+    height: 50px;
+    font-size: 40px;
+}
+
