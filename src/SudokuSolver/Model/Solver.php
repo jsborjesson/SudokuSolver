@@ -10,6 +10,22 @@ namespace SudokuSolver\Model;
 
 use SudokuSolver\Model\Sudoku;
 
+/**
+ * Can either solve a sudoku directly:
+ *
+ *     $solver = new Solver($sudoku);
+ *     if ($solver->solve()) {
+ *         print '$sudoku is now solved!';
+ *     } else {
+ *         print 'could not solve sudoku';
+ *     }
+ *
+ * Or you can use the getSolution-method that leaves the original intact,
+ * but throws an error if it can't solve the sudoku.
+ *
+ *     $solution = Solver::getSolution($sudoku);
+ *
+ */
 class Solver
 {
     /**
@@ -18,6 +34,8 @@ class Solver
     private $sudoku;
 
     /**
+     * Takes a sudoku to work on. This sudoku WILL be changed directly.
+     *
      * @param Sudoku $sudoku
      */
     public function __construct(Sudoku &$sudoku)
@@ -80,5 +98,22 @@ class Solver
     public function solve()
     {
         return $this->findSolution(0);
+    }
+
+    /**
+     * Convenience method to create a solution-object, does not alter original sudoku.
+     * @param  Sudoku $sudoku
+     * @return Solution
+     */
+    public static function getSolution(Sudoku $sudoku)
+    {
+        $puzzle = $sudoku;
+        $solution = clone($sudoku);
+        $solver = new Solver($solution);
+        if ($solver->solve()) {
+            return new Solution($puzzle, $solution);
+        } else {
+            throw new Exception('Could not solve sudoku');
+        }
     }
 }
