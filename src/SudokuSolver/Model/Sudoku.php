@@ -136,6 +136,8 @@ class Sudoku
         return (bool)$this->sudoku[$row][$col];
     }
 
+    // TODO: Is-solved?
+
     /**
      * Makes sure that a clone of a Sudoku-object does not reference
      * the same sudoku-array.
