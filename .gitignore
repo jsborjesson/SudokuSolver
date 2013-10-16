@@ -4,5 +4,6 @@
 # Tests
 /tests/_log/
 
-# Compiled css
+# Styles
 /public/css/
+.sass-cache
