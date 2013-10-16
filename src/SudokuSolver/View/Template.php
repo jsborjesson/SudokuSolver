@@ -67,6 +67,7 @@ class Template
      */
     public static function getTemplate($templateName)
     {
+        // TODO: Allow using fileSuffix manually
         return new Template(self::$templateDir . $templateName . self::$templateSuffix);
     }
 
