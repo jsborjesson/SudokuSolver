@@ -137,6 +137,24 @@ class Sudoku
     }
 
     /**
+     * Makes sure that a clone of a Sudoku-object does not reference
+     * the same sudoku-array.
+     */
+    public function __clone()
+    {
+        $copy = array();
+
+        // Copy all the array values
+        foreach ($this->sudoku as $rowIx => $row) {
+            $copy[$rowIx] = array();
+            foreach ($row as $colIx => $cell) {
+                $copy[$rowIx][$colIx] = $cell;
+            }
+        }
+        $this->sudoku = $copy;
+    }
+
+    /**
      * Useful for debugging
      * @return string
      */
