@@ -28,23 +28,25 @@ Should eventually solve sudoku puzzles.
 
 ## Installing
 
-The tools needed to get this running are [Composer](http://getcomposer.org/) and [Ruby](https://www.ruby-lang.org/).
-They have their own installation instructions.
+These instructions assume that you have a decent command line environment with
+[Composer](http://getcomposer.org/) and [Ruby](https://www.ruby-lang.org/) installed.
+On Mac or Linux you almost don't have to do anything, you can install Composer locally with
 
-Unless you're running a [very bad operating system](http://windows.microsoft.com/en-us/windows/home),
-it should only require a couple of lines in the terminal to get everything running.
+    curl -sS https://getcomposer.org/installer | php
 
-### Composer
+and Ruby is probably already installed. If you are running a
+[bad operating system](http://windows.microsoft.com/) there might be some witchcraft
+involved.
 
-If you have installed Composer locally, you will need to replace
-`composer` with `php composer.phar`.
+### Install PHP dependencies and autoloader
 
-To install the projects dependancies:
-
+    # With composer installed globally
     composer install
 
+    # With local installation
+    php composer.phar install
 
-### Styles
+### Install CSS framework and set up SASS compilation
 
 I use Gumby framework for styles. It has a couple of dependencies. To generate
 the CSS-files required for the live site:
@@ -52,9 +54,11 @@ the CSS-files required for the live site:
     # Make sure the dependancies are installed
     gem install compass modular-scale sass
 
-    # Compile the css
+    # Compile the css...
     compass compile
 
+    # ...or compile them on save
+    compass watch
 
 ## Testing
 
