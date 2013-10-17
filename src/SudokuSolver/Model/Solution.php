@@ -75,12 +75,11 @@ class Solution
      * @param  Sudoku $sudoku
      * @return Solution
      */
-    public static function getSolution(Sudoku $sudoku)
+    public static function getSolution(Sudoku $sudoku, SolverInterface $algorithm)
     {
         $puzzle = $sudoku;
         $solution = clone($sudoku);
-        $solver = new Solver($solution);
-        if ($solver->solve()) {
+        if ($algorithm->solve($solution)) {
             return new Solution($puzzle, $solution);
         } else {
             throw new Exception('Could not solve sudoku');

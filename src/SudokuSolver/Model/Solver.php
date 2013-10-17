@@ -13,8 +13,8 @@ use SudokuSolver\Model\Sudoku;
 /**
  * Can either solve a sudoku directly:
  *
- *     $solver = new Solver($sudoku);
- *     if ($solver->solve()) {
+ *     $solver = new Solver();
+ *     if ($solver->solve($sudoku)) {
  *         print '$sudoku is now solved!';
  *     } else {
  *         print 'could not solve sudoku';
@@ -26,23 +26,8 @@ use SudokuSolver\Model\Sudoku;
  *     $solution = Solver::getSolution($sudoku);
  *
  */
-class Solver
+class Solver implements SolverInterface
 {
-    /**
-     * @var Sudoku
-     */
-    private $sudoku;
-
-    /**
-     * Takes a sudoku to work on. This sudoku WILL be changed directly.
-     *
-     * @param Sudoku $sudoku
-     */
-    public function __construct(Sudoku &$sudoku)
-    {
-        $this->sudoku = $sudoku;
-    }
-
     /**
      * Find the solution of a cell.
      *
@@ -55,11 +40,11 @@ class Solver
      *     second row, first cell = 9
      *     bottom right cell = 80
      *
-     *
+     * @param  Sudoku $sudoku
      * @param  int $index index of cell
      * @return bool If the index resulted in a solution to the sudoku
      */
-    private function findSolution($index)
+    private function findSolution(Sudoku $sudoku, $index)
     {
         // The end of the sudoku
         if ($index == 81) {
@@ -70,24 +55,24 @@ class Solver
         $col = floor($index % 9);
 
         // Move on to next square if already filled
-        if ($this->sudoku->isFilled($row, $col)) {
-            return $this->findSolution($index + 1);
+        if ($sudoku->isFilled($row, $col)) {
+            return $this->findSolution($sudoku, $index + 1);
         }
 
         // Get possible solutions for current cell
-        $options = $this->sudoku->getOptionsForCell($row, $col);
+        $options = $sudoku->getOptionsForCell($row, $col);
 
         // Test every option
         foreach ($options as $option) {
             // Recurse down and see if the option yields a solution
-            $this->sudoku->setCell($row, $col, $option);
-            if ($this->findSolution($index + 1)) {
+            $sudoku->setCell($row, $col, $option);
+            if ($this->findSolution($sudoku, $index + 1)) {
                 return true;
             }
         }
 
         // Failed to find solution
-        $this->sudoku->emptyCell($row, $col);
+        $sudoku->emptyCell($row, $col);
         return false;
     }
 
@@ -95,8 +80,8 @@ class Solver
      * Solve the sudoku
      * @return bool If the sudoku was solved
      */
-    public function solve()
+    public function solve(Sudoku $sudoku)
     {
-        return $this->findSolution(0);
+        return $this->findSolution($sudoku, 0);
     }
 }
