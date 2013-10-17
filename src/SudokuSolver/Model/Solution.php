@@ -11,22 +11,24 @@ use SudokuSolver\Model\Solver;
 class Solution
 {
     /**
+     * The unsolved puzzle
      * @var Sudoku
      */
-    private $puzzle;
+    private $original;
 
     /**
+     * The puzzle with the answers
      * @var Sudoku
      */
     private $solution;
 
     /**
-     * @param Sudoku $puzzle   Unsolved sudoku
-     * @param Sudoku $solution Solved sudoku
+     * @param Sudoku $original  Unsolved sudoku
+     * @param Sudoku $solution  Solved sudoku
      */
-    public function __construct(Sudoku $puzzle, Sudoku $solution)
+    public function __construct(Sudoku $original, Sudoku $solution)
     {
-        $this->puzzle = $puzzle;
+        $this->original = $original;
         $this->solution = $solution;
     }
 
@@ -50,7 +52,7 @@ class Solution
      */
     public function isSolved($row, $col)
     {
-        return ! $this->puzzle->isFilled($row, $col);
+        return ! $this->original->isFilled($row, $col);
     }
 
     /**
@@ -59,7 +61,7 @@ class Solution
     public function getOriginalSudoku()
     {
         // NOTE: Maybe return clone?
-        return $this->puzzle;
+        return $this->original;
     }
 
     /**
@@ -78,9 +80,9 @@ class Solution
     public static function getSolution(Sudoku $sudoku, SolverInterface $algorithm)
     {
         $puzzle = $sudoku;
-        $solution = clone($sudoku);
-        if ($algorithm->solve($solution)) {
-            return new Solution($puzzle, $solution);
+        $original = clone($sudoku);
+        if ($algorithm->solve($puzzle)) {
+            return new Solution($original, $puzzle);
         } else {
             throw new Exception('Could not solve sudoku');
         }
