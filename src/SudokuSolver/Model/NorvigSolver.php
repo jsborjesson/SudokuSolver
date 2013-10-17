@@ -26,7 +26,7 @@ use SudokuSolver\Model\Sudoku;
  *     $solution = Solver::getSolution($sudoku);
  *
  */
-class Solver implements SolverInterface
+class NorvigSolver implements SolverInterface
 {
     /**
      * Find the solution of a cell.
