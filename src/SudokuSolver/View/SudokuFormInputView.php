@@ -25,17 +25,31 @@ class SudokuFormInputView extends AbstractSudokuView
         $this->rowTpl = Template::getTemplate('sudoku-row');
     }
 
+    // ------- From AbstractSudokuView --------
+
     /**
      * Input field for a cell
      * @param  int $row
      * @param  int $col
      * @return string   HTML
      */
-    public function getCellHtml($row, $col)
+    protected function getCellHtml($row, $col)
     {
         // TODO: Persist already filled in numbers
         return $this->cellTpl->render(array('name' => "{$row}{$col}"));
     }
+
+    protected function renderRow($rowHtml)
+    {
+        return $this->rowTpl->render(array('content' => $rowHtml));
+    }
+
+    protected function renderGrid($gridHtml)
+    {
+        return $this->gridTpl->render(array('content' => $gridHtml));
+    }
+
+    // ------- End AbstractSudokuView --------
 
     /**
      * Get input cell contents
