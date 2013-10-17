@@ -99,21 +99,4 @@ class Solver
     {
         return $this->findSolution(0);
     }
-
-    /**
-     * Convenience method to create a solution-object, does not alter original sudoku.
-     * @param  Sudoku $sudoku
-     * @return Solution
-     */
-    public static function getSolution(Sudoku $sudoku)
-    {
-        $puzzle = $sudoku;
-        $solution = clone($sudoku);
-        $solver = new Solver($solution);
-        if ($solver->solve()) {
-            return new Solution($puzzle, $solution);
-        } else {
-            throw new Exception('Could not solve sudoku');
-        }
-    }
 }
