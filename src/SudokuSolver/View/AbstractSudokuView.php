@@ -11,23 +11,16 @@ abstract class AbstractSudokuView
 {
 
     /**
+     * Must be set in child class
      * @var Template
      */
-    private $rowTpl;
+    protected $rowTpl;
 
     /**
+     * Must be set in child class
      * @var Template
      */
-    private $gridTpl;
-
-    /**
-     * MUST be called by subclasses with `parent::__construct()
-     */
-    protected function __construct()
-    {
-        $this->gridTpl = Template::getTemplate('sudoku-grid');
-        $this->rowTpl = Template::getTemplate('sudoku-row');
-    }
+    protected $gridTpl;
 
     /**
      * Get HTML snippet of specified cell in sudoku.
@@ -43,6 +36,12 @@ abstract class AbstractSudokuView
      */
     public function render()
     {
+        // Make sure templates are set
+        assert(
+            isset($this->rowTpl) && isset($this->gridTpl),
+            'Protected attributes $rowTpl and $gridTpl MUST be set to Templates in child class.'
+        );
+
         $sudokuHtml = '';
         for ($row = 0; $row < 9; $row++) {
             $rowHtml = '';

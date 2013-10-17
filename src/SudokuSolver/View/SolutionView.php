@@ -22,8 +22,11 @@ class SolutionView extends AbstractSudokuView
 
     public function __construct(Solution $solution)
     {
-        parent::__construct();
         $this->solution = $solution;
+
+        // Create templates
+        $this->gridTpl = Template::getTemplate('sudoku-grid');
+        $this->rowTpl = Template::getTemplate('sudoku-row');
         $this->template = Template::getTemplate('sudoku-cell-static');
     }
 
