@@ -13,12 +13,14 @@ class SolutionView extends AbstractSudokuView
     /**
      * @var Solution
      */
-    private $solution;
+    protected $solution;
 
     /**
      * @var Template
      */
-    private $template;
+    private $gridTpl;
+    private $rowTpl;
+    private $cellTpl;
 
     public function __construct(Solution $solution)
     {
@@ -27,7 +29,7 @@ class SolutionView extends AbstractSudokuView
         // Create templates
         $this->gridTpl = Template::getTemplate('sudoku-grid-static');
         $this->rowTpl = Template::getTemplate('sudoku-row');
-        $this->template = Template::getTemplate('sudoku-cell-static');
+        $this->cellTpl = Template::getTemplate('sudoku-cell-static');
     }
 
     /**
@@ -38,13 +40,33 @@ class SolutionView extends AbstractSudokuView
      * @return string    HTML
      * @
      */
-    public function getCellHtml($row, $col)
+    protected function getCellHtml($row, $col)
     {
         $options = array(
             'content' => $this->solution->getCell($row, $col),
             'class' => $this->solution->isSolved($row, $col) ? 'solved' : ''
         );
 
-        return $this->template->render($options);
+        return $this->cellTpl->render($options);
+    }
+
+    /**
+     * Render HTML through the row-template
+     * @param  string $rowHtml
+     * @return string          HTML
+     */
+    protected function getRowHtml($rowHtml)
+    {
+        return $this->rowTpl->render(array('content' => $rowHtml));
+    }
+
+    /**
+     * Render HTML through the grid-template
+     * @param  string $gridHtml
+     * @return string           HTML
+     */
+    protected function getGridHtml($gridHtml)
+    {
+        return $this->gridTpl->render(array('content' => $gridHtml));
     }
 }
