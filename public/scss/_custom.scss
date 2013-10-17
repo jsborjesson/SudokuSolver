@@ -34,3 +34,8 @@ h2  {
     background: aliceblue;
 }
 
+// Form
+input.sudoku-cell:focus {
+    outline: none;
+}
+
