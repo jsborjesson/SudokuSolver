@@ -22,6 +22,10 @@ Should eventually solve sudoku puzzles.
 - `config.rb`: configuration for css-framework, makes `compass compile` work
 - `composer.json`: dependency declaration: makes `composer install` work
 - `public/`: contains styles and templates
+    - `scss`: contains sass-stylesheets
+    - `css`: compiled from sass
+    - `templates`: html-snippets handled by Template.php, used in views
+    - `js`: javascripts
 - `docs/`: documentation for the project
 - `src/`: the php source code
 - `tests/` automatic tests
@@ -79,6 +83,10 @@ Note: if you do not have `codecept` in your path, it is located in the vendor/bi
 
     # Run the unit tests
     codecept run unit
+
+## Deploying
+
+For deployment I use my [deploy script gist](https://gist.github.com/alcesleo/6581757)
 
 ## Credits
 
