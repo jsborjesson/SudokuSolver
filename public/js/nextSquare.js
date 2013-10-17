@@ -12,5 +12,5 @@ $('input.sudoku-cell').keypress(function (event) {
         // Clear the input and stay
         return false;
     }
-
+    // TODO: Previous on backspace?
 });
