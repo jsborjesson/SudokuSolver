@@ -30,6 +30,14 @@ abstract class AbstractSudokuView
     }
 
     /**
+     * Get HTML snippet of specified cell in sudoku.
+     * @param  int $row
+     * @param  int $col
+     * @return string   HTML
+     */
+    abstract protected function getCellHtml($row, $col);
+
+    /**
      * Uses the child-class' getCellHtml to render the entire sudoku
      * @return string HTML
      */
@@ -47,14 +55,6 @@ abstract class AbstractSudokuView
         }
         return $this->getGridHtml($sudokuHtml);
     }
-
-    /**
-     * Get HTML snippet of specified cell in sudoku.
-     * @param  int $row
-     * @param  int $col
-     * @return string   HTML
-     */
-    abstract protected function getCellHtml($row, $col);
 
     /**
      * Render HTML through the row-template
