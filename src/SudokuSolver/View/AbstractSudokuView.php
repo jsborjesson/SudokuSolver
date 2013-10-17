@@ -18,6 +18,20 @@ abstract class AbstractSudokuView
     abstract protected function getCellHtml($row, $col);
 
     /**
+     * Get HTML of row with specified contents
+     * @param  string $rowHtml contents of row element
+     * @return string          HTML
+     */
+    abstract protected function renderRow($rowHtml);
+
+    /**
+     * Get HTML of entire grid with specified contents
+     * @param  string $gridHtml contents of grid element
+     * @return string           HTML
+     */
+    abstract protected function renderGrid($gridHtml);
+
+    /**
      * Uses the child-class' getCellHtml to render the entire sudoku
      * @return string HTML
      */
@@ -31,8 +45,8 @@ abstract class AbstractSudokuView
                 $rowHtml .= $this->getCellHtml($row, $col);
             }
             // Append row to grid
-            $sudokuHtml .= $this->getRowHtml($rowHtml);
+            $sudokuHtml .= $this->renderRow($rowHtml);
         }
-        return $this->getGridHtml($sudokuHtml);
+        return $this->renderGrid($sudokuHtml);
     }
 }

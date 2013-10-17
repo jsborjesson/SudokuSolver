@@ -55,7 +55,7 @@ class SolutionView extends AbstractSudokuView
      * @param  string $rowHtml
      * @return string          HTML
      */
-    protected function getRowHtml($rowHtml)
+    protected function renderRow($rowHtml)
     {
         return $this->rowTpl->render(array('content' => $rowHtml));
     }
@@ -65,7 +65,7 @@ class SolutionView extends AbstractSudokuView
      * @param  string $gridHtml
      * @return string           HTML
      */
-    protected function getGridHtml($gridHtml)
+    protected function renderGrid($gridHtml)
     {
         return $this->gridTpl->render(array('content' => $gridHtml));
     }
