@@ -1,5 +1,6 @@
+// Move to next input square when a valid number/nothing is entered,
+// prevent other characters from being entered.
 // TODO: Only include this on form-input page
-// When char entered in square
 $('input.sudoku-cell').keypress(function (event) {
     // Get char
     var c = String.fromCharCode(event.which);
