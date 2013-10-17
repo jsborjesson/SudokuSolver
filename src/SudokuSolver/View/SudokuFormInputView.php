@@ -17,12 +17,14 @@ class SudokuFormInputView extends AbstractSudokuView
      */
     private $cellTpl;
 
+    private static $isPostback = '_isPostback';
+
     public function __construct()
     {
         // Set templates
-        $this->cellTpl = Template::getTemplate('sudoku-cell-input');
-        $this->gridTpl = Template::getTemplate('sudoku-grid-input');
-        $this->rowTpl = Template::getTemplate('sudoku-row');
+        $this->cellTpl = Template::getTemplate('sudoku-cell-input'); // input field
+        $this->gridTpl = Template::getTemplate('sudoku-grid-input'); // post-form
+        $this->rowTpl = Template::getTemplate('sudoku-row'); // just a normal row
     }
 
     // ------- From AbstractSudokuView --------
@@ -46,7 +48,12 @@ class SudokuFormInputView extends AbstractSudokuView
 
     protected function renderGrid($gridHtml)
     {
-        return $this->gridTpl->render(array('content' => $gridHtml));
+        return $this->gridTpl->render(
+            array(
+            'content' => $gridHtml,
+            'is_postback' => self::$isPostback
+            )
+        );
     }
 
     // ------- End AbstractSudokuView --------
