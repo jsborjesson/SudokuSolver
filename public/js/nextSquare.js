@@ -9,7 +9,7 @@ $('input.sudoku-cell').keypress(function (event) {
         // Move to next square
         $(this).next('input.sudoku-cell')[0].focus();
     } else {
-        // Clear the input and stay
+        // Don't allow
         return false;
     }
     // TODO: Previous on backspace?
