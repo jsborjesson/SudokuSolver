@@ -25,6 +25,7 @@ class Sudoku
         $this->sudoku = $grid;
     }
 
+    // TODO: Move to AbstractSolver?
     /**
      * Get currently valid solutions for a cell
      * @param  int $row
@@ -45,7 +46,7 @@ class Sudoku
         $options = array_diff($options, $this->getColumn($col));
         $options = array_diff($options, $this->getGroup($row, $col));
 
-        return $options;
+        return array_values($options);
     }
 
     /**
