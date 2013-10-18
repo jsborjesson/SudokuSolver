@@ -4,6 +4,7 @@ namespace SudokuSolver\Model;
 
 use SudokuSolver\Model\Sudoku;
 use SudokuSolver\Model\Solver;
+use Exception;
 
 /**
  * Contains a solution to a sudoku
