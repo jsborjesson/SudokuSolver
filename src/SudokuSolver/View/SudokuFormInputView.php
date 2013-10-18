@@ -16,15 +16,21 @@ class SudokuFormInputView extends AbstractSudokuView
      * @var Template
      */
     private $cellTpl;
+    private $rowTpl;
+    private $gridTpl;
 
+    /**
+     * Name of the hidden field
+     * @var string
+     */
     private static $isPostback = '_isPostback';
 
     public function __construct()
     {
         // Set templates
         $this->cellTpl = Template::getTemplate('sudoku-cell-input'); // input field
-        $this->gridTpl = Template::getTemplate('sudoku-grid-input'); // post-form
         $this->rowTpl = Template::getTemplate('sudoku-row'); // just a normal row
+        $this->gridTpl = Template::getTemplate('sudoku-grid-input'); // post-form
     }
 
     // ------- From AbstractSudokuView --------
