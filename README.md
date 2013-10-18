@@ -24,7 +24,7 @@ Should eventually solve sudoku puzzles.
 - `public/`: contains styles and templates
     - `scss`: contains sass-stylesheets
     - `css`: compiled from sass
-    - `templates`: html-snippets handled by Template.php, used in views
+    - `templates`: html-snippets handled by Template.php, tightly coupled with views
     - `js`: javascripts
 - `docs/`: documentation for the project
 - `src/`: the php source code
@@ -76,7 +76,7 @@ Now you can connect your browser with livereload.
     # Make sure Codeception is installed
     composer install --dev
 
-Note: if you do not have `codecept` in your path, it is located in the vendor/bin directory.
+_If you do not have `codecept` in your path, it is located in the vendor/bin directory._
 
     # Generate testing files
     codecept build
