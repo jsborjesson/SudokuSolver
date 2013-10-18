@@ -23,7 +23,7 @@ use SudokuSolver\Model\Sudoku;
  * Or you can use the getSolution-method that leaves the original intact,
  * but throws an error if it can't solve the sudoku.
  *
- *     $solution = Solver::getSolution($sudoku);
+ *     $solution = Solution::getSolution($sudoku);
  *
  */
 class NorvigSolver implements SolverInterface
