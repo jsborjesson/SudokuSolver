@@ -9,6 +9,7 @@
 namespace SudokuSolver\Model;
 
 use SudokuSolver\Model\Sudoku;
+use SudokuSolver\Model\SolverInterface;
 
 /**
  * Can either solve a sudoku directly:

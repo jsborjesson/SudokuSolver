@@ -3,7 +3,7 @@
 namespace SudokuSolver\Model;
 
 use SudokuSolver\Model\Sudoku;
-use SudokuSolver\Model\Solver;
+use SudokuSolver\Model\SolverInterface;
 use Exception;
 
 /**
