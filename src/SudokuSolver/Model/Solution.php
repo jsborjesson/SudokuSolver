@@ -45,13 +45,16 @@ class Solution
     }
 
     /**
+     * Facade.
+     *
      * If a cell in the sudoku was solved by the algorithm, or if it was
      * part of the original puzzle.
+     *
      * @param  int  $row
      * @param  int  $col
      * @return bool      True if solved by system, false if there to begin with
      */
-    public function isSolved($row, $col)
+    public function isFilledInOriginal($row, $col)
     {
         return ! $this->original->isFilled($row, $col);
     }

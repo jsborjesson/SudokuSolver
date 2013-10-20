@@ -44,7 +44,7 @@ class SolutionView extends AbstractSudokuView
     {
         $options = array(
             'content' => $this->solution->getCell($row, $col),
-            'class' => $this->solution->isSolved($row, $col) ? 'solved' : ''
+            'class' => $this->solution->isFilledInOriginal($row, $col) ? 'solved' : ''
         );
 
         return $this->cellTpl->render($options);
