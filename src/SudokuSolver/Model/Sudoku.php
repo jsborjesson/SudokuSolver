@@ -137,7 +137,54 @@ class Sudoku
         return (bool)$this->sudoku[$row][$col];
     }
 
-    // TODO: Is-solved?
+    /**
+     * If the sudoku is a valid sudoku.
+     *
+     * Returns true if all cells contain a digit or are empty, and no
+     * duplicates are found in any row, column or group.
+     *
+     * IMPORTANT: An empty sudoku will be considered valid.
+     *
+     * @return bool
+     */
+    public function isValid()
+    {
+        throw new Exception("Not implemented");
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSolved()
+    {
+        // FIXME: This can fail, but probably won't.
+        // The sum of a solved row/column/group (the sum of 1 through 9)
+        $total = 45;
+
+        // Check rows and columns
+        for ($index = 0; $index < 9; $index++) {
+
+            if (array_sum($this->sudoku->getRow($index)) != $total) {
+                return false;
+            }
+
+            if (array_sum($this->sudoku->getColumn($index)) != $total) {
+                return false;
+            }
+        }
+
+        // Check groups
+        for ($row = 1; $row < 9; $row += 3) {
+            for ($col = 1; $col < 9; $col += 3) {
+                if (array_sum($this->sudoku->getGroup($row, $col)) != $total) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
     /**
      * Makes sure that a clone of a Sudoku-object does not reference
