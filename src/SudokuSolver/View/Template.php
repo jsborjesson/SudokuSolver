@@ -3,10 +3,22 @@
  * This is meant to be an extremely simple templating engine.
  *
  * It is NOT meant to make templates the view-layer, as some frameworks do.
- * Its only purpuse is to break out HTML from the View-classes to their own files.
+ * Its only purpuse is to break out HTML from the View-classes to their own files,
+ * these templates are to be considered part of, or at the very least tightly coupled
+ * to their associated view-classes.
  *
  * It works by taking an associative array, and replacing the keys in the template-file
  * with their corresponding value.
+ *
+ * Example:
+ *
+ *     // tpl.html
+ *     <div class="test">{{content}}</div>
+ *     // end tpl.html
+ *
+ *     $template = new Template('tpl.html');
+ *     print $template->render(array('content' => 'testing'));
+ *     // <div class="test">testing</div>
  */
 
 namespace SudokuSolver\View;
