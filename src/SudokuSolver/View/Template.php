@@ -60,7 +60,6 @@ class Template
     public function __construct($fileName)
     {
         if (! file_exists($fileName)) {
-            // TODO: Show path in error-message
             throw new Exception("Template file not found: $fileName");
         }
         $this->fileName = $fileName;
@@ -102,6 +101,7 @@ class Template
         self::$templateSuffix = $fileEnding;
     }
 
+    // TODO: Allow optional placeholders that are removed on render
     /**
      * Render the template
      * @param  array  $options keys in template to replace with value in array
