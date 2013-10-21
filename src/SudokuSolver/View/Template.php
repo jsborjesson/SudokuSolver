@@ -101,33 +101,30 @@ class Template
         self::$templateSuffix = $fileEnding;
     }
 
-    // TODO: Allow optional placeholders that are removed on render
     /**
      * Render the template
      * @param  array  $options keys in template to replace with value in array
-     * @return string          the rendered template
+     * @param  bool   $clean  optional, if set to true, removes all superflous placeholders
+     * @return string         the rendered template
+     * @throws Exception If $clean is false and not all placeholders have been accounted for
      */
-    public function render(array $options = array())
+    public function render(array $options = array(), $clean = false)
     {
         $string = $this->getTemplateString();
 
         // Replace all the variables in template
         foreach ($options as $key => $value) {
-            $search = $this->getSearchString($key);
+            $search = self::$begin . $key . self::$end;
             $string = str_replace($search, $value, $string);
         }
 
-        return $string;
-    }
+        // TODO: Throw on remaining placeholders?
+        if ($clean) {
+            $pattern = '/' . self::$begin . '\w+' . self::$end . '/'; // any placeholder
+            $string = preg_replace($pattern, '', $string);
+        }
 
-    /**
-     * Surrounds $key with template tags
-     * @param  string $key
-     * @return string
-     */
-    private function getSearchString($key)
-    {
-        return self::$begin . $key . self::$end;
+        return $string;
     }
 
     /**
