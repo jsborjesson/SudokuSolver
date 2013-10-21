@@ -49,7 +49,7 @@ class Template
     private static $templateDir = 'templates/';
 
     /**
-     * File ending of template-files, with dot
+     * File ending of template-files
      * @var string
      */
     private static $templateSuffix = '.html';
@@ -109,15 +109,15 @@ class Template
      */
     public function render(array $options = array())
     {
-        $template = $this->getTemplateString();
+        $string = $this->getTemplateString();
 
         // Replace all the variables in template
         foreach ($options as $key => $value) {
             $search = $this->getSearchString($key);
-            $template = str_replace($search, $value, $template);
+            $string = str_replace($search, $value, $string);
         }
 
-        return $template;
+        return $string;
     }
 
     /**
