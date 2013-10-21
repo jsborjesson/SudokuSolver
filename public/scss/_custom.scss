@@ -4,6 +4,7 @@ html, body {
 
 // Title
 h1, h2 {
+    // TODO: Fix font
     font: bold italic 100px Monaco, times new roman, serif;
     color: #555;
     letter-spacing: -.09em;
@@ -18,24 +19,47 @@ h2  {
 
 
 // Sudoku
+$divider-border: 1px dashed black;
+
 .sudoku-cell {
+    @include columns(1);
     display: inline-block;
-    padding: 2px;
+    padding: 2%;
     text-align: center;
     vertical-align: middle;
-    padding-top: 9px;
+    //padding-top: 9px;
     background: papayawhip;
-    height: 50px;
-    width: 50px;
+    // height: 50px;
+    // width: 50px;
     font-size: 40px;
+
+    &.solved {
+        background: aliceblue;
+    }
+
+    &:nth-child(3),
+    &:nth-child(6) {
+        border-right: $divider-border;
+    }
 }
 
-.sudoku-cell.solved {
-    background: aliceblue;
+
+
+.sudoku-row {
+
+    &:nth-child(3),
+    &:nth-child(6) {
+        border-bottom: $divider-border;
+    }
 }
 
 // Form
 input.sudoku-cell:focus {
     outline: none;
+}
+
+// Sidebar
+.sidebar .btn {
+    width: 100%;
 }
 
