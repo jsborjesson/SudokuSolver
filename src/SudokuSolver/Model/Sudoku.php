@@ -149,7 +149,11 @@ class Sudoku
      */
     public function isValid()
     {
+        // TODO: Implement is-valid
         throw new Exception("Not implemented");
+
+        // All squares are digits
+        // All rows/columns/groups do not have duplicates
 
     }
 
@@ -158,6 +162,7 @@ class Sudoku
      */
     public function isSolved()
     {
+        // TODO: Return all filled && valid
         // FIXME: This can fail, but probably won't.
         // The sum of a solved row/column/group (the sum of 1 through 9)
         $total = 45;
@@ -165,11 +170,11 @@ class Sudoku
         // Check rows and columns
         for ($index = 0; $index < 9; $index++) {
 
-            if (array_sum($this->sudoku->getRow($index)) != $total) {
+            if (array_sum($this->getRow($index)) != $total) {
                 return false;
             }
 
-            if (array_sum($this->sudoku->getColumn($index)) != $total) {
+            if (array_sum($this->getColumn($index)) != $total) {
                 return false;
             }
         }
@@ -177,7 +182,7 @@ class Sudoku
         // Check groups
         for ($row = 1; $row < 9; $row += 3) {
             for ($col = 1; $col < 9; $col += 3) {
-                if (array_sum($this->sudoku->getGroup($row, $col)) != $total) {
+                if (array_sum($this->getGroup($row, $col)) != $total) {
                     return false;
                 }
             }
