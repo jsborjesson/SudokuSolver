@@ -22,16 +22,15 @@ h2  {
 $divider-border: 1px dashed black;
 
 .sudoku-cell {
-    @include columns(1);
+    @include columns(1); // Does not work!!!?
+    max-width: 60px;
     display: inline-block;
     padding: 2%;
     text-align: center;
     vertical-align: middle;
-    //padding-top: 9px;
-    background: papayawhip;
-    // height: 50px;
-    // width: 50px;
     font-size: 40px;
+
+    background: papayawhip;
 
     &.solved {
         background: aliceblue;
@@ -46,6 +45,7 @@ $divider-border: 1px dashed black;
 
 
 .sudoku-row {
+    @include row();
 
     &:nth-child(3),
     &:nth-child(6) {
