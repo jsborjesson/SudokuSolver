@@ -210,7 +210,7 @@ class Sudoku
      */
     public function __toString()
     {
-        $str = '';
+        $str = "<pre style='font-family:monospace'>\n";
         foreach ($this->sudoku as $rowIx => $row) {
             // Horizontal dividers
             $str .= ($rowIx > 0 && $rowIx % 3 == 0) ? "- - -   - - -   - - -\n" : '';
@@ -224,6 +224,7 @@ class Sudoku
             }
             $str .= "\n";
         }
+        $str .= "</pre>\n";
         return $str;
     }
 }
