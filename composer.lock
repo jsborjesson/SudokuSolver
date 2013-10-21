@@ -7,16 +7,16 @@
     "packages": [
         {
             "name": "gumbyframework/gumby",
-            "version": "2.5.12",
+            "version": "2.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GumbyFramework/gumby.git",
-                "reference": "660f09ae7714843acca1b48b76225c2d01ea26c4"
+                "reference": "f6256ffeda20b6607e1e69387ebcd291ad0bdaff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GumbyFramework/gumby/zipball/660f09ae7714843acca1b48b76225c2d01ea26c4",
-                "reference": "660f09ae7714843acca1b48b76225c2d01ea26c4",
+                "url": "https://api.github.com/repos/GumbyFramework/gumby/zipball/f6256ffeda20b6607e1e69387ebcd291ad0bdaff",
+                "reference": "f6256ffeda20b6607e1e69387ebcd291ad0bdaff",
                 "shasum": ""
             },
             "type": "library",
@@ -39,7 +39,7 @@
                 "gumby2",
                 "sass"
             ],
-            "time": "2013-10-15 16:34:44"
+            "time": "2013-10-18 14:07:41"
         },
         {
             "name": "rhumsaa/array_column",
@@ -303,16 +303,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "1.7.0.2",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "82e389a1a1a36c708543ef15225d25269cd15033"
+                "reference": "2d1c8e6b3874a75214d10d666c5742d5b48cf31c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/82e389a1a1a36c708543ef15225d25269cd15033",
-                "reference": "82e389a1a1a36c708543ef15225d25269cd15033",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/2d1c8e6b3874a75214d10d666c5742d5b48cf31c",
+                "reference": "2d1c8e6b3874a75214d10d666c5742d5b48cf31c",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +363,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2013-10-13 21:21:07"
+            "time": "2013-10-16 22:45:30"
         },
         {
             "name": "fabpot/goutte",
@@ -423,20 +423,20 @@
         },
         {
             "name": "facebook/webdriver",
-            "version": "v0.2",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-webdriver.git",
-                "reference": "b720b6aafb667a463c7e7cafcdebf3210ddc5ef7"
+                "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/b720b6aafb667a463c7e7cafcdebf3210ddc5ef7",
-                "reference": "b720b6aafb667a463c7e7cafcdebf3210ddc5ef7",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
+                "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.4.20"
             },
             "type": "library",
             "autoload": {
@@ -450,7 +450,7 @@
             ],
             "description": "A php client for WebDriver",
             "homepage": "https://github.com/facebook/php-webdriver",
-            "time": "2013-10-10 02:34:59"
+            "time": "2013-10-15 05:25:07"
         },
         {
             "name": "guzzle/common",
@@ -1016,16 +1016,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.27",
+            "version": "3.7.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "4b024e753e3421837afbcca962c8724c58b39376"
+                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4b024e753e3421837afbcca962c8724c58b39376",
-                "reference": "4b024e753e3421837afbcca962c8724c58b39376",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
                 "shasum": ""
             },
             "require": {
@@ -1086,7 +1086,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-16 03:09:52"
+            "time": "2013-10-17 07:27:40"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
