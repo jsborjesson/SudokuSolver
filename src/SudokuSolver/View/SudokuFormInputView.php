@@ -5,7 +5,6 @@ namespace SudokuSolver\View;
 use SudokuSolver\View\AbstractSudokuView;
 use SudokuSolver\View\Template;
 
-// TODO: SudokuInputInterface::getSudoku()
 /**
  * Displays a sudoku-grid with input elements for a user to manually
  * input a sudoku puzzle.
@@ -32,8 +31,7 @@ class SudokuFormInputView extends AbstractSudokuView implements SudokuInputViewI
         $this->cellTpl = Template::getTemplate('sudokuCellInput'); // input field
     }
 
-    // ------- From AbstractSudokuView --------
-
+    // NOTE: From AbstractSudokuView
     /**
      * Input field for a cell
      * @param  int $row
@@ -46,11 +44,10 @@ class SudokuFormInputView extends AbstractSudokuView implements SudokuInputViewI
         return $this->cellTpl->render(array('name' => $row . $col));
     }
 
-    // ------- End AbstractSudokuView --------
 
+    // TODO: Implememnt interface
     public function getSudoku()
     {
-        // TODO: Implememnt interface
         throw new \Exception('Not implemented');
     }
 
