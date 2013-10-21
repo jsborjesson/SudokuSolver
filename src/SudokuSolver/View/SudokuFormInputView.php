@@ -10,7 +10,7 @@ use SudokuSolver\View\Template;
  * Displays a sudoku-grid with input elements for a user to manually
  * input a sudoku puzzle.
  */
-class SudokuFormInputView extends AbstractSudokuView
+class SudokuFormInputView extends AbstractSudokuView implements SudokuInputViewInterface
 {
     /**
      * @var Template
@@ -27,10 +27,9 @@ class SudokuFormInputView extends AbstractSudokuView
 
     public function __construct()
     {
+        parent::__construct();
         // Set templates
-        $this->cellTpl = Template::getTemplate('sudoku-cell-input'); // input field
-        $this->rowTpl = Template::getTemplate('sudoku-row'); // just a normal row
-        $this->gridTpl = Template::getTemplate('sudoku-grid-input'); // post-form
+        $this->cellTpl = Template::getTemplate('sudokuCellInput'); // input field
     }
 
     // ------- From AbstractSudokuView --------
@@ -44,25 +43,16 @@ class SudokuFormInputView extends AbstractSudokuView
     protected function getCellHtml($row, $col)
     {
         // TODO: Persist already filled in numbers
-        return $this->cellTpl->render(array('name' => "{$row}{$col}"));
-    }
-
-    protected function renderRow($rowHtml)
-    {
-        return $this->rowTpl->render(array('content' => $rowHtml));
-    }
-
-    protected function renderGrid($gridHtml)
-    {
-        return $this->gridTpl->render(
-            array(
-            'content' => $gridHtml,
-            'is_postback' => self::$isPostback
-            )
-        );
+        return $this->cellTpl->render(array('name' => $row . $col));
     }
 
     // ------- End AbstractSudokuView --------
+
+    public function getSudoku()
+    {
+        // TODO: Implememnt interface
+        throw new \Exception('Not implemented');
+    }
 
     /**
      * Get input cell contents
@@ -72,6 +62,7 @@ class SudokuFormInputView extends AbstractSudokuView
      */
     private function getCellInput($row, $col)
     {
-
+        // TODO: Validation
+        //if (isset($_POST[$row . $col]))
     }
 }

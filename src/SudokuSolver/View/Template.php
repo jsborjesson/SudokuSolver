@@ -52,7 +52,7 @@ class Template
      * File ending of template-files
      * @var string
      */
-    private static $templateSuffix = '.html';
+    private static $templateSuffix = 'Tpl.html';
 
     /**
      * @param string $fileName Path to file containing the template

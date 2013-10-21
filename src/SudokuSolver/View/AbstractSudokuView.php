@@ -3,12 +3,19 @@
 namespace SudokuSolver\View;
 
 use SudokuSolver\View\Template;
+use SudokuSolver\View\View;
 
 /**
  * Renders a SudokuGrid using child-class' getCellHtml()
  */
-abstract class AbstractSudokuView
+abstract class AbstractSudokuView extends View
 {
+    /**
+     * @var Template
+     */
+    private $rowTpl;
+    private $gridTpl;
+
     /**
      * Get HTML snippet of specified cell in sudoku.
      * @param  int $row
@@ -18,18 +25,34 @@ abstract class AbstractSudokuView
     abstract protected function getCellHtml($row, $col);
 
     /**
+     * NOTE: Important: MUST be called in child-classes: `parent::__construct`
+     */
+    protected function __construct()
+    {
+        $this->rowTpl = Template::getTemplate('sudokuRow');
+        $this->gridTpl = Template::getTemplate('sudokuContainer');
+    }
+
+    // NOTE: These can be overridden in child if needed
+    /**
      * Get HTML of row with specified contents
      * @param  string $rowHtml contents of row element
      * @return string          HTML
      */
-    abstract protected function renderRow($rowHtml);
+    protected function renderRow($rowHtml)
+    {
+        return $this->rowTpl->render(array('content' => $rowHtml));
+    }
 
     /**
      * Get HTML of entire grid with specified contents
      * @param  string $gridHtml contents of grid element
      * @return string           HTML
      */
-    abstract protected function renderGrid($gridHtml);
+    protected function renderGrid($gridHtml)
+    {
+        return $this->gridTpl->render(array('content' => $gridHtml));
+    }
 
     /**
      * Uses the child-class' getCellHtml to render the entire sudoku
