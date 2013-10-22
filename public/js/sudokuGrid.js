@@ -6,6 +6,7 @@
     var sudokuCellSelector = 'input.sudoku-cell';
 
     // Navigate sudoku and validate input
+    // TODO: optimize
     $(sudokuCellSelector).keydown(function (event) {
 
         // The current input cell
