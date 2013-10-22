@@ -1,33 +1,75 @@
 // TODO: Only include this on form-input page
-// FIXME: BUG: Will not enter number when shift-tabbed back to filled square
 // TODO: 'Are you sure?' on clear-button
 (function () {
     'use strict';
 
     var sudokuCellSelector = 'input.sudoku-cell';
 
-    // Move to next input square when a valid number/nothing is entered,
-    // prevent other characters from being entered.
-    $(sudokuCellSelector).keypress(function (event) {
-        // Get char
-        var c = String.fromCharCode(event.which);
-        // If digit or space
-        if (/[1-9\ ]/.test(c)) {
+    // Navigate sudoku and validate input
+    $(sudokuCellSelector).keydown(function (event) {
 
-            // Get next input
-            var index = $(this).index(sudokuCellSelector);
-            var nextElem = $(sudokuCellSelector).eq(index + 1);
+        // The current input cell
+        var $input = $(this);
 
-            // Move to next square
+        // 1 = right, -1 = left, 9 = below etc
+        function navigate(amount) {
+
+            // Get desired cell
+            var index = $input.index(sudokuCellSelector);
+            var nextElem = $(sudokuCellSelector).eq(index + amount);
+
+            // Move to square
             if (nextElem != undefined) {
                 $(nextElem).focus();
             }
-
-        } else {
-            // Don't allow inputting other chars
-            return false;
         }
-        // TODO: Previous on backspace
+
+        // Set the value if it is valid
+        function inputIfValid() {
+            // Get char
+            var c = String.fromCharCode(event.which);
+
+            // If digit or space
+            if (/[1-9\ ]/.test(c)) {
+
+                // input and move to next cell
+                $input.val(c);
+                navigate(1);
+
+            }
+        }
+
+        // Do action
+        switch (event.keyCode) {
+            // Right
+            case 48: // 0
+            case 39: // right
+            case 32: // space
+                navigate(1);
+                break;
+            // Left
+            case 8: // backspace
+            case 37: // left
+                navigate(-1)
+                break;
+            // Down
+            case 13: // enter
+            case 40: // down
+                navigate(9);
+                break;
+            // Up
+            case 38:
+                navigate(-9);
+                break;
+            // tabbing
+            case 9:
+                event.shiftKey ? navigate(-1) : navigate(1);
+            default:
+                inputIfValid();
+
+        }
+        return false;
+
     });
 
 }());
