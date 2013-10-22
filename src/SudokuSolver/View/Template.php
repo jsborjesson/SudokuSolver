@@ -118,10 +118,14 @@ class Template
             $string = str_replace($search, $value, $string);
         }
 
-        // TODO: Throw on remaining placeholders?
+        // Clean or throw
+        $pattern = '/' . self::$begin . '\w+' . self::$end . '/'; // any placeholder
         if ($clean) {
-            $pattern = '/' . self::$begin . '\w+' . self::$end . '/'; // any placeholder
+            // Remove all placeholders
             $string = preg_replace($pattern, '', $string);
+        } elseif (preg_match($pattern, $string) !== false) {
+            // Throw if placeholders remain
+            throw new Exception('Remaining placeholders in template');
         }
 
         return $string;
