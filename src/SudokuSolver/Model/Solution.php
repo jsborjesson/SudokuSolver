@@ -64,7 +64,7 @@ class Solution
      */
     public function getOriginalSudoku()
     {
-        // NOTE: Maybe return clone?
+        // TODO: Maybe return clone, to prevent privacy leak
         return $this->original;
     }
 
@@ -85,7 +85,12 @@ class Solution
     {
         $puzzle = $sudoku;
         $original = clone($sudoku);
-        if ($algorithm->solve($puzzle)) {
+
+        $algorithm->solve($puzzle);
+
+        // Don't take the solvers word for it...
+        // TODO: if ($puzzle->isSolved()) {
+        if (true) {
             return new Solution($original, $puzzle);
         } else {
             throw new Exception('Could not solve sudoku');
