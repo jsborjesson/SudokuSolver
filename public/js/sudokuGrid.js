@@ -44,12 +44,16 @@
         switch (event.keyCode) {
             // Right
             case 48: // 0
-            case 39: // right
             case 32: // space
+                $input.val(''); // clear
+                // fall through
+            case 39: // right
                 navigate(1);
                 break;
             // Left
             case 8: // backspace
+                $input.val(''); // clear
+                // fall through
             case 37: // left
                 navigate(-1)
                 break;
