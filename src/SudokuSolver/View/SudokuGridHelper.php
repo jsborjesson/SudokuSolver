@@ -3,12 +3,11 @@
 namespace SudokuSolver\View;
 
 use SudokuSolver\View\Template;
-use SudokuSolver\View\View;
 
 /**
- * Renders a SudokuGrid using child-class' getCellHtml()
+ * Helps render a sudoku-grid
  */
-abstract class AbstractSudokuView extends View
+class SudokuGridHelper
 {
     /**
      * @var Template
@@ -16,24 +15,12 @@ abstract class AbstractSudokuView extends View
     private $rowTpl;
     private $gridTpl;
 
-    /**
-     * Get HTML snippet of specified cell in sudoku.
-     * @param  int $row
-     * @param  int $col
-     * @return string   HTML
-     */
-    abstract protected function getCellHtml($row, $col);
-
-    /**
-     * NOTE: Important: MUST be called in child-classes: `parent::__construct`
-     */
-    protected function __construct()
+    public function __construct()
     {
         $this->rowTpl = Template::getTemplate('sudokuRow');
         $this->gridTpl = Template::getTemplate('sudokuContainer');
     }
 
-    // NOTE: These can be overridden in child if needed
     /**
      * Get HTML of row with specified contents
      * @param  string $rowHtml contents of row element
@@ -55,17 +42,18 @@ abstract class AbstractSudokuView extends View
     }
 
     /**
-     * Uses the child-class' getCellHtml to render the entire sudoku
-     * @return string HTML
+     * Render the sudoku
+     * @param  callable $getCellHtml Receives ($row, $column) of the cell it is expected to return
+     * @return string                HTML
      */
-    public function render()
+    public function render(callable $getCellHtml)
     {
         $sudokuHtml = '';
         for ($row = 0; $row < 9; $row++) {
             $rowHtml = '';
             for ($col = 0; $col < 9; $col++) {
                 // Append cell to row
-                $rowHtml .= $this->getCellHtml($row, $col);
+                $rowHtml .= $getCellHtml($row, $col);
             }
             // Append row to grid
             $sudokuHtml .= $this->renderRow($rowHtml);
