@@ -43,14 +43,19 @@ class VisualSudokuInputView extends SudokuInputView
      */
     protected function getCellHtml($row, $col)
     {
-        // TODO: Persist already filled in numbers
+        // FIXME: Very subtle string dependency in concatenating the name
         return $this->cellTpl->render(array('name' => $row . $col));
     }
 
     public function renderSudokuInput()
     {
         return $this->gridHelper->render(function ($row, $col) {
-            return $this->cellTpl->render(array('name' => $row . $col));
+            return $this->cellTpl->render(
+                array(
+                    'name' => $row . $col,
+                    'value' => $this->getCellInput($row, $col)
+                )
+            );
         });
     }
 
@@ -70,6 +75,8 @@ class VisualSudokuInputView extends SudokuInputView
     private function getCellInput($row, $col)
     {
         // TODO: Validation
-        //if (isset($_POST[$row . $col]))
+        if (isset($_POST[$row . $col])) {
+            return $_POST[$row . $col];
+        }
     }
 }
