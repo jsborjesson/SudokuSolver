@@ -9,7 +9,7 @@ use SudokuSolver\View\Template;
  * Displays a sudoku-grid with input elements for a user to manually
  * input a sudoku puzzle.
  */
-class SudokuFormInputView extends AbstractSudokuView implements SudokuInputViewInterface
+class SudokuInputFormView extends AbstractSudokuView implements SudokuInputViewInterface
 {
     /**
      * @var Template
