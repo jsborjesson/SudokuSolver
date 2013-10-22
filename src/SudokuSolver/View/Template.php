@@ -123,9 +123,11 @@ class Template
         if ($clean) {
             // Remove all placeholders
             $string = preg_replace($pattern, '', $string);
-        } elseif (preg_match($pattern, $string) !== false) {
-            // Throw if placeholders remain
-            throw new Exception('Remaining placeholders in template');
+        } else {
+            // Throw if placeholders are left
+            if (preg_match($pattern, $string) == 1) {
+                throw new Exception("Remaining placeholders in template: $this->fileName");
+            }
         }
 
         return $string;
@@ -141,7 +143,7 @@ class Template
         try {
             return file_get_contents($this->fileName);
         } catch (Exception $e) {
-            throw new Exception('Template not found');
+            throw new Exception("Template not found: $this->fileName");
         }
     }
 }
