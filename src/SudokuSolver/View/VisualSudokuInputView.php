@@ -2,21 +2,25 @@
 
 namespace SudokuSolver\View;
 
-use SudokuSolver\View\AbstractSudokuView;
 use SudokuSolver\View\Template;
+use SudokuSolver\View\SudokuInputView;
+use SudokuSolver\View\SudokuGridHelper;
 
 /**
  * Displays a sudoku-grid with input elements for a user to manually
  * input a sudoku puzzle.
  */
-class SudokuInputFormView extends AbstractSudokuView implements SudokuInputViewInterface
+class VisualSudokuInputView extends SudokuInputView
 {
     /**
      * @var Template
      */
     private $cellTpl;
-    private $rowTpl;
-    private $gridTpl;
+
+    /**
+     * @var SudokuGridHelper
+     */
+    private $gridHelper;
 
     /**
      * Name of the hidden field
@@ -27,11 +31,10 @@ class SudokuInputFormView extends AbstractSudokuView implements SudokuInputViewI
     public function __construct()
     {
         parent::__construct();
-        // Set templates
         $this->cellTpl = Template::getTemplate('sudokuCellInput'); // input field
+        $this->gridHelper = new SudokuGridHelper();
     }
 
-    // NOTE: From AbstractSudokuView
     /**
      * Input field for a cell
      * @param  int $row
@@ -42,6 +45,13 @@ class SudokuInputFormView extends AbstractSudokuView implements SudokuInputViewI
     {
         // TODO: Persist already filled in numbers
         return $this->cellTpl->render(array('name' => $row . $col));
+    }
+
+    public function renderSudokuInput()
+    {
+        return $this->gridHelper->render(function ($row, $col) {
+            return $this->cellTpl->render(array('name' => $row . $col));
+        });
     }
 
 

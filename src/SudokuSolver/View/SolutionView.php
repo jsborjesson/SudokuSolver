@@ -3,12 +3,13 @@
 namespace SudokuSolver\View;
 
 use SudokuSolver\Model\Solution;
+use SudokuSolver\View\SudokuGridHelper;
 
 /**
  * Displays an immutable solution where cells are marked as
  * part of the original puzzle or solved by the system.
  */
-class SolutionView extends AbstractSudokuView
+class SolutionView
 {
     /**
      * @var Solution
@@ -18,54 +19,46 @@ class SolutionView extends AbstractSudokuView
     /**
      * @var Template
      */
-    private $gridTpl;
-    private $rowTpl;
     private $cellTpl;
+
+    /**
+     * @var SudokuGridHelper
+     */
+    private $gridHelper;
+
+    private $optionsView;
 
     public function __construct(Solution $solution)
     {
-        parent::__construct();
         $this->solution = $solution;
 
-        // Create templates
         $this->cellTpl = Template::getTemplate('sudokuCellStatic');
+        $this->layoutTpl = Template::getTemplate('sudokuSolutionLayout');
+        $this->optionsView = new SudokuInputOptionsView();
+        $this->gridHelper = new SudokuGridHelper();
     }
 
-    /**
-     * Returns static number-span, with class 'solved' if it has been solved
-     * by the system. (From parent class)
-     * @param  int $row
-     * @param  int $col
-     * @return string    HTML
-     * @
-     */
-    protected function getCellHtml($row, $col)
+    public function render()
     {
-        $options = array(
-            'content' => $this->solution->getCell($row, $col),
-            'class' => $this->solution->isFilledInOriginal($row, $col) ? 'solved' : ''
+        return $this->layoutTpl->render(
+            array(
+                'solution' => $this->renderSolution(),
+                'timer' => '3.5ms', // TODO: Real value
+                'options' => $this->optionsView->render()
+            )
         );
-
-        return $this->cellTpl->render($options);
     }
 
-    /**
-     * Render HTML through the row-template
-     * @param  string $rowHtml
-     * @return string          HTML
-     */
-    protected function renderRow($rowHtml)
+    private function renderSolution()
     {
-        return $this->rowTpl->render(array('content' => $rowHtml));
-    }
+        return $this->gridHelper->render(function ($row, $col) {
 
-    /**
-     * Render HTML through the grid-template
-     * @param  string $gridHtml
-     * @return string           HTML
-     */
-    protected function renderGrid($gridHtml)
-    {
-        return $this->gridTpl->render(array('content' => $gridHtml));
+            $options = array(
+                'content' => $this->solution->getCell($row, $col),
+                'class' => $this->solution->isFilledInOriginal($row, $col) ? 'solved' : ''
+            );
+
+            return $this->cellTpl->render($options);
+        });
     }
 }
