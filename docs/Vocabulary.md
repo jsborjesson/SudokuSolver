@@ -19,7 +19,7 @@ group, block
 : a 3x3 portion of the sudoku (only corner/edge/middle ones count, there are totally 9 groups)
 
 region, unit
-: a row column or block, contains 9 digits, but never any duplicates
+: a row, column or block, contains 9 digits, but never any duplicates
 
 band:
 : a horizontal line of 3 blocks
