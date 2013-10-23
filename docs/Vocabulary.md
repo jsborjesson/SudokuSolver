@@ -32,3 +32,6 @@ chute
 
 solution
 : the solution to the entire puzzle
+
+scan
+: a technique that solves part of, or the whole sudoku
