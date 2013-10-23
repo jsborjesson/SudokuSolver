@@ -10,29 +10,26 @@ use SudokuSolver\Model\Sudoku;
  */
 class AiSolver implements SolverInterface
 {
-    const DEAD = 0;
-    const PROGRESS = 1;
-    const SOLVED = 2;
 
-    public function __construct()
-    {
-        //code...
-    }
-
+    /**
+     * From SolverInterface
+     * @param  Sudoku $sudoku
+     * @return bool
+     */
     public function solve(Sudoku $sudoku)
     {
-        $status = self::DEAD;
+        // NOTE: Pay attention to the different meanings of the scanning-functions return values!
 
         // Fast
-        $status = $this->fastScan($sudoku);
-        if ($status === self::SOLVED) {
+        $solved = $this->fastScan($sudoku);
+        if ($solved) {
             return true;
         }
-        // DEAD or PROGRESS both need to move on to advanced scan
+        // DIED - move on to advanced logic
 
         // Slow
-        $status = $this->advancedScan($sudoku);
-        if ($status === self::PROGRESS) {
+        $progress = $this->advancedScan($sudoku);
+        if ($progress) {
             // Fall down to faster methods
             $this->solve($sudoku);
         }
@@ -40,15 +37,14 @@ class AiSolver implements SolverInterface
 
         // If the method reaches this point, the logical steps have failed,
         // and it needs to make an educated guess
-        $this->nextGuess($sudoku);
+        // $this->nextGuess($sudoku);
 
     }
 
     /**
-     * Solves a cell if it only has one possible solution
+     * Solves as many cells as it can by entering values where there is only one possibility.
      * @param  Sudoku $sudoku
-     * @param  int $index
-     * @return int          DEAD | PROGRESS | SOLVED
+     * @return bool           If sudoku is **solved**
      */
     private function fastScan(Sudoku $sudoku)
     {
@@ -83,22 +79,25 @@ class AiSolver implements SolverInterface
 
             // No cells left unsolved
             if ($solved) {
-                return self::SOLVED;
-            } elseif ($makingProgress) {
-
+                return true;
             }
 
         } while ($makingProgress);
 
+        // Nothing more to do here
+        return false;
+
     }
 
-    private function checkAndEnter($sudoku)
+    /**
+     *  asdf
+     * @param  Sudoku $sudoku
+     * @return bool           If **made progress**
+     */
+    private function advancedScan(Sudoku $sudoku)
     {
-        $makingProgress = false;
-        $solved = false;
-
-        do {
-
-        } while ($makingProgress);
+        for ($index = 0; $index < 9; $index++) {
+            //$rowOpts = $sudoku->getOptionsForCell()
+        }
     }
 }
