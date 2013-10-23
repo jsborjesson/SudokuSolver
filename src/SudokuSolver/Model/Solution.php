@@ -26,8 +26,9 @@ class Solution
     /**
      * @param Sudoku $original  Unsolved sudoku
      * @param Sudoku $solution  Solved sudoku
+     * @param float  $timeToSolve Time in milliseconds it took the algorithm to complete
      */
-    public function __construct(Sudoku $original, Sudoku $solution)
+    public function __construct(Sudoku $original, Sudoku $solution, $timeToSolve = 0.0)
     {
         $this->original = $original;
         $this->solution = $solution;
@@ -54,7 +55,7 @@ class Solution
      * @param  int  $col
      * @return bool      True if solved by system, false if there to begin with
      */
-    public function isFilledInOriginal($row, $col)
+    public function isGiven($row, $col)
     {
         return ! $this->original->isFilled($row, $col);
     }
