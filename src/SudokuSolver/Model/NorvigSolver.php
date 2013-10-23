@@ -11,7 +11,16 @@ namespace SudokuSolver\Model;
 use SudokuSolver\Model\Sudoku;
 use SudokuSolver\Model\SolverInterface;
 
-
+/**
+ * Solves sudoku with a recursive depth-first algorithm. It works by:
+ *
+ * 1. Insert a valid number in a cell
+ * 2. Do step 1 until
+ *     a. Sudoku is solved
+ *         - return true
+ *     b. No more valid numbers can be inserted
+ *         - go back to step one and try a different number
+ */
 class NorvigSolver implements SolverInterface
 {
     /**
