@@ -10,6 +10,27 @@
 
 You should see the title, sidebar and a sudoku input
 
+## TC1.2 Clear sudoku
+
+Should be applied to all input-types
+
+1. Input anything in sudoku
+2. Click clear
+3. Confirm that you want to clear
+
+Same input type but without content is shown
+
+## TC1.3 Return from solution
+
+Precondition: Viewing successful solution
+
+1. Click clear/return
+2. You should be asked to confirm
+3. Confirm
+
+Same input type but without content is shown
+
+
 ## Testcases 2: Visual input
 
 Precondition: Visual input screen active
@@ -43,3 +64,4 @@ You see:
 - Solution
 - Time it took to solve
 - Algorithm used
+
