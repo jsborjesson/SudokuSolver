@@ -17,6 +17,7 @@ abstract class SudokuInputView
      */
     private static $isSubmitted = "_isSubmitted";
 
+    // NOTE: Must be called in subclasses: parent::__contstruct();
     public function __construct()
     {
         // NOTE: Might want to lazy load templates if they are not always used
@@ -29,8 +30,10 @@ abstract class SudokuInputView
      */
     abstract protected function renderSudokuInput();
 
-
-    // abstract public function isSudokuSubmitted();
+    /**
+     * Returns the sudoku provided by the user
+     * @return Sudoku
+     */
     abstract public function getSudoku();
 
     /**
@@ -38,15 +41,13 @@ abstract class SudokuInputView
      */
     public function render()
     {
-        // TODO: Assert that __construct has been called
-
-        // NOTE: Submit to self
+        // TODO: Link active classes
         return $this->template->render(
             array(
-                'action' => '',
+                'action' => '', // Submit to self
                 'input' => $this->renderSudokuInput(),
                 'isSubmitted' => self::$isSubmitted
-            ), true
+            ), true // TODO: Fix links
         );
     }
 
