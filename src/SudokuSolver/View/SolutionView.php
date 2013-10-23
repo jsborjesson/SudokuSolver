@@ -34,7 +34,6 @@ class SolutionView
 
         $this->cellTpl = Template::getTemplate('sudokuCellStatic');
         $this->layoutTpl = Template::getTemplate('sudokuSolutionLayout');
-        $this->optionsView = new SudokuInputOptionsView();
         $this->gridHelper = new SudokuGridHelper();
     }
 
@@ -43,8 +42,7 @@ class SolutionView
         return $this->layoutTpl->render(
             array(
                 'solution' => $this->renderSolution(),
-                'timer' => '3.5ms', // TODO: Real value
-                'options' => $this->optionsView->render()
+                'timer' => '3.5ms' // TODO: Real value
             )
         );
     }
@@ -55,7 +53,7 @@ class SolutionView
 
             $options = array(
                 'content' => $this->solution->getCell($row, $col),
-                'class' => $this->solution->isFilledInOriginal($row, $col) ? 'solved' : ''
+                'class' => $this->solution->isGiven($row, $col) ? 'solved' : ''
             );
 
             return $this->cellTpl->render($options);
