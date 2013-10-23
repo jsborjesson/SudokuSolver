@@ -18,6 +18,7 @@ tests/unit/_bootstrap.php
 /public/css/
 .sass-cache
 
-# Temporary files
+# Files that need not be versioned
 test.php
 TODO.md
+rsync-deploy.sh
