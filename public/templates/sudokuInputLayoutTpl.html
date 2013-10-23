@@ -14,7 +14,7 @@
                 <ul>
                     <li class="field">
                         <ul>
-                            <li><div class="medium btn default"><a href="{{formLink}}">Form</a></div></li>
+                            <li><div class="medium btn default"><a href="{{gridLink}}">Visual</a></div></li>
                             <li><div class="medium btn default"><a href="{{textLink}}">Text</a></div></li>
                             <li><div class="medium btn default"><a href="{{fileLink}}">File</a></div></li>
                         </ul>
@@ -31,10 +31,9 @@
                     </li>
                 </ul>
             </fieldset>
-            <div class="medium btn oval danger icon-left entypo icon-cancel-circled"><a href=""><input type="clear" value="Clear"></a></div>
+            <div class="medium btn oval danger icon-left entypo icon-cancel-circled"><a href=""><input type="clear" value="Clear" /></a></div>
         </div>
 
-        <!-- TODO: Can be used by views to determine if the right type of data has been submitted -->
-        <input type="hidden" value="__posted__" name="{{isSubmitted}}" />
+        <input type="hidden" value="true" name="{{isSubmitted}}" />
     </div>
 </form>
