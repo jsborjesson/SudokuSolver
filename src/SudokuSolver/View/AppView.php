@@ -13,7 +13,7 @@ class AppView
 
     public function __construct()
     {
-        $this->template = Template::get('boilerplate');
+        $this->template = Template::getTemplate('boilerplate');
     }
 
     /**
