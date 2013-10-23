@@ -22,6 +22,7 @@ class Sudoku
     public function __construct($grid)
     {
         // TODO: Lots of validation
+        // TODO: Must be 9x9, must consist of only digits, must not have duplicates in rows/cols/groups
         $this->sudoku = $grid;
     }
 
@@ -155,6 +156,38 @@ class Sudoku
         // All squares are digits
         // All rows/columns/groups do not have duplicates
 
+    }
+
+    /**
+     * Check all cells in the sudoku with a function.
+     *
+     * The function receieves one parameter: the cell value, and should return
+     * a boolean value.
+     * @param  callable $func
+     * @return bool           True if $func returned true on all cells, otherwise false.
+     */
+    private function checkAllCells(callable $func)
+    {
+        try {
+            array_walk_recursive($this->sudoku, function ($value) {
+                if (! $func($value)) {
+                    throw new Exception();
+                }
+            });
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * If input is an integer between 0 and 9
+     * @param  mixed  $val anything
+     * @return bool        true if $val is a digit, all other values will return false
+     */
+    private function isDigit($val)
+    {
+        return is_int($val) && $val >= 0 && $val <= 9;
     }
 
     /**
