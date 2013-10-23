@@ -21,7 +21,7 @@ class Sudoku
      */
     public function __construct($grid)
     {
-        // TODO: Lots of validation
+        // TODO: Lots of validation and assertions
         // TODO: Must be 9x9, must consist of only digits, must not have duplicates in rows/cols/groups
         $this->sudoku = $grid;
     }
@@ -45,7 +45,7 @@ class Sudoku
         // remove options
         $options = array_diff($options, $this->getRow($row));
         $options = array_diff($options, $this->getColumn($col));
-        $options = array_diff($options, $this->getGroup($row, $col));
+        $options = array_diff($options, $this->getContainingGroup($row, $col));
 
         return array_values($options);
     }
@@ -109,17 +109,52 @@ class Sudoku
      * @param  int $col any column in group
      * @return int[]
      */
-    public function getGroup($row, $col)
+    public function getContainingGroup($row, $col)
     {
         // Find out which group the coordinates belong to
-        $groupRow = floor($row/ 3) * 3;
-        $groupCol = floor($col / 3) * 3;
+        $band = floor($row / 3);
+        $stack = floor($col / 3);
+
+        return $this->getGroup($band, $stack);
+    }
+
+    /**
+     * Returns a group by index, for easier iteration
+     * The indexing is:
+     *
+     *     0 1 2
+     *     3 4 5
+     *     6 7 8
+     *
+     * @param  int $index
+     * @return int[]
+     */
+    public function getGroupByIndex($index)
+    {
+        $row = floor($index / 3);
+        $col = floor($index % 3);
+
+        return $this->getGroup($row, $col);
+    }
+
+    /**
+     * Get contents of group as flat array
+     * @param  int $band
+     * @param  int $stack
+     * @return int[]
+     */
+    private function getGroup($band, $stack)
+    {
+        assert($band >= 0 && $band <=2 && $stack >= 0 && $stack <=2, 'Index out of bounds, must be 0-2');
+
+        $firstRow = $band * 3;
+        $firstCol = $stack * 3;
 
         $values = array();
 
         // Collect the values
-        for ($rowIx = $groupRow; $rowIx < $groupRow + 3; $rowIx++) {
-            for ($colIx = $groupCol; $colIx < $groupCol + 3; $colIx++) {
+        for ($rowIx = $firstRow; $rowIx < $firstRow + 3; $rowIx++) {
+            for ($colIx = $firstCol; $colIx < $firstCol + 3; $colIx++) {
                 $values[] = $this->sudoku[$rowIx][$colIx];
             }
         }
@@ -150,10 +185,15 @@ class Sudoku
      */
     public function isValid()
     {
-        // TODO: Implement is-valid
-        throw new Exception("Not implemented");
-
+        throw new Exception('Not implemented');
+        // TODO: Move to validate and throw useful exceptions
         // All squares are digits
+        if (!checkAllCells(array($this, 'isDigit'))) {
+            return false; //throw new Exception('Invalid cell value');
+        }
+
+        return true;
+
         // All rows/columns/groups do not have duplicates
 
     }
@@ -185,43 +225,20 @@ class Sudoku
      * @param  mixed  $val anything
      * @return bool        true if $val is a digit, all other values will return false
      */
-    private function isDigit($val)
+    public function isDigit($val)
     {
         return is_int($val) && $val >= 0 && $val <= 9;
     }
 
     /**
+     * If all cells are filled
      * @return bool
      */
     public function isSolved()
     {
-        // TODO: Return all filled && valid
-        // FIXME: This can fail, but probably won't.
-        // The sum of a solved row/column/group (the sum of 1 through 9)
-        $total = 45;
-
-        // Check rows and columns
-        for ($index = 0; $index < 9; $index++) {
-
-            if (array_sum($this->getRow($index)) != $total) {
-                return false;
-            }
-
-            if (array_sum($this->getColumn($index)) != $total) {
-                return false;
-            }
-        }
-
-        // Check groups
-        for ($row = 1; $row < 9; $row += 3) {
-            for ($col = 1; $col < 9; $col += 3) {
-                if (array_sum($this->getGroup($row, $col)) != $total) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return $this->checkAllCells(function ($val) {
+            return $val > 0;
+        });
     }
 
     /**
