@@ -1,16 +1,37 @@
 <form action="{{action}}" method="post">
     <div id="mid-wrapper">
 
-
         <!-- Input sudoku -->
         <div class="sudoku-input" id="main">
             {{input}}
         </div>
+
         <!-- Sidebar -->
         <div id="sidebar">
-            <div class="xlarge btn oval secondary icon-left entypo icon-check"><a href="#"><input type="submit">Solve</a></div>
-            {{options}}
-            <div class="medium btn oval danger icon-left entypo icon-cancel-circled"><a href="#">Clear</a></div>
+            <div class="xlarge btn oval secondary icon-left entypo icon-check"><a href=""><input type="submit" value="Solve"></a></div>
+            <fieldset>
+                <legend>Options</legend>
+                <ul>
+                    <li class="field">
+                        <ul>
+                            <li><div class="medium btn default"><a href="{{formLink}}">Form</a></div></li>
+                            <li><div class="medium btn default"><a href="{{textLink}}">Text</a></div></li>
+                            <li><div class="medium btn default"><a href="{{fileLink}}">File</a></div></li>
+                        </ul>
+                    </li>
+                    <li class="field">
+                        <div class="picker">
+                            <select>
+                                <option value="#" disabled>Solving algorithm</option>
+                                <option value="ai">AI</option>
+                                <option value="norvig">Norvig</option>
+                            </select>
+                        </div>
+
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="medium btn oval danger icon-left entypo icon-cancel-circled"><a href=""><input type="clear" value="Clear"></a></div>
         </div>
 
         <!-- TODO: Can be used by views to determine if the right type of data has been submitted -->
