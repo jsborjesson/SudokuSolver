@@ -91,5 +91,4 @@ with local path set to `./` and ignoring files in donot-deploy.txt
 
 ## Credits
 
-Huge thanks to Peter Norvig for writing the [great article](http://norvig.com/sudoku.html)
-that helped make the solving algorithm a thousand times better.
+Huge thanks to Peter Norvig for writing the [great article](http://norvig.com/sudoku.html).
