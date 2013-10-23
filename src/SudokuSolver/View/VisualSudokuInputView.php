@@ -2,6 +2,7 @@
 
 namespace SudokuSolver\View;
 
+use SudokuSolver\Model\Sudoku;
 use SudokuSolver\View\Template;
 use SudokuSolver\View\SudokuInputView;
 use SudokuSolver\View\SudokuGridHelper;
@@ -22,12 +23,6 @@ class VisualSudokuInputView extends SudokuInputView
      */
     private $gridHelper;
 
-    /**
-     * Name of the hidden field
-     * @var string
-     */
-    private static $isPostback = '_isPostback';
-
     public function __construct()
     {
         parent::__construct();
@@ -47,6 +42,11 @@ class VisualSudokuInputView extends SudokuInputView
         return $this->cellTpl->render(array('name' => $row . $col));
     }
 
+    // ------ From SudokuInputView ------
+
+    /**
+     * @return string HTML
+     */
     public function renderSudokuInput()
     {
         return $this->gridHelper->render(function ($row, $col) {
@@ -60,17 +60,32 @@ class VisualSudokuInputView extends SudokuInputView
     }
 
 
-    // TODO: Implememnt interface
+    /**
+     * From SudokuInputView
+     * @return Sudoku
+     */
     public function getSudoku()
     {
-        throw new \Exception('Not implemented');
+        $arr = array();
+
+        // Collect all inputs
+        for ($row = 0; $row < 9; $row++) {
+            $arr[$row] = array();
+            for ($col = 0; $col < 9; $col++) {
+                $arr[$row][$col] = $this->getCellInputDigit($row, $col);
+            }
+        }
+
+        return new Sudoku($arr);
     }
 
+    // ------ End SudokuInputView ------
+
     /**
-     * Get input cell contents
+     * Get exact input of the input cell
      * @param  int $row
      * @param  int $col
-     * @return int      digit
+     * @return string
      */
     private function getCellInput($row, $col)
     {
@@ -78,5 +93,18 @@ class VisualSudokuInputView extends SudokuInputView
         if (isset($_POST[$row . $col])) {
             return $_POST[$row . $col];
         }
+    }
+
+    /**
+     * Same as getCellInput, but always returns a valid digit.
+     * If a valid digit is not entered, 0 is returned.
+     * @param  int $row
+     * @param  int $col
+     * @return int      0-9
+     */
+    private function getCellInputDigit($row, $col)
+    {
+        $input = $this->getCellInput($row, $col);
+        return preg_match('/^[1-9]$/', $input) ? intval($input) : 0;
     }
 }
