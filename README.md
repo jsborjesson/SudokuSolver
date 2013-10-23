@@ -87,6 +87,7 @@ _If you do not have `codecept` in your path, it is located in the vendor/bin dir
 ## Deploying
 
 For deployment I use my [deploy script gist](https://gist.github.com/alcesleo/6581757)
+with local path set to `./` and ignoring files in donot-deploy.txt
 
 ## Credits
 
