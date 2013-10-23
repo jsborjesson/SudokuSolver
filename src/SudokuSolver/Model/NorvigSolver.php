@@ -11,22 +11,7 @@ namespace SudokuSolver\Model;
 use SudokuSolver\Model\Sudoku;
 use SudokuSolver\Model\SolverInterface;
 
-/**
- * Can either solve a sudoku directly:
- *
- *     $solver = new Solver();
- *     if ($solver->solve($sudoku)) {
- *         print '$sudoku is now solved!';
- *     } else {
- *         print 'could not solve sudoku';
- *     }
- *
- * Or you can use the getSolution-method that leaves the original intact,
- * but throws an error if it can't solve the sudoku.
- *
- *     $solution = Solution::getSolution($sudoku);
- *
- */
+
 class NorvigSolver implements SolverInterface
 {
     /**

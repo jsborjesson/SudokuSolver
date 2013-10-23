@@ -2,6 +2,17 @@
 
 namespace SudokuSolver\Model;
 
+/**
+ * An algorithm that solves sudoku puzzles.
+ *
+ *     $solver = new ExampleSolver();
+ *     if ($solver->solve($sudoku)) {
+ *         print '$sudoku is now solved!';
+ *     } else {
+ *         print 'could not solve sudoku';
+ *     }
+ *
+ */
 interface SolverInterface
 {
     /**
