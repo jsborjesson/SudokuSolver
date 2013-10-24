@@ -174,10 +174,14 @@ class Sudoku
     }
 
     /**
-     * If the sudoku is a valid sudoku.
+     * Check the sudoku for errors.
      *
-     * Returns true if all cells contain a digit or are empty, and no
-     * duplicates are found in any row, column or group.
+     * Does nothing if:
+     *     The sudoku is perfectly square, 9 high, 9 across.
+     *     All cells contain a digit or are empty.
+     *     No duplicates are found in any unit.
+     *
+     * If any of these criteria are met, it throws an exception.
      *
      * IMPORTANT: An empty sudoku will be considered valid.
      *
@@ -185,7 +189,7 @@ class Sudoku
      */
     public function validate()
     {
-        // TODO: Move to validate and throw useful exceptions
+        // TODO: Throw custom Exception types
 
         // Must be square 9x9
         $dimensionEx = new Exception('Sudoku must be exactly 9x9 cells');
@@ -211,11 +215,6 @@ class Sudoku
                 throw new Exception("Duplicate value in $unitType $ix");
             }
         });
-
-        return true;
-
-        // All rows/columns/groups do not have duplicates
-
     }
 
     /**
