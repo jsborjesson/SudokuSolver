@@ -48,15 +48,13 @@ abstract class SudokuInputView
      */
     public function render()
     {
-        // TODO: Link active classes
         return $this->template->render(
             array(
                 'action' => '', // Submit to self
                 'input' => $this->renderSudokuInput(),
                 'inputType' => $this->inputTypeView->render(),
                 'isSubmitted' => self::$isSubmitted
-            ),
-            true // TODO: Fix links
+            )
         );
     }
 
