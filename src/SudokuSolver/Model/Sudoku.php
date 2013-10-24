@@ -199,25 +199,49 @@ class Sudoku
     }
 
     /**
-     * Check all cells in the sudoku with a function.
-     *
-     * The function receieves one parameter: the cell value, and should return
-     * a boolean value.
-     * @param  callable $func
-     * @return bool           True if $func returned true on all cells, otherwise false.
+     * Maps a function over every cell in the sudoku
+     * @param  callable $func callback that takes 3 arguments: value in cell, row, column
      */
-    private function checkAllCells(callable $func)
+    private function forEachCell(callable $func)
     {
-        try {
-            array_walk_recursive($this->sudoku, function ($value) {
-                if (! $func($value)) {
-                    throw new Exception();
-                }
-            });
-        } catch (Exception $e) {
-            return false;
+        for ($row = 0; $row < 9; $row++) {
+            for ($col = 0; $col < 9; $col++) {
+                $func($this->sudoku[$row][$col], $row, $col);
+            }
         }
-        return true;
+    }
+
+    /**
+     * Maps a function over every row in the sudoku
+     * @param  callable $func callback that takes 2 arguments: array of row digits, row index
+     */
+    private function forEachRow(callable $func)
+    {
+        for ($row = 0; $row < 9; $row++) {
+            $func($this->getRow($row), $row);
+        }
+    }
+
+    /**
+     * Maps a function over every column in the sudoku
+     * @param  callable $func callback that takes 2 arguments: array of column digits, column index
+     */
+    private function forEachRow(callable $func)
+    {
+        for ($col = 0; $col < 9; $col++) {
+            $func($this->getColumn($col), $col);
+        }
+    }
+
+    /**
+     * Maps a function over every group in the sudoku
+     * @param  callable $func callback that takes 2 arguments: array of group digits, group index
+     */
+    private function forEachGroup(callable $func)
+    {
+        for ($group = 0; $group < 9; $group++) {
+            $func($this->getGroupByIndex($group), $group);
+        }
     }
 
     /**
@@ -236,9 +260,16 @@ class Sudoku
      */
     public function isSolved()
     {
-        return $this->checkAllCells(function ($val) {
-            return $val > 0;
-        });
+        try {
+            $this->forEachCell(function ($val) {
+                if ($val == 0) {
+                    throw new Exception();
+                }
+            });
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 
     /**
