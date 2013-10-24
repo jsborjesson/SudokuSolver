@@ -89,6 +89,13 @@ _If you do not have `codecept` in your path, it is located in the vendor/bin dir
 For deployment I use my [deploy script gist](https://gist.github.com/alcesleo/6581757)
 with local path set to `./` and ignoring files in donot-deploy.txt
 
+All that is needed to deploy for the first time, or deploy updates is to put
+that script in the root of this repo, set the settings-variables in the file
+and run it.
+
+    cd path/to/SudokuSolver
+    bash rsync-deploy.sh
+
 ## Credits
 
 Huge thanks to Peter Norvig for writing the [great article](http://norvig.com/sudoku.html).
