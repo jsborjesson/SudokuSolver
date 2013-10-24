@@ -181,16 +181,36 @@ class Sudoku
      *
      * IMPORTANT: An empty sudoku will be considered valid.
      *
-     * @return bool
+     * @throws Exception If sudoku is not valid
      */
-    public function isValid()
+    public function validate()
     {
-        throw new Exception('Not implemented');
         // TODO: Move to validate and throw useful exceptions
-        // All squares are digits
-        if (!checkAllCells(array($this, 'isDigit'))) {
-            return false; //throw new Exception('Invalid cell value');
+
+        // Must be square 9x9
+        $dimensionEx = new Exception('Sudoku must be exactly 9x9 cells');
+        if (count($this->sudoku) != 9) {
+            throw $dimensionEx;
         }
+        forEachRow(function ($row) {
+            if (count($row) != 9) {
+                throw $dimensionEx;
+            }
+        });
+
+        // All squares must be digits
+        $this->forEachCell(function ($val) {
+            if (! $this->isDigit($val)) {
+                throw new Exception('Invalid cell value');
+            }
+        });
+
+        // No duplicates can be found in any unit
+        $this->forEachUnit(function ($unit, $ix, $unitType) {
+            if ($this->arrayHasDuplicates($unit)) {
+                throw new Exception("Duplicate value in $unitType $ix");
+            }
+        });
 
         return true;
 
@@ -226,7 +246,7 @@ class Sudoku
      * Maps a function over every column in the sudoku
      * @param  callable $func callback that takes 2 arguments: array of column digits, column index
      */
-    private function forEachRow(callable $func)
+    private function forEachColumn(callable $func)
     {
         for ($col = 0; $col < 9; $col++) {
             $func($this->getColumn($col), $col);
@@ -245,13 +265,40 @@ class Sudoku
     }
 
     /**
+     * Maps a function over every unit in the sudoku
+     * @param  callable $func callback that takes 3 arguments:
+     *                        array of unit digits, unit index, and a string (row|column|group)
+     */
+    private function forEachUnit(callable $func)
+    {
+        for ($unit = 0; $unit < 9; $unit++) {
+            $func($this->getRow($unit), $unit, 'row');
+            $func($this->getColumn($unit), $unit, 'column');
+            $func($this->getGroup($unit), $unit, 'group');
+        }
+    }
+
+    // ---------- Helper methods ---------- //
+
+    /**
      * If input is an integer between 0 and 9
      * @param  mixed  $val anything
      * @return bool        true if $val is a digit, all other values will return false
      */
-    public function isDigit($val)
+    private function isDigit($val)
     {
         return is_int($val) && $val >= 0 && $val <= 9;
+    }
+
+    /**
+     * Checks if a unit has duplicate values (empty cells are not considered duplicates)
+     * @param  array  $arr
+     * @return bool         True if duplicate is found
+     */
+    private function unitHasDuplicates(array $arr)
+    {
+        $arr = array_diff($arr, array(0)); // remove all empty cells from array
+        return count($arr) !== count(array_unique($arr));
     }
 
     /**
