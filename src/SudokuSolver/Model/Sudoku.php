@@ -268,7 +268,7 @@ class Sudoku
      * @param  callable $func callback that takes 3 arguments:
      *                        array of unit digits, unit index, and a string (row|column|group)
      */
-    private function forEachUnit(callable $func)
+    public function forEachUnit(callable $func)
     {
         for ($unit = 0; $unit < 9; $unit++) {
             $func($this->getRow($unit), $unit, 'row');
@@ -301,17 +301,21 @@ class Sudoku
     }
 
     /**
-     * If all cells are filled
+     * If all cells are filled and the sudoku is valid
      * @return bool
      */
     public function isSolved()
     {
         try {
+            // Check if all squares are filled
             $this->forEachCell(function ($val) {
                 if ($val == 0) {
                     throw new Exception();
                 }
             });
+
+            // Check if it's valid
+            $this->validate();
         } catch (Exception $e) {
             return false;
         }
