@@ -90,14 +90,43 @@ class AiSolver implements SolverInterface
     }
 
     /**
-     *  asdf
      * @param  Sudoku $sudoku
      * @return bool           If **made progress**
      */
     private function advancedScan(Sudoku $sudoku)
     {
-        for ($index = 0; $index < 9; $index++) {
-            //$rowOpts = $sudoku->getOptionsForCell()
+
+        // For all units
+        for ($row = 0; $row < 9; $row++) {
+
+            // All possible options
+            for ($option = 0; $option < 9; $option++) {
+
+                // Count the times that option is valid in this row
+                $times = 0;
+
+                $lastCol = -1;
+
+                for ($col = 0; $col < 9; $col++) {
+
+                    // If option is valid in this cell
+
+                    $options = $sudoku->getOptionsForCell($row, $col);
+                    if (in_array($option, $options)) {
+                        $times++;
+                        $lastCol = $col;
+
+                        // Break? on 2?
+                    }
+                }
+
+                // If the option can only go in one place - insert it there
+                if ($times == 1) {
+                    $sudoku->setCell($row, $lastCol, $option);
+                    return true;
+                }
+            }
         }
+        return false;
     }
 }
