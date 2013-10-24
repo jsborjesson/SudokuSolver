@@ -101,6 +101,8 @@ class Template
         self::$templateSuffix = $fileEnding;
     }
 
+
+    // TODO: Throw when key is not found in template file
     /**
      * Render the template
      * @param  array  $options keys in template to replace with value in array
