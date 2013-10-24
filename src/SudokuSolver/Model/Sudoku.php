@@ -191,27 +191,27 @@ class Sudoku
     {
         // TODO: Throw custom Exception types
 
-        // Must be square 9x9
+        // TEST - Must be square 9x9
         $dimensionEx = new Exception('Sudoku must be exactly 9x9 cells');
-        if (count($this->sudoku) != 9) {
+        if (count($this->sudoku) != 9) { // First array contains 9 arrays
             throw $dimensionEx;
         }
-        forEachRow(function ($row) {
+        $this->forEachRow(function ($row) use ($dimensionEx) { // All arrays contain 9 elements
             if (count($row) != 9) {
                 throw $dimensionEx;
             }
         });
 
-        // All squares must be digits
+        // TEST - All squares must be digits
         $this->forEachCell(function ($val) {
             if (! $this->isDigit($val)) {
                 throw new Exception('Invalid cell value');
             }
         });
 
-        // No duplicates can be found in any unit
+        // TEST - No duplicates can be found in any unit
         $this->forEachUnit(function ($unit, $ix, $unitType) {
-            if ($this->arrayHasDuplicates($unit)) {
+            if ($this->unitHasDuplicates($unit)) {
                 throw new Exception("Duplicate value in $unitType $ix");
             }
         });
@@ -273,7 +273,7 @@ class Sudoku
         for ($unit = 0; $unit < 9; $unit++) {
             $func($this->getRow($unit), $unit, 'row');
             $func($this->getColumn($unit), $unit, 'column');
-            $func($this->getGroup($unit), $unit, 'group');
+            $func($this->getGroupByIndex($unit), $unit, 'group');
         }
     }
 
