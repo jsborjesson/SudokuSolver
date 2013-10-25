@@ -3,7 +3,7 @@
 namespace SudokuSolver\View;
 
 use SudokuSolver\View\Template;
-use SudokuSolver\View\SudokuInputOptionsView;
+use SudokuSolver\View\SudokuInputTypeView;
 use SudokuSolver\View\SudokuInputViewInterface;
 
 /**
@@ -17,11 +17,18 @@ abstract class SudokuInputView
      */
     private static $isSubmitted = "_isSubmitted";
 
+    /**
+     * @var SudokuInputTypeView
+     */
+    private $inputTypeView;
+
     // NOTE: Must be called in subclasses: parent::__contstruct();
     public function __construct()
     {
         // NOTE: Might want to lazy load templates if they are not always used
         $this->template = Template::getTemplate('sudokuInputLayout');
+
+        $this->inputTypeView = new SudokuInputTypeView();
     }
 
     /**
@@ -46,8 +53,10 @@ abstract class SudokuInputView
             array(
                 'action' => '', // Submit to self
                 'input' => $this->renderSudokuInput(),
+                'inputType' => $this->inputTypeView->render(),
                 'isSubmitted' => self::$isSubmitted
-            ), true // TODO: Fix links
+            ),
+            true // TODO: Fix links
         );
     }
 

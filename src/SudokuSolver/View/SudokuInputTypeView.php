@@ -4,20 +4,40 @@ namespace SudokuSolver\View;
 
 use SudokuSolver\View\Template;
 
-class SidebarView
+class SudokuInputTypeView
 {
+
     /**
      * @var Template
      */
     private $template;
 
+    // TODO: Get these elsewhere?
+    // Links
+    private static $visual = '?solve=visual';
+    private static $text = '?solve=text';
+    private static $file = '?solve=file';
+
     public function __construct()
     {
-        $this->template = Template::getTemplate('sidebar');
+        $this->template = Template::getTemplate('inputTypeNavigation');
     }
 
     public function render()
     {
-        return $this->template->render();
+
+        // TODO: getActivePage?
+        // FIXME: Should not be in view
+        $active = $_GET['solve'];
+
+        return $this->template->render(
+            array(
+                'visualLink' => self::$visual,
+                'textLink' => self::$text,
+                'fileLink' => self::$file,
+                $active . 'Class' => 'active'
+            ),
+            true // No other classes needed
+        );
     }
 }
