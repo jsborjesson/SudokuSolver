@@ -12,10 +12,11 @@ use SudokuSolver\View\SudokuInputViewInterface;
 abstract class SudokuInputView
 {
     /**
-     * Name of hidden field
+     * Names of input fields
      * @var string
      */
     private static $isSubmitted = "_isSubmitted";
+    private static $algorithmName = "algorithm";
 
     /**
      * @var SudokuInputTypeView
@@ -53,7 +54,8 @@ abstract class SudokuInputView
                 'action' => '', // Submit to self
                 'input' => $this->renderSudokuInput(),
                 'inputType' => $this->inputTypeView->render(),
-                'isSubmitted' => self::$isSubmitted
+                'isSubmitted' => self::$isSubmitted,
+                'algorithmName' => self::$algorithmName
             )
         );
     }
@@ -67,5 +69,8 @@ abstract class SudokuInputView
         return isset($_POST[self::$isSubmitted]);
     }
 
-    // TODO: getAlgorithm, getInputMethod
+    public function getAlgorithm()
+    {
+        return $_POST[self::$algorithmName];
+    }
 }
