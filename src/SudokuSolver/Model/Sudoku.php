@@ -268,7 +268,7 @@ class Sudoku
      * @param  callable $func callback that takes 3 arguments:
      *                        array of unit digits, unit index, and a string (row|column|group)
      */
-    public function forEachUnit(callable $func)
+    private function forEachUnit(callable $func)
     {
         for ($unit = 0; $unit < 9; $unit++) {
             $func($this->getRow($unit), $unit, 'row');
