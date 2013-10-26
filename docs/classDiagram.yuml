@@ -1,0 +1,15 @@
+// App
+[App]->[AppView]
+[App]-.->[SolveSudokuHandler]
+// SolveSudokuHandler
+[SolveSudokuHandler]-.->[SudokuInputView<<abstract>>]
+[SolveSudokuHandler]-.->[VisualSudokuInputView]
+[SolveSudokuHandler]-.->[SolutionView]
+[SolveSudokuHandler]-.->[AiSolver]
+[SolveSudokuHandler]-.->[NorvigSolver]
+// SudokuInputView
+[SudokuInputView<<abstract>>]->[SudokuInputTypeView]
+[VisualSudokuInputView]-^[SudokuInputView<<abstract>>]
+[VisualSudokuInputView]->[SudokuGridHelper]
+[VisualSudokuInputView]-.-[Sudoku]
+// TODO: Template
