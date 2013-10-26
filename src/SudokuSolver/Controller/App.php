@@ -4,13 +4,7 @@ namespace SudokuSolver\Controller;
 
 use SudokuSolver\View\Template;
 use SudokuSolver\View\AppView;
-
-// TODO: Should maybe be removed
-use SudokuSolver\View\SolutionView;
-use SudokuSolver\View\SudokuInputView;
-use SudokuSolver\View\VisualSudokuInputView;
-use SudokuSolver\Model\Solution;
-use SudokuSolver\Model\NorvigSolver;
+use SudokuSolver\Controller\SolveSudokuHandler;
 
 class App
 {
@@ -35,55 +29,25 @@ class App
     private function dispatch()
     {
         switch ($_SERVER['QUERY_STRING']) {
-            case 'solve/form':
+            case 'solve=visual':
                 $this->doVisual();
                 break;
-            case 'solve/text':
+            case 'solve=text':
                 print 'text';
                 break;
-            case 'solve/file':
+            case 'solve=file':
                 print 'file';
                 break;
             default:
-                $this->doVisual();
+                header('Location: ?solve=visual');
                 break;
         }
     }
 
     private function doVisual()
     {
-        // TODO: Break out into controller
-        // Test solver
-        //$mainView = new SolutionView(Solution::getSolution($sudoku, new NorvigSolver()));
-
-        // Main input view
-        $inputView = new VisualSudokuInputView();
-
-        if ($inputView->isSubmitted()) {
-            // validate
-            // try to solve
-            try {
-                $sudoku = $inputView->getSudoku();
-            } catch (Exception $e) {
-                // show invalid sudoku error
-                // TODO: $inputView->showInvalidSudoku();
-                print 'invalid sudoku';
-            }
-
-            // TODO: $inputView->getAlgorithm()
-            $solver = new NorvigSolver();
-            $solution = Solution::getSolution($sudoku, $solver);
-
-            // show solution
-            $solutionView = new SolutionView($solution);
-            $html = $solutionView->render();
-            print $this->view->render($html);
-            // else show error
-        } else {
-
-            // Show input
-            $mainHtml = $inputView->render();
-            print $this->view->render($mainHtml);
-        }
+        $ctrl = new SolveSudokuHandler();
+        $html = $ctrl->visualAction();
+        print $this->view->render($html);
     }
 }
