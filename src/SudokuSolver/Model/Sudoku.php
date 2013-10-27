@@ -21,9 +21,8 @@ class Sudoku
      */
     public function __construct($grid)
     {
-        // TODO: Lots of validation and assertions
-        // TODO: Must be 9x9, must consist of only digits, must not have duplicates in rows/cols/groups
         $this->sudoku = $grid;
+        $this->validate();
     }
 
     // TODO: Move to AbstractSolver?
@@ -35,6 +34,8 @@ class Sudoku
      */
     public function getOptionsForCell($row, $col)
     {
+        $this->assertIndex($row, $col);
+
         // Return empty on already filled cell
         if ($this->isFilled($row, $col)) {
             return array();
@@ -58,7 +59,8 @@ class Sudoku
      */
     public function setCell($row, $col, $val)
     {
-        // TODO: Assert constraints
+        $this->assertIndex($row, $col);
+        $this->assertDigit($val);
         $this->sudoku[$row][$col] = $val;
     }
 
@@ -69,6 +71,7 @@ class Sudoku
      */
     public function emptyCell($row, $col)
     {
+        $this->assertIndex($row, $col);
         $this->setCell($row, $col, 0);
     }
 
@@ -80,6 +83,7 @@ class Sudoku
      */
     public function getCell($row, $col)
     {
+        $this->assertIndex($row, $col);
         return $this->sudoku[$row][$col];
     }
 
@@ -90,6 +94,7 @@ class Sudoku
      */
     public function getColumn($col)
     {
+        $this->assertIndex($col);
         return array_column($this->sudoku, $col);
     }
 
@@ -100,6 +105,7 @@ class Sudoku
      */
     public function getRow($row)
     {
+        $this->assertIndex($row);
         return $this->sudoku[$row];
     }
 
@@ -111,6 +117,8 @@ class Sudoku
      */
     public function getContainingGroup($row, $col)
     {
+        $this->assertIndex($row, $col);
+
         // Find out which group the coordinates belong to
         $band = floor($row / 3);
         $stack = floor($col / 3);
@@ -131,6 +139,8 @@ class Sudoku
      */
     public function getGroupByIndex($index)
     {
+        $this->assertIndex($index);
+
         $row = floor($index / 3);
         $col = floor($index % 3);
 
@@ -170,6 +180,7 @@ class Sudoku
      */
     public function isFilled($row, $col)
     {
+        $this->assertIndex($row, $col);
         return (bool)$this->sudoku[$row][$col];
     }
 
@@ -216,6 +227,8 @@ class Sudoku
             }
         });
     }
+
+    // ----------- Iteration methods ----------
 
     /**
      * Maps a function over every cell in the sudoku
@@ -317,10 +330,13 @@ class Sudoku
             // Check if it's valid
             $this->validate();
         } catch (Exception $e) {
+            // If an exception was thrown in the closure, it is not solved
             return false;
         }
         return true;
     }
+
+    // ---------- Magic methods ----------
 
     /**
      * Makes sure that a clone of a Sudoku-object does not reference
@@ -341,7 +357,7 @@ class Sudoku
     }
 
     /**
-     * Useful for debugging
+     * Useful for debugging, nice visual string representation in both browser and terminal
      * @return string
      */
     public function __toString()
@@ -362,5 +378,27 @@ class Sudoku
         }
         $str .= "</pre>\n";
         return $str;
+    }
+
+    // ---------- Assertions ----------
+
+    /**
+     * Asserts that an index is valid(0-8)
+     * @param  int  $index to test
+     * @param  int  $index2 optional extra index to test
+     */
+    private function assertIndex($index, $index2 = 0)
+    {
+        assert(is_int($index) && $index >= 0 && $index <= 8, "Index out of bounds: $index");
+        assert(is_int($index) && $index2 >= 0 && $index2 <= 8, "Index out of bounds: $index2");
+    }
+
+    /**
+     * Asserts that a value is a digit(0-9)
+     * @param  int $digit to test
+     */
+    private function assertDigit($digit)
+    {
+        assert($this->isDigit($digit), "Not a valid digit: $digit");
     }
 }
