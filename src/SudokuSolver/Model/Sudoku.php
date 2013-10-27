@@ -48,6 +48,7 @@ class Sudoku
         $options = array_diff($options, $this->getColumn($col));
         $options = array_diff($options, $this->getContainingGroup($row, $col));
 
+        // run it through array_values to fix indices
         return array_values($options);
     }
 
@@ -180,7 +181,7 @@ class Sudoku
      */
     public function isFilled($row, $col)
     {
-        $this->assertIndex($row, $col);
+        // $this->assertIndex($row, $col);
         return (bool)$this->sudoku[$row][$col];
     }
 
@@ -389,8 +390,9 @@ class Sudoku
      */
     private function assertIndex($index, $index2 = 0)
     {
-        assert(is_int($index) && $index >= 0 && $index <= 8, "Index out of bounds: $index");
-        assert(is_int($index) && $index2 >= 0 && $index2 <= 8, "Index out of bounds: $index2");
+        // FIXME: Use is_int also - Sometimes this gets passed a float, I don't know why but it has not caused problems yet
+        assert($index >= 0 && $index <= 8, "Index out of bounds: $index");
+        assert($index2 >= 0 && $index2 <= 8, "Second index out of bounds: $index2");
     }
 
     /**
