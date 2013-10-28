@@ -1,5 +1,10 @@
 # Manual tests
 
+Steps to perform tests are written as ordered lists. Expected results are
+written in plain text directly after. Tests are to be considered passed if
+the system shows an appropriate result, even if the phrasing differs
+the expected results here.
+
 ## Requirements
 
 - Solving a sudoku should always take less than a second.
@@ -10,7 +15,7 @@
 
 You should see the title, sidebar and a sudoku input
 
-## TC1.2 Clear sudoku
+### TC1.2 Clear sudoku
 
 Should be applied to all input-types
 
@@ -20,7 +25,7 @@ Should be applied to all input-types
 
 Same input type but without content is shown
 
-## TC1.3 Return from solution
+### TC1.3 Return from solution
 
 Precondition: Viewing successful solution
 
@@ -35,26 +40,26 @@ Same input type but without content is shown
 
 Precondition: Visual input screen active
 
-## TC 2.1: No input
+### TC2.1: No input
 
 1. Submit an empty sudoku
 
 "Must enter a sudoku"
 
-## TC 2.2: Invalid input
+### TC2.2: Invalid input
 
 1. Turn off JS
 2. Enter letters
 
 "Invalid input"
 
-## TC2.3 Invalid sudoku
+### TC2.3: Invalid sudoku
 
 1. Enter a sudoku with duplicate digits in a region
 
 "Invalid sudoku"
 
-## TC2.4 Solve sudoku
+### TC2.4: Solve sudoku
 
 1. Enter valid sudoku
 2. Click Solve!
@@ -65,3 +70,27 @@ You see:
 - Time it took to solve
 - Algorithm used
 
+## Testcases 3: Text input
+
+Precondition: Text input screen active
+
+### TC3.1: No input
+
+1. Click solve
+
+"No sudoku has been sent"
+
+### TC3.2: Test valid sudokus
+
+1. Solve one line sudoku
+2. Solve multiline sudoku
+3. Solve multiline sudoku with dots as zero-char
+4. Solve multiple sudokus at once
+
+All of these should work fine
+
+### TC3.3: Test invalid string
+
+1. Enter invalid sudoku string
+
+"Invalid sudoku", the string is still there
