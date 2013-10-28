@@ -2,12 +2,12 @@
 
 namespace SudokuSolver\View;
 
-use SudokuSolver\View\SudokuInputView;
+use SudokuSolver\View\MultipleSudokuInputView;
 use SudokuSolver\View\Template;
 use SudokuSolver\Model\SudokuReader;
 
 // TODO: MultipleSudokuInputView
-class TextSudokuInputView extends SudokuInputView
+class TextSudokuInputView extends MultipleSudokuInputView
 {
     /**
      * @var Template
@@ -40,17 +40,45 @@ class TextSudokuInputView extends SudokuInputView
         );
     }
 
-
     /**
-     * From SudokuInputView
-     * @return Sudoku
+     * Get all input sudokus
+     * @return Sudoku[]
      */
-    public function getSudoku()
+    public function getSudokus()
     {
-        return SudokuReader::fromString($this->getText(), $this->getZeroChar());
+        // Split the string by delimiter
+        $sudokuStrings = preg_split($this->getDelimiter(), $this->getText());
+
+        // Parse all individual strings
+        $sudokus = array();
+        foreach ($sudokuStrings as $sudokuStr) {
+            $sudokus[] = $this->parseSudoku($sudokuStr);
+        }
+
+        return $sudokus;
     }
 
     // ------ Helpers ------
+
+
+    /**
+     * Parse a sudoku from a string
+     * @param  string $str sudoku
+     * @return Sudoku
+     */
+    private function parseSudoku($str)
+    {
+        return SudokuReader::fromString($str, $this->getZeroChar());
+    }
+
+    /**
+     * Sudoku input text
+     * @return string
+     */
+    private function getText()
+    {
+        return isset($_POST[self::$inputTextName]) ? $_POST[self::$inputTextName] : '';
+    }
 
     /**
      * Returns input zeroChar or 0 if empty
@@ -61,9 +89,11 @@ class TextSudokuInputView extends SudokuInputView
         return isset($_POST[self::$zeroCharName]) ? $_POST[self::$zeroCharName] : 0;
     }
 
-    private function getText()
+    /**
+     * @return string delimiter, newline if empty
+     */
+    private function getDelimiter()
     {
-        return isset($_POST[self::$inputTextName]) ? $_POST[self::$inputTextName] : '';
+        return isset($_POST[self::$delimiterName]) ? $_POST[self::$delimiterName] : '\n';
     }
-
 }
