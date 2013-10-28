@@ -24,6 +24,12 @@ class Solution
     private $solution;
 
     /**
+     * Time it took the algorithm to solve
+     * @var float
+     */
+    private $timeToSolve;
+
+    /**
      * @param Sudoku $original  Unsolved sudoku
      * @param Sudoku $solution  Solved sudoku
      * @param float  $timeToSolve Time in milliseconds it took the algorithm to complete
@@ -32,6 +38,7 @@ class Solution
     {
         $this->original = $original;
         $this->solution = $solution;
+        $this->timeToSolve = $timeToSolve;
     }
 
     /**
@@ -77,6 +84,11 @@ class Solution
         return $this->solution;
     }
 
+    public function getExecutionTime()
+    {
+        return $this->timeToSolve;
+    }
+
     /**
      * Convenience method to create a solution-object, does not alter original sudoku.
      * @param  Sudoku $sudoku
@@ -84,15 +96,21 @@ class Solution
      */
     public static function getSolution(Sudoku $sudoku, SolverInterface $algorithm)
     {
+        // TODO: Meassure execution time
         $puzzle = $sudoku;
         $original = clone($sudoku);
 
+        $timerStart = microtime(true);
+
         $algorithm->solve($puzzle);
+
+        $timerStop = microtime(true);
+        $timeToSolve = $timerStop - $timerStart;
 
         // Don't take the solvers word for it...
         // TODO: if ($puzzle->isSolved()) {
         if (true) {
-            return new Solution($original, $puzzle);
+            return new Solution($original, $puzzle, $timeToSolve);
         } else {
             throw new Exception('Could not solve sudoku');
         }
