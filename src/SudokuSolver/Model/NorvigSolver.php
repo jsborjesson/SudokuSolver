@@ -46,6 +46,7 @@ class NorvigSolver implements SolverInterface
             return true;
         }
 
+        // Convert index to coordinates
         $row = floor($index / 9);
         $col = floor($index % 9);
 
