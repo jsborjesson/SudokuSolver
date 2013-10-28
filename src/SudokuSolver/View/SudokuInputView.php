@@ -47,12 +47,6 @@ abstract class SudokuInputView
     abstract protected function renderSudokuInput();
 
     /**
-     * Returns the sudoku provided by the user
-     * @return Sudoku
-     */
-    abstract public function getSudoku();
-
-    /**
      * @return string HTML
      */
     public function render()

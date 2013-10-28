@@ -6,7 +6,6 @@ use SudokuSolver\View\MultipleSudokuInputView;
 use SudokuSolver\View\Template;
 use SudokuSolver\Model\SudokuReader;
 
-// TODO: MultipleSudokuInputView
 class TextSudokuInputView extends MultipleSudokuInputView
 {
     /**
@@ -59,7 +58,6 @@ class TextSudokuInputView extends MultipleSudokuInputView
     }
 
     // ------ Helpers ------
-
 
     /**
      * Parse a sudoku from a string
