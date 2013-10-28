@@ -15,10 +15,17 @@ Should eventually solve sudoku puzzles.
 - Maintain a well documented and high quality code-base
 - To learn about and use automated testing
 
+## Just want to see the solving algorithms?
+
+The interesting files are in `src/SudokuSolver/Model/`, the solving algorithms
+`AiSolver.php` and `NorvigSolver.php` are both sudoku solving algorithms, but
+have nothing to do with each other. They both rely on `Sudoku.php`.
+
 ## Filestructure
 
 - `index.php`: entry point for application
 - `codeception.yml`: configuration for automatic tests
+- `config.php`: sets up php configuration, autoloading etc - included in index.php
 - `config.rb`: configuration for css-framework, makes `compass compile` work
 - `composer.json`: dependency declaration: makes `composer install` work
 - `public/`: contains styles and templates
