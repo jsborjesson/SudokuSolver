@@ -18,8 +18,10 @@ class App
     {
         Template::setTemplateDirectory('public/templates/'); // TODO: Make this a config-option instead
 
-        // TODO: AppView, violating MVC
         $this->view = new AppView();
+
+        // FIXME: Allow more controllers
+        $this->ctrl = new SolveSudokuHandler();
 
         // Run the controller
         $this->dispatch();
@@ -33,7 +35,7 @@ class App
                 $this->doVisual();
                 break;
             case 'solve=text':
-                print 'text';
+                $this->doText();
                 break;
             case 'solve=file':
                 print 'file';
@@ -46,8 +48,13 @@ class App
 
     private function doVisual()
     {
-        $ctrl = new SolveSudokuHandler();
-        $html = $ctrl->visualAction();
+        $html = $this->ctrl->visualAction();
+        print $this->view->render($html);
+    }
+
+    private function doText()
+    {
+        $html = $this->ctrl->textAction();
         print $this->view->render($html);
     }
 }

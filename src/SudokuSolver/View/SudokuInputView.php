@@ -22,6 +22,11 @@ abstract class SudokuInputView
     private static $algorithmName = "algorithm";
 
     /**
+     * @var Template
+     */
+    private $template;
+
+    /**
      * @var SudokuInputTypeView
      */
     private $inputTypeView;

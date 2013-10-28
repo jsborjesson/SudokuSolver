@@ -26,7 +26,6 @@ class SolutionView
      */
     private $gridHelper;
 
-    private $optionsView;
 
     public function __construct(Solution $solution)
     {
@@ -39,12 +38,24 @@ class SolutionView
 
     public function render()
     {
+
         return $this->layoutTpl->render(
             array(
                 'solution' => $this->renderSolution(),
-                'timer' => '3.5ms' // TODO: Real value
-            )
+                'timer' => $this->getExecutionTime() // TODO: Real value
+            ),
+            true
         );
+    }
+
+    /**
+     * Printable execution time
+     * @return string time with 2 decimals and unit
+     */
+    private function getExecutionTime()
+    {
+        $time = $this->solution->getExecutionTime();
+        return round($time, 2) . 'ms';
     }
 
     private function renderSolution()
