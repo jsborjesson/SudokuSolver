@@ -11,6 +11,9 @@ use SudokuSolver\View\SudokuInputViewInterface;
  */
 abstract class SudokuInputView
 {
+    const SOLVER_AI = 1;
+    const SOLVER_NORVIG = 2;
+
     /**
      * Names of input fields
      * @var string
@@ -71,6 +74,7 @@ abstract class SudokuInputView
 
     public function getAlgorithm()
     {
-        return $_POST[self::$algorithmName];
+        // NOTE: Should be one of the constants, robust _enough_ for now
+        return intval($_POST[self::$algorithmName]);
     }
 }
