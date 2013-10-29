@@ -1,15 +1,14 @@
 // Title
 h1, h2 {
-    // TODO: Fix font
-    font: bold italic 100px Monaco, times new roman, serif;
+    font: bold italic 100px Monaco, monospace;
     color: #555;
     letter-spacing: -.09em;
-    -webkit-transition-duration: 1s;
 }
 h2  {
     font-size: 21px;
     font-weight: normal;
     line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 // Layout
@@ -44,9 +43,15 @@ $divider-border: 1px dashed black;
     font-size: 40px;
     text-align: center;
     vertical-align: middle;
+
+    &:nth-child(3),
+    &:nth-child(6) {
+        //border-right: $divider-border;
+    }
 }
 
 span.sudoku-cell {
+
     display: inline-block;
     padding: 2%;
 
@@ -56,25 +61,12 @@ span.sudoku-cell {
         background: aliceblue;
     }
 
-    &:nth-child(3),
-    &:nth-child(6) {
-        border-right: $divider-border;
-    }
 }
-
-input.sudoku-cell {
-
-
-    &:focus {
-        background: papayawhip;
-    }
-}
-
 
 .sudoku-row {
     &:nth-child(3),
-    &:nth-child(6) {
-        //border-bottom: $divider-border;
+    &:nth-child(6){
+        // border-bottom: $divider-border;
     }
 }
 
@@ -86,9 +78,39 @@ input.sudoku-cell {
 input {
     outline: none;
 }
-
-// Sidebar
-#sidebar .btn {
-    width: 100%;
+input.sudoku-cell {
+    &:focus {
+        background: papayawhip;
+    }
 }
 
+// Input font
+input[type="text"],
+textarea.sudoku {
+    font-family: monospace;
+}
+
+input[type="clear"] {
+    text-align: center;
+    // TODO: Fix user-select: none;
+}
+
+textarea.sudoku {
+    vertical-align: middle;
+    height: 300px !important;
+}
+
+// Sidebar
+#sidebar {
+    margin-left: 50px;
+    .btn {
+        width: 100%;
+    }
+
+    .time-to-solve {
+        font-size: 40px;
+        text-align: center;
+        //background: $secondary-color;
+        padding: 5%;
+    }
+}
