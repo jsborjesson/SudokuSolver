@@ -5,6 +5,7 @@ namespace SudokuSolver\View;
 use SudokuSolver\View\Template;
 use SudokuSolver\View\SudokuInputTypeView;
 use SudokuSolver\View\SudokuInputViewInterface;
+use Exception;
 
 /**
  * Renders the main input-section and the sidebar
@@ -32,7 +33,7 @@ abstract class SudokuInputView
     private $inputTypeView;
 
     // NOTE: Must be called in subclasses: parent::__contstruct();
-    public function __construct()
+    protected function __construct()
     {
         // NOTE: Might want to lazy load templates if they are not always used
         $this->template = Template::getTemplate('sudokuInputLayout');
@@ -47,9 +48,15 @@ abstract class SudokuInputView
     abstract protected function renderSudokuInput();
 
     /**
+     * Get the input sudoku
+     * @return Sudoku
+     */
+    abstract public function getSudoku();
+
+    /**
      * @return string HTML
      */
-    public function render()
+    public function render($errorMessage = '')
     {
         return $this->template->render(
             array(
@@ -57,9 +64,22 @@ abstract class SudokuInputView
                 'input' => $this->renderSudokuInput(),
                 'inputType' => $this->inputTypeView->render(),
                 'isSubmitted' => self::$isSubmitted,
-                'algorithmName' => self::$algorithmName
+                'algorithmName' => self::$algorithmName,
+                'errorMessage' => $errorMessage
             )
+
         );
+    }
+
+    /**
+     * Shows an error message along with the input
+     * @param  Exception $e
+     * @return string HTML
+     */
+    public function renderError(Exception $e)
+    {
+        // NOTE: Custom exception types could be handled here, to provide more custom error messages
+        return $this->render($e->getMessage());
     }
 
     /**
