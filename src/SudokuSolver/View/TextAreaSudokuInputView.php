@@ -5,6 +5,7 @@ namespace SudokuSolver\View;
 use SudokuSolver\View\TextSudokuInputView;
 use SudokuSolver\View\Template;
 use SudokuSolver\Model\SudokuReader;
+use Exception;
 
 class TextAreaSudokuInputView extends TextSudokuInputView
 {
@@ -40,6 +41,9 @@ class TextAreaSudokuInputView extends TextSudokuInputView
      */
     protected function getTextInput()
     {
-        return isset($_POST[self::$inputTextName]) ? $_POST[self::$inputTextName] : '';
+        if (isset($_POST[self::$inputTextName]) && $_POST[self::$inputTextName]) {
+            return $_POST[self::$inputTextName];
+        }
+        throw new Exception('You must input a sudoku');
     }
 }
