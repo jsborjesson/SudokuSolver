@@ -42,17 +42,6 @@ class Template
      */
     private $fileName;
 
-    /**
-     * Top level directory of the templates, with trailing slash
-     * @var string
-     */
-    private static $templateDir = 'templates/';
-
-    /**
-     * File ending of template-files
-     * @var string
-     */
-    private static $templateSuffix = 'Tpl.html';
 
     /**
      * @param string $fileName Path to file containing the template
@@ -70,8 +59,10 @@ class Template
      * a template from it.
      *
      * Example:
-     *     # template-file is in /public/templates/template.html
+     *     // template-file is in /public/templates/template.html
      *     Template::getTemplate('template');
+     *
+     * IMPORTANT: This requires the constants TEMPLATE_DIR and TEMPLATE_SUFFIX to be defined
      *
      * @param  string $templateName name of template
      * @return Template
@@ -79,28 +70,8 @@ class Template
     public static function getTemplate($templateName)
     {
         // TODO: Allow using fileSuffix manually
-        return new Template(self::$templateDir . $templateName . self::$templateSuffix);
+        return new Template(TEMPLATE_DIR . $templateName . TEMPLATE_SUFFIX);
     }
-
-    /**
-     * Set the path where the templates are located
-     * @param string $path
-     */
-    public static function setTemplateDirectory($path)
-    {
-        // TODO: Check if dir exists
-        self::$templateDir = $path;
-    }
-
-    /**
-     * Set the file ending of template files
-     * @param string $fileEnding including dot, ex '.html'
-     */
-    public static function setTemplateSuffix($fileEnding)
-    {
-        self::$templateSuffix = $fileEnding;
-    }
-
 
     // TODO: Throw when key is not found in template file
     /**

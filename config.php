@@ -3,8 +3,9 @@
 // Start autoloading
 require_once('./vendor/autoload.php');
 
-// Set template dir
-SudokuSolver\View\Template::setTemplateDirectory('public/templates/');
+// Set template options
+define('TEMPLATE_DIR', 'public/templates/');
+define('TEMPLATE_SUFFIX', 'Tpl.html');
 
 // Allow deeper recursion
 ini_set('xdebug.max_nesting_level', 200);
