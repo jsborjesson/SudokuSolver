@@ -16,8 +16,6 @@ class App
 
     public function __construct()
     {
-        Template::setTemplateDirectory('public/templates/'); // TODO: Make this a config-option instead
-
         $this->view = new AppView();
 
         // FIXME: Allow more controllers
@@ -38,7 +36,7 @@ class App
                 $this->doText();
                 break;
             case 'solve=file':
-                print 'file';
+                $this->doFile();
                 break;
             default:
                 header('Location: ?solve=visual');
@@ -55,6 +53,12 @@ class App
     private function doText()
     {
         $html = $this->ctrl->textAction();
+        print $this->view->render($html);
+    }
+
+    private function doFile()
+    {
+        $html = $this->ctrl->fileAction();
         print $this->view->render($html);
     }
 }
