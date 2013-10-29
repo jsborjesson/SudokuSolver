@@ -29,8 +29,13 @@ class TextFileSudokuInputView extends TextSudokuInputView
      */
     public function getTextInput()
     {
+        // Check if file was uploaded
+        if (! is_uploaded_file($_FILES[self::$fileInputName]['tmp_name'])) {
+            throw new Exception('No file was uploaded');
+        }
+        // TODO: What does this even do?
         if ($_FILES[self::$fileInputName]['error'] > 0) {
-            throw new Exception('Invalid file:' . $_FILES[self::$fileInputName]['error']);
+            throw new Exception('Invalid file');
         }
         if ($_FILES[self::$fileInputName]['type'] !== 'text/plain') {
             throw new Exception('Must be a textfile');
