@@ -35,8 +35,9 @@ abstract class SudokuInputView
     // NOTE: Must be called in subclasses: parent::__contstruct();
     protected function __construct()
     {
-        // NOTE: Might want to lazy load templates if they are not always used
+        // NOTE: Might want to lazy load templates since they are not always used
         $this->template = Template::getTemplate('sudokuInputLayout');
+        $this->errorTemplate = Template::getTemplate('sudokuInputError');
 
         $this->inputTypeView = new SudokuInputTypeView();
     }
@@ -58,6 +59,9 @@ abstract class SudokuInputView
      */
     public function render($errorMessage = '')
     {
+        // Handle error message
+        $errorHtml = $this->getErrorHtml($errorMessage);
+
         return $this->template->render(
             array(
                 'action' => '', // Submit to self
@@ -65,7 +69,7 @@ abstract class SudokuInputView
                 'inputType' => $this->inputTypeView->render(),
                 'isSubmitted' => self::$isSubmitted,
                 'algorithmName' => self::$algorithmName,
-                'errorMessage' => $errorMessage
+                'errorMessage' => $errorHtml
             )
 
         );
@@ -95,5 +99,19 @@ abstract class SudokuInputView
     {
         // NOTE: Should be one of the constants, robust _enough_ for now
         return intval($_POST[self::$algorithmName]);
+    }
+
+    /**
+     * Returns error html, or empty string if empty string is passed
+     * @param  string $message
+     * @return string
+     */
+    private function getErrorHtml($errorMessage)
+    {
+        // Render error if necessary
+        if ($errorMessage !== '') {
+            return $this->errorTemplate->render(array('message' => $errorMessage));
+        }
+        return '';
     }
 }
