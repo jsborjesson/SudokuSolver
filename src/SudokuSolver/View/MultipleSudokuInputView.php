@@ -4,18 +4,24 @@ namespace SudokuSolver\View;
 
 use SudokuSolver\View\SudokuInputView;
 use SudokuSolver\Model\Sudoku;
+use Exception;
 
+/**
+ * Extends the SudokuInputView functionality with the ability
+ * to input multiple sudokus at once.
+ */
 abstract class MultipleSudokuInputView extends SudokuInputView
 {
+
     /**
-     * Get all inputted sudokus
+     * Get all input sudokus
      * @return Sudoku[]
      */
-    abstract public function getSudokus();
+    abstract protected function getSudokus();
 
-    public function getSudoku()
-    {
-        // TODO: Implement SingleSudokuInputView and move getSudoku there?
-        throw new \Exception('Only available in SingleSudokuInput');
-    }
+    /**
+     * If multiple sudokus has been sent
+     * @return bool
+     */
+    abstract public function hasMultipleSudokus();
 }
