@@ -34,7 +34,7 @@ class TextSudokuInputView extends MultipleSudokuInputView
             array(
                 'sudokuName' => self::$inputTextName,
                 'zeroCharName' => self::$zeroCharName,
-                'sudokuDelimiterName' => self:: $delimiterName
+                'sudokuDelimiterName' => self::$delimiterName
             )
         );
     }
@@ -73,7 +73,7 @@ class TextSudokuInputView extends MultipleSudokuInputView
      * Sudoku input text
      * @return string
      */
-    private function getText()
+    protected function getText()
     {
         return isset($_POST[self::$inputTextName]) ? $_POST[self::$inputTextName] : '';
     }
