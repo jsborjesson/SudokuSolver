@@ -170,6 +170,11 @@ class SudokuTest extends \Codeception\TestCase\Test
         $this->assertTrue($solvedSudoku->isSolved());
     }
 
+    public function testCountFilledCells()
+    {
+        $this->assertEquals(40, $this->sudoku->countFilledCells());
+    }
+
     public function testClone()
     {
         // Make sure the clone does not reference the same array

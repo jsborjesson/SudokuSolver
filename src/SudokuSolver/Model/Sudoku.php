@@ -186,6 +186,23 @@ class Sudoku
     }
 
     /**
+     * Number of filled cells
+     * @return int
+     */
+    public function countFilledCells()
+    {
+        $count = 0;
+        for ($row = 0; $row < 9; $row++) {
+            for ($col = 0; $col < 9; $col++) {
+                if ($this->isFilled($row, $col)) {
+                    $count++;
+                }
+            }
+        }
+        return $count;
+    }
+
+    /**
      * Check the sudoku for errors.
      *
      * Does nothing if:
@@ -230,6 +247,7 @@ class Sudoku
     }
 
     // ----------- Iteration methods ----------
+    // FIXME: These are way to complicated and need to go.
 
     /**
      * Maps a function over every cell in the sudoku
