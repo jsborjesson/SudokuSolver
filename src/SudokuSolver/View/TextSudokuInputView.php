@@ -92,6 +92,9 @@ class TextSudokuInputView extends MultipleSudokuInputView
      */
     private function getDelimiter()
     {
-        return isset($_POST[self::$delimiterName]) ? $_POST[self::$delimiterName] : '\n';
+        if (isset($_POST[self::$delimiterName]) && $_POST[self::$delimiterName] != '') {
+            return '/' . $_POST[self::$delimiterName] . '/';
+        }
+        return '/\n/';
     }
 }
