@@ -2,37 +2,52 @@
 
 namespace SudokuSolver\View;
 
+use SudokuSolver\Model\SudokuReader;
 use SudokuSolver\View\MultipleSudokuInputView;
 use SudokuSolver\View\Template;
-use SudokuSolver\Model\SudokuReader;
 
-class TextSudokuInputView extends MultipleSudokuInputView
+// Common code for TextArea- and TextFile-inputs
+abstract class TextSudokuInputView extends MultipleSudokuInputView
 {
     /**
      * @var Template
      */
     private $template;
 
-    private static $inputTextName = 'sudokuText';
     private static $zeroCharName = 'zeroChar';
     private static $delimiterName = 'sudokuDelimiter';
 
     public function __construct()
     {
         parent::__construct();
-        $this->template = Template::getTemplate('sudokuTextInput');
+        $this->template = Template::getTemplate('sudokuTextInputLayout');
     }
 
-    // ------ From SudokuInputView ------
+    // ---------- Abstract methods ----------
 
     /**
+     * Render the input text portion
      * @return string HTML
      */
-    public function renderSudokuInput()
+    abstract protected function renderTextInput();
+
+    /**
+     * Get the input text
+     * @return string
+     */
+    abstract protected function getTextInput();
+
+    // ---------- Implement SudokuInputView methods ----------
+
+    /**
+     * From SudokuInputView
+     * @return string HTML
+     */
+    protected function renderSudokuInput()
     {
         return $this->template->render(
             array(
-                'sudokuName' => self::$inputTextName,
+                'sudoku' => $this->renderTextInput(),
                 'zeroCharName' => self::$zeroCharName,
                 'sudokuDelimiterName' => self::$delimiterName
             )
@@ -40,13 +55,52 @@ class TextSudokuInputView extends MultipleSudokuInputView
     }
 
     /**
-     * Get all input sudokus
+     * From SudokuInputView
+     * If no delimiter is set, tries to parse as single sudoku
+     * @return Sudoku
+     * @throws Exception If delimiter IS set
+     */
+    public function getSudoku()
+    {
+        if ($this->hasMultipleSudokus()) {
+            throw new Exception('More than one sudoku sent');
+        }
+        return $this->parseSudoku($this->getTextInput());
+    }
+
+    // ---------- Implement MultipleSudokuInputView methods ----------
+
+    /**
+     * From MultipleSudokuInputView
+     * If the user has sent multiple sudokus (AND a way to separate them)
+     * @return boolean
+     */
+    public function hasMultipleSudokus()
+    {
+        // If no delimiter is set, can't treat as multiple sudokus
+        return (bool)$this->getDelimiter();
+    }
+
+    /**
+     * From MultipleSudokuInputView
      * @return Sudoku[]
+     * @throws Exception If no delimiter is set
      */
     public function getSudokus()
     {
+        if (! $this->hasMultipleSudokus()) {
+            throw new Exception('No delimiter sent');
+        }
+
         // Split the string by delimiter
-        $sudokuStrings = preg_split($this->getDelimiter(), $this->getText());
+        $regex = '/' . $this->getDelimiter() . '/';
+        $sudokuStrings = preg_split($regex, $this->getTextInput());
+
+        // NOTE: Takes care of empty first element if string begins with delimiter
+        if ($sudokuStrings[0] == '') {
+            array_shift($sudokuStrings);
+        }
+
 
         // Parse all individual strings
         $sudokus = array();
@@ -57,7 +111,8 @@ class TextSudokuInputView extends MultipleSudokuInputView
         return $sudokus;
     }
 
-    // ------ Helpers ------
+
+    // ---------- Text helpers ----------
 
     /**
      * Parse a sudoku from a string
@@ -70,31 +125,19 @@ class TextSudokuInputView extends MultipleSudokuInputView
     }
 
     /**
-     * Sudoku input text
-     * @return string
-     */
-    protected function getText()
-    {
-        return isset($_POST[self::$inputTextName]) ? $_POST[self::$inputTextName] : '';
-    }
-
-    /**
      * Returns input zeroChar or 0 if empty
      * @return string char
      */
     private function getZeroChar()
     {
-        return isset($_POST[self::$zeroCharName]) ? $_POST[self::$zeroCharName] : 0;
+        return isset($_POST[self::$zeroCharName]) ? $_POST[self::$zeroCharName] : '0';
     }
 
     /**
-     * @return string delimiter, newline if empty
+     * @return string delimiter
      */
     private function getDelimiter()
     {
-        if (isset($_POST[self::$delimiterName]) && $_POST[self::$delimiterName] != '') {
-            return '/' . $_POST[self::$delimiterName] . '/';
-        }
-        return '/\n/';
+        return isset($_POST[self::$delimiterName]) ? $_POST[self::$delimiterName] : '';
     }
 }
