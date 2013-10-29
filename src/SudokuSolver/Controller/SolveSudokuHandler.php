@@ -57,15 +57,11 @@ class SolveSudokuHandler
 
     private function handleSingleInput(SudokuInputView $inputView)
     {
-        // TODO: validate
-
         // Get sudoku
         try {
             $sudoku = $inputView->getSudoku();
         } catch (Exception $e) {
-            // show invalid sudoku error
-            // TODO: return $inputView->showInvalidSudoku()?
-            print 'invalid sudoku';
+            return $inputView->renderError($e);
         }
 
         $solver = $this->getSolverInstance($inputView);
@@ -84,9 +80,7 @@ class SolveSudokuHandler
             // Already tested for hasMultiple in handleInput
             $sudokus = $inputView->getSudokus();
         } catch (Exception $e) {
-            // TODO: error handling
-            print 'one or more sudokus invalid';
-            return $inputView->render();
+            return $inputView->renderError($e);
         }
 
         // FIXME: Code duplication
