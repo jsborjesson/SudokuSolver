@@ -79,7 +79,7 @@ class VisualSudokuInputView extends SudokuInputView
         return new Sudoku($arr);
     }
 
-    // ------ End SudokuInputView ------
+    // ------ Helpers ------
 
     /**
      * Get exact input of the input cell
