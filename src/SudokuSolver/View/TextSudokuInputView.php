@@ -5,6 +5,7 @@ namespace SudokuSolver\View;
 use SudokuSolver\Model\SudokuReader;
 use SudokuSolver\View\MultipleSudokuInputView;
 use SudokuSolver\View\Template;
+use Exception;
 
 // Common code for TextArea- and TextFile-inputs
 abstract class TextSudokuInputView extends MultipleSudokuInputView
@@ -32,7 +33,7 @@ abstract class TextSudokuInputView extends MultipleSudokuInputView
     abstract protected function renderTextInput();
 
     /**
-     * Get the input text
+     * Get the input text, can throw an error if nothing was sent
      * @return string
      */
     abstract protected function getTextInput();
