@@ -1,4 +1,4 @@
-<form action="{{action}}" method="post">
+<form action="{{action}}" method="post" enctype="multipart/form-data">
     <div id="mid-wrapper">
 
         <!-- Input sudoku -->
@@ -20,7 +20,7 @@
                             <select name="{{algorithmName}}">
                                 <option value="#" disabled>Solving algorithm</option>
                                 <option value="1">AI</option>
-                                <option value="2">Norvig</option>
+                                <option value="2" selected>Norvig</option>
                             </select>
                         </div>
                     </li>
