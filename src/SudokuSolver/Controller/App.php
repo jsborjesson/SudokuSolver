@@ -4,7 +4,7 @@ namespace SudokuSolver\Controller;
 
 use SudokuSolver\View\Template;
 use SudokuSolver\View\AppView;
-use SudokuSolver\Controller\SolveSudokuHandler;
+use SudokuSolver\Controller\SolveHandler;
 
 class App
 {
@@ -19,7 +19,7 @@ class App
         $this->view = new AppView();
 
         // FIXME: Allow more controllers
-        $this->ctrl = new SolveSudokuHandler();
+        $this->ctrl = new SolveHandler();
 
         // Run the controller
         $this->dispatch();

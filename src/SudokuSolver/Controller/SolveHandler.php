@@ -14,14 +14,15 @@ use SudokuSolver\Model\AiSolver;
 use SudokuSolver\Model\NorvigSolver;
 use Exception;
 
-class SolveSudokuHandler
+class SolveHandler
 {
     /**
      * @return string HTML
      */
     public function visualAction()
     {
-        $inputView = new VisualSudokuInputView();
+        // FIXME: Remove testing value 3
+        $inputView = new VisualSudokuInputView(3);
         return $this->handleInput($inputView);
     }
 
