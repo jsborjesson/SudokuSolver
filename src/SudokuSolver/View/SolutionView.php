@@ -4,6 +4,7 @@ namespace SudokuSolver\View;
 
 use SudokuSolver\Model\Solution;
 use SudokuSolver\View\SudokuGridHelper;
+use SudokuSolver\View\SudokuInputTypeView;
 
 /**
  * Displays an immutable solution where cells are marked as
@@ -26,7 +27,6 @@ class SolutionView
      */
     private $gridHelper;
 
-
     public function __construct(Solution $solution)
     {
         $this->solution = $solution;
@@ -38,11 +38,11 @@ class SolutionView
 
     public function render()
     {
-
         return $this->layoutTpl->render(
             array(
                 'solution' => $this->renderSolution(),
-                'timer' => $this->getExecutionTime() // TODO: Real value
+                'timer' => $this->getExecutionTime(),
+                'backUrl' => $_SERVER['REQUEST_URI'] // Redirect to same input type
             ),
             true
         );
