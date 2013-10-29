@@ -3,13 +3,15 @@
 
         <!-- Input sudoku -->
         <div class="sudoku-input" id="main">
+            <ul>
             {{errorMessage}}
             {{input}}
+            </ul>
         </div>
 
         <!-- Sidebar -->
         <div id="sidebar">
-            <div class="xlarge btn oval secondary icon-left entypo icon-check"><a href=""><input type="submit" value="Solve"></a></div>
+            <div class="xlarge btn oval secondary"><input type="submit" value="Solve"></div>
             <fieldset>
                 <legend>Options</legend>
                 <ul>
@@ -27,7 +29,7 @@
                     </li>
                 </ul>
             </fieldset>
-            <div class="medium btn oval danger icon-left entypo icon-cancel-circled"><a href=""><input type="clear" value="Clear" /></a></div>
+            <div class="medium btn oval danger"><input type="clear" value="Clear" /></div>
         </div>
 
         <input type="hidden" value="true" name="{{isSubmitted}}" />
