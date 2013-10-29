@@ -9,6 +9,9 @@ cell, square(avoid this word, very ambiguous)
 given
 : a cell which is filled in the original sudoku
 
+option
+: a possible solution for a cell
+
 row
 : a horizontal line of 9 cells
 
