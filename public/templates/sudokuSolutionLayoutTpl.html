@@ -7,9 +7,13 @@
 
     <!-- Sidebar -->
     <div id="sidebar">
-        <span class="time-to-solve">{{timer}}</span>
-        {{options}}
-        <div class="medium btn oval danger icon-left entypo icon-cancel-circled"><a href="#">Clear</a></div>
+        <div class="time-to-solve">{{timer}}</div>
+        <ul>
+            <li>
+                {{inputType}}
+            </li>
+        </ul>
+        <div id="clear" class="medium btn oval danger icon-left entypo icon-cancel-circled"><a href="">Clear</a></div>
     </div>
 
 </div>
