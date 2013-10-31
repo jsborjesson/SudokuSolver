@@ -15,8 +15,9 @@ h2  {
 #wrapper {
     max-width: 960px !important;
 }
-#mid-wrapper {
+.mid-wrapper {
     @include row();
+    margin-bottom: 50px;
 }
 #main {
     @include column(8);
