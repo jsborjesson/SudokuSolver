@@ -3,7 +3,7 @@
 
     // Initialize
     sudokuGrid();
-    areYouSureYouWantToClear();
+    buttons();
 
     /**
      * Keyboard navigation and input validation for the visual sudoku input
@@ -92,11 +92,17 @@
     }
 
     /**
-     * Confirm-dialog when clicking clear
+     * Confirm-dialog when clicking clear, back button
      */
-    function areYouSureYouWantToClear() {
+    function buttons() {
+        // Confirm on clear
         $('#clear').click(function () {
             return confirm('Are you sure you want to clear everything?');
+        });
+        // Back button
+        $('#back').click(function () {
+            window.history.go(-1);
+            return false;
         });
     }
 

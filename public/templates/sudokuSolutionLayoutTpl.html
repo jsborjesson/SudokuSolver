@@ -7,13 +7,12 @@
 
     <!-- Sidebar -->
     <div id="sidebar">
-        <div class="time-to-solve">{{timer}}</div>
         <ul>
-            <li>
-                {{inputType}}
-            </li>
+            <li><div class="time-to-solve">{{timer}}</div></li>
+            <!-- FIXME: When javascript is disabled, this just backs up without a warning -->
+            <li><div id="back" class="medium btn oval info"><a href="{{backUrl}}">Back</a></div></li>
+            <li><div id="clear" class="medium btn oval danger"><a href="{{backUrl}}">Clear</a></div></li>
         </ul>
-        <div id="clear" class="medium btn oval danger"><a href="{{backUrl}}">Clear</a></div>
     </div>
 
 </div>
