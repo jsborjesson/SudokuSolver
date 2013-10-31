@@ -23,12 +23,21 @@ class App
     public function __construct()
     {
         $this->view = new AppView();
+    }
 
-        // Run the controller
+    /**
+     * Run the app
+     */
+    public function run()
+    {
         $html = $this->dispatch();
         $this->renderPage($html);
     }
 
+    /**
+     * Renders the page
+     * @param  string $pageHtml
+     */
     private function renderPage($pageHtml)
     {
         print $this->view->render($pageHtml);

@@ -1,3 +1,8 @@
 <?php
+// Setup
 require_once('config.php');
-new SudokuSolver\Controller\App();
+use SudokuSolver\Controller\App;
+
+// Start!
+$app = new App();
+$app->run();
