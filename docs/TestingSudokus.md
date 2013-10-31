@@ -20,6 +20,10 @@ with a non-optimal algorithm. If that happens - just try the other one.
         )
     );
 
+## Visual
+
+<http://www.mirror.co.uk/news/weird-news/worlds-hardest-sudoku-can-you-242294>
+
 ## Text
 
 All of these are valid sudokus in text format. Some of them have to set the
@@ -56,6 +60,7 @@ zero character option. (Usually to dot `.`)
     5 . . | . 7 . | . . 3
     4 . . | 1 . 3 | . . 6
     9 3 2 | . . . | 7 1 4
+
 
 
 
