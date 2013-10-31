@@ -12,6 +12,9 @@ h2  {
 }
 
 // Layout
+#wrapper {
+    max-width: 960px !important;
+}
 #mid-wrapper {
     @include row();
 }
@@ -33,9 +36,7 @@ h2  {
 }
 
 
-// Sudoku
-$divider-border: 1px dashed black;
-
+// Sudoku grid
 .sudoku-cell {
     // May be overridden by js
     width: 50px;
@@ -43,18 +44,11 @@ $divider-border: 1px dashed black;
     font-size: 40px;
     text-align: center;
     vertical-align: middle;
-
-    &:nth-child(3),
-    &:nth-child(6) {
-        //border-right: $divider-border;
-    }
 }
-
+// Solved sudoku
 span.sudoku-cell {
-
     display: inline-block;
     padding: 2%;
-
     background: papayawhip;
 
     &.solved {
@@ -63,16 +57,7 @@ span.sudoku-cell {
 
 }
 
-.sudoku-row {
-    &:nth-child(3),
-    &:nth-child(6){
-        // border-bottom: $divider-border;
-    }
-}
-
 // Form
-// TODO: Exclamation mark on hover Solve
-// TODO: Fix submit button style,
 
 // Removes outline on input squares, and clicked submit-button etc
 input {
@@ -84,19 +69,19 @@ input.sudoku-cell {
     }
 }
 
-// Input font
+// Monospace to keep text sudokus square
 input[type="text"],
 textarea.sudoku {
     font-family: monospace;
 }
 
+// Fix clear-button style
 input[type="clear"] {
     text-align: center;
-    // TODO: Fix user-select: none;
+    // TODO: Fix clear button blinking cursor
 }
-
+// Make textarea bigger
 textarea.sudoku {
-    vertical-align: middle;
     height: 300px !important;
 }
 
