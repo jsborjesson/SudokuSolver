@@ -3,78 +3,94 @@
 (function () {
     'use strict';
 
-    var sudokuCellSelector = 'input.sudoku-cell';
+    // Initialize
+    sudokuGrid();
 
-    // Navigate sudoku and validate input
-    // TODO: optimize
-    $(sudokuCellSelector).keydown(function (event) {
+    /**
+     * Keyboard navigation and input validation for the visual sudoku input
+     */
+    function sudokuGrid() {
 
-        // The current input cell
-        var $input = $(this);
+        var sudokuCellSelector = 'input.sudoku-cell';
 
-        // 1 = right, -1 = left, 9 = below etc
-        function navigate(amount) {
+        // When pressing a button in a cell
+        $(sudokuCellSelector).keydown(function (event) {
 
-            // Get desired cell
-            var index = $input.index(sudokuCellSelector);
-            var nextElem = $(sudokuCellSelector).eq(index + amount);
+            // The current input cell
+            var $input = $(this);
 
-            // Move to square
-            if (nextElem != undefined) {
-                $(nextElem).focus();
+            /**
+             * Navigates the grid by an amount:
+             * 1 = right, -1 = left, 9 = below etc
+             *
+             * @param  int amount
+             */
+            function navigate(amount) {
+
+                // Get desired cell
+                var index = $input.index(sudokuCellSelector);
+                var nextElem = $(sudokuCellSelector).eq(index + amount);
+
+                // Move to square
+                if (nextElem != undefined) {
+                    $(nextElem).focus();
+                }
             }
-        }
 
-        // Set the value if it is valid
-        function inputIfValid() {
-            // Get char
-            var c = String.fromCharCode(event.which);
+            /**
+             * Validates the input of a cell
+             */
+            function inputIfValid() {
+                // Get char
+                var c = String.fromCharCode(event.which);
 
-            // If digit or space
-            if (/[1-9\ ]/.test(c)) {
+                // If digit or space
+                if (/[1-9\ ]/.test(c)) {
 
-                // input and move to next cell
-                $input.val(c);
-                navigate(1);
+                    // input and move to next cell
+                    $input.val(c);
+                    navigate(1);
+
+                }
+            }
+
+            // Do action - navigate or try to input number
+            switch (event.keyCode) {
+                // Right
+                case 48: // 0
+                case 32: // space
+                    $input.val(''); // clear
+                    // fall through
+                case 39: // right
+                    navigate(1);
+                    break;
+                // Left
+                case 8: // backspace
+                    $input.val(''); // clear
+                    // fall through
+                case 37: // left
+                    navigate(-1)
+                    break;
+                // Down
+                case 13: // enter
+                case 40: // down
+                    navigate(9);
+                    break;
+                // Up
+                case 38:
+                    navigate(-9);
+                    break;
+                // tabbing
+                case 9:
+                    event.shiftKey ? navigate(-1) : navigate(1);
+                default:
+                    inputIfValid();
 
             }
-        }
+            return false;
 
-        // Do action
-        switch (event.keyCode) {
-            // Right
-            case 48: // 0
-            case 32: // space
-                $input.val(''); // clear
-                // fall through
-            case 39: // right
-                navigate(1);
-                break;
-            // Left
-            case 8: // backspace
-                $input.val(''); // clear
-                // fall through
-            case 37: // left
-                navigate(-1)
-                break;
-            // Down
-            case 13: // enter
-            case 40: // down
-                navigate(9);
-                break;
-            // Up
-            case 38:
-                navigate(-9);
-                break;
-            // tabbing
-            case 9:
-                event.shiftKey ? navigate(-1) : navigate(1);
-            default:
-                inputIfValid();
+        });
+    }
 
-        }
-        return false;
-
-    });
 
 }());
