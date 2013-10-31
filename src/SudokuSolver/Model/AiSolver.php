@@ -23,7 +23,7 @@ class AiSolver implements SolverInterface
     {
         // NOTE: Pay attention to the different meanings of the scanning-functions return values!
 
-        if (! $this->fastScan($sudoku)) {
+        if (! $this->shallowScan($sudoku)) {
 
             if (! $this->deepScan($sudoku)) {
                 // Not solvable
@@ -40,22 +40,24 @@ class AiSolver implements SolverInterface
      * @param  Sudoku $sudoku
      * @return bool           If it was solved
      */
-    public function fastScan(Sudoku $sudoku)
+    public function shallowScan(Sudoku $sudoku)
     {
         $solved = false;
 
+        // Loop as long as making progress
         while (! $solved) {
+
             // Checksolve
             $solved = $this->checkScan($sudoku);
 
+            // Try to bump down to checking level
             if (! $solved) {
 
-                // Try to bump down
                 $bump = $this->bumpScan($sudoku);
 
+                // Bump failed
                 if (! $bump) {
-                    // Bump failed
-                    return false;
+                    break;
                 }
             }
         }
@@ -65,7 +67,7 @@ class AiSolver implements SolverInterface
     }
 
     /**
-     * Solves as many cells as it can by entering values where there is only one possibility.
+     * Checks if the sudoku is solved, while inserting obvious solutions
      * @param  Sudoku $sudoku
      * @return bool           If sudoku is **solved**
      */
@@ -90,6 +92,7 @@ class AiSolver implements SolverInterface
                         $solved = false;
                     }
 
+                    // Solve cell if only one option
                     $options = $sudoku->getOptionsForCell($row, $col);
                     if (count($options) == 1) {
                         $sudoku->setCell($row, $col, $options[0]);
@@ -150,7 +153,7 @@ class AiSolver implements SolverInterface
     /**
      * Fallback shallow backtracking algorithm.
      *
-     * This scan incorporates the fastScan method.
+     * This scan incorporates the shallowScan method.
      *
      * @param  Sudoku $sudoku
      * @return boolean         If the sudoku was solved
@@ -178,7 +181,7 @@ class AiSolver implements SolverInterface
                         foreach ($options as $option) {
                             $sudoku->setCell($row, $col, $option);
 
-                            if ($this->fastScan($sudoku)) {
+                            if ($this->shallowScan($sudoku)) {
                                 return true;
                             } else {
                                 $sudoku = clone($backup);
