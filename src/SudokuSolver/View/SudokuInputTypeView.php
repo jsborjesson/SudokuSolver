@@ -3,6 +3,7 @@
 namespace SudokuSolver\View;
 
 use SudokuSolver\View\Template;
+use SudokuSolver\Common\Router;
 
 class SudokuInputTypeView
 {
@@ -12,7 +13,7 @@ class SudokuInputTypeView
      */
     private $template;
 
-    // TODO: Get these elsewhere?
+    // FIXME: String dependency
     // Links
     private static $visual = '?solve=visual';
     private static $text = '?solve=text';
@@ -23,10 +24,11 @@ class SudokuInputTypeView
         $this->template = Template::getTemplate('inputTypeNavigation');
     }
 
+    /**
+     * @return string HTML
+     */
     public function render()
     {
-
-        // TODO: getActivePage?
         // FIXME: Should not be in view
         $active = $_GET['solve'];
 
