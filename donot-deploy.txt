@@ -5,6 +5,7 @@ codeception.yml
 config.rb
 docs/
 Guardfile
+public/scss/
 README.md
 rsync-deploy.sh
 *.sublime*
