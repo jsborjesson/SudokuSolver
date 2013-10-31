@@ -1,5 +1,3 @@
-// TODO: Only include this on form-input page
-// TODO: 'Are you sure?' on clear-button
 (function () {
     'use strict';
 
