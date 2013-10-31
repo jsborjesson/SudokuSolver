@@ -4,7 +4,6 @@ namespace SudokuSolver\Controller;
 
 use SudokuSolver\View\SudokuInputView;
 use SudokuSolver\View\MultipleSudokuInputView;
-use SudokuSolver\View\SingleSudokuInputView;
 use SudokuSolver\View\VisualSudokuInputView;
 use SudokuSolver\View\TextAreaSudokuInputView;
 use SudokuSolver\View\TextFileSudokuInputView;
@@ -26,18 +25,30 @@ class SolveHandler
         return $this->handleInput($inputView);
     }
 
+    /**
+     * @return string HTML
+     */
     public function textAction()
     {
         $inputView = new TextAreaSudokuInputView();
         return $this->handleInput($inputView);
     }
 
+    /**
+     * @return string HTML
+     */
     public function fileAction()
     {
         $inputView = new TextFileSudokuInputView();
         return $this->handleInput($inputView);
     }
 
+    /**
+     * Passes the request on to the correct handler, if nothing has been submitted,
+     * just show the input page normally
+     * @param  SudokuInputView $inputView
+     * @return string                       HTML
+     */
     private function handleInput(SudokuInputView $inputView)
     {
         if ($inputView->isSubmitted()) {
@@ -56,6 +67,11 @@ class SolveHandler
         }
     }
 
+    /**
+     * Handle a single submitted sudoku
+     * @param  SudokuInputView $inputView
+     * @return string HTML
+     */
     private function handleSingleInput(SudokuInputView $inputView)
     {
         // Get sudoku
@@ -74,6 +90,11 @@ class SolveHandler
         // else show error
     }
 
+    /**
+     * Handle multiple submitted sudokus
+     * @param  MultipleSudokuInputView $inputView
+     * @return string                               HTML
+     */
     private function handleMultipleInput(MultipleSudokuInputView $inputView)
     {
         // Get sudokus
@@ -103,6 +124,7 @@ class SolveHandler
 
     /**
      * An instance of the chosen solving algorithm
+     * @param  SudokuInputView $inputView
      * @return SolverInterface
      */
     private function getSolverInstance(SudokuInputView $inputView)
@@ -116,5 +138,4 @@ class SolveHandler
         }
         throw new Exception("Not a valid solving algorithm: $solver");
     }
-
 }
