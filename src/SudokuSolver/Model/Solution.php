@@ -96,20 +96,22 @@ class Solution
      */
     public static function getSolution(Sudoku $sudoku, SolverInterface $algorithm)
     {
-        // TODO: Meassure execution time
+        // Save original
         $puzzle = $sudoku;
         $original = clone($sudoku);
 
+        // Time execution
         $timerStart = microtime(true);
 
+        // Run the solver
         $algorithm->solve($puzzle);
 
+        // Get the time
         $timerStop = microtime(true);
         $timeToSolve = $timerStop - $timerStart;
 
         // Don't take the solvers word for it...
-        // TODO: if ($puzzle->isSolved()) {
-        if (true) {
+        if ($puzzle->isSolved()) {
             return new Solution($original, $puzzle, $timeToSolve);
         } else {
             throw new Exception('Could not solve sudoku');
