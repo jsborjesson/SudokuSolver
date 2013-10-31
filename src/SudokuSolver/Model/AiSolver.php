@@ -12,7 +12,10 @@ class AiSolver implements SolverInterface
 {
 
     /**
-     * From SolverInterface
+     * From SolverInterface.
+     *
+     * Uses all of the scanning algorithms to produce a solution
+     *
      * @param  Sudoku $sudoku
      * @return bool
      */
@@ -20,20 +23,23 @@ class AiSolver implements SolverInterface
     {
         // NOTE: Pay attention to the different meanings of the scanning-functions return values!
 
-        $solved = $this->fastScan($sudoku);
+        if (! $this->fastScan($sudoku)) {
 
-        if (! $solved) {
-
-            $deep = $this->deepScan();
-            if (! $deep) {
+            if (! $this->deepScan($sudoku)) {
                 // Not solvable
                 return false;
             }
         }
 
-        return $solved;
+        return true;
     }
 
+    /**
+     * Uses both checkScan and bumpScan to try to get a solution using the
+     * non-backtracking steps.
+     * @param  Sudoku $sudoku
+     * @return bool           If it was solved
+     */
     public function fastScan(Sudoku $sudoku)
     {
         $solved = false;
@@ -105,13 +111,14 @@ class AiSolver implements SolverInterface
 
     }
 
+    /**
+     * Tries to bump the solution a step forward by using more advanced
+     * techniques than the checkScan.
+     * @param  Sudoku $sudoku
+     * @return boolean         If the bump succeeded
+     */
     private function bumpScan(Sudoku $sudoku)
     {
-        // Foreach unit
-        // Collect possibilities
-        // If unique
-        // insert
-
         // Collect possibilities
         $allOptions = array();
         for ($row = 0; $row < 9; $row++) {
@@ -140,7 +147,15 @@ class AiSolver implements SolverInterface
     }
 
 
-    private function insaneScan(Sudoku $sudoku)
+    /**
+     * Fallback shallow backtracking algorithm.
+     *
+     * This scan incorporates the fastScan method.
+     *
+     * @param  Sudoku $sudoku
+     * @return boolean         If the sudoku was solved
+     */
+    private function deepScan(Sudoku $sudoku)
     {
         $backup = clone($sudoku);
 
@@ -163,7 +178,7 @@ class AiSolver implements SolverInterface
                         foreach ($options as $option) {
                             $sudoku->setCell($row, $col, $option);
 
-                            if ($this->solve($sudoku, false)) {
+                            if ($this->fastScan($sudoku)) {
                                 return true;
                             } else {
                                 $sudoku = clone($backup);
@@ -174,6 +189,8 @@ class AiSolver implements SolverInterface
                 }
             }
         }
+
+        return false;
     }
 
 }
