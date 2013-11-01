@@ -79,6 +79,4 @@ class SudokuReader
         // Sudoku
         return new Sudoku($grid);
     }
-
-    // TODO: Read from file
 }
