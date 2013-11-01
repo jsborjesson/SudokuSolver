@@ -126,6 +126,22 @@ class AiSolver implements SolverInterface
      */
     private function bumpScan(Sudoku $sudoku)
     {
+
+        if ($this->bumpRows($sudoku)) {
+            return true;
+        }
+
+        if ($this->bumpColumns($sudoku)) {
+            return true;
+        }
+
+        // TODO: Bump groups
+
+        return false;
+    }
+
+    private function bumpRows(Sudoku $sudoku)
+    {
         // Collect possibilities
         $allOptions = array();
         for ($row = 0; $row < 9; $row++) {
@@ -150,11 +166,13 @@ class AiSolver implements SolverInterface
                 }
             }
         }
+    }
 
-
+    private function bumpColumns(Sudoku $sudoku)
+    {
         // Collect possibilities
         $allOptions = array();
-        for ($unit = 0; $unit < 9; $unit++) {
+        for ($col = 0; $col < 9; $col++) {
 
             for ($option = 1; $option <= 9; $option++) {
 
@@ -162,12 +180,12 @@ class AiSolver implements SolverInterface
                 $rowIx = -1;
                 $colIx = -1;
 
-                for ($index = 0; $index < 9; $index++) {
-                    $options = $sudoku->getOptionsForCell($index, $unit);
+                for ($row = 0; $row < 9; $row++) {
+                    $options = $sudoku->getOptionsForCell($row, $col);
                     if (in_array($option, $options)) {
                         $times++;
-                        $rowIx = $index;
-                        $colIx = $unit;
+                        $rowIx = $row;
+                        $colIx = $col;
                     }
                 }
                 if ($times == 1) {
@@ -229,5 +247,4 @@ class AiSolver implements SolverInterface
 
         return false;
     }
-
 }
