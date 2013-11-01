@@ -36,7 +36,7 @@ class AiSolver implements SolverInterface
 
     /**
      * Uses both checkScan and bumpScan to try to get a solution using the
-     * non-backtracking steps.
+     * non-backtracking steps. (Level 1 and 2 combined)
      * @param  Sudoku $sudoku
      * @return bool           If it was solved
      */
@@ -65,6 +65,8 @@ class AiSolver implements SolverInterface
         return $solved;
 
     }
+
+    // ---------- Level 1 ----------
 
     /**
      * Checks if the sudoku is solved, while inserting obvious solutions
@@ -114,6 +116,8 @@ class AiSolver implements SolverInterface
 
     }
 
+    // ---------- Level 2 ----------
+
     /**
      * Tries to bump the solution a step forward by using more advanced
      * techniques than the checkScan.
@@ -145,10 +149,36 @@ class AiSolver implements SolverInterface
                     return true;
                 }
             }
+        }
 
+
+        // Collect possibilities
+        $allOptions = array();
+        for ($unit = 0; $unit < 9; $unit++) {
+
+            for ($option = 1; $option <= 9; $option++) {
+
+                $times = 0;
+                $rowIx = -1;
+                $colIx = -1;
+
+                for ($index = 0; $index < 9; $index++) {
+                    $options = $sudoku->getOptionsForCell($index, $unit);
+                    if (in_array($option, $options)) {
+                        $times++;
+                        $rowIx = $index;
+                        $colIx = $unit;
+                    }
+                }
+                if ($times == 1) {
+                    $sudoku->setCell($rowIx, $colIx, $option);
+                    return true;
+                }
+            }
         }
     }
 
+    // ---------- Level 3 ----------
 
     /**
      * Fallback shallow backtracking algorithm.
@@ -178,12 +208,16 @@ class AiSolver implements SolverInterface
                     $options = $sudoku->getOptionsForCell($row, $col);
                     if (count($options) <= $maximumOptions) {
 
+                        // Try every option
                         foreach ($options as $option) {
                             $sudoku->setCell($row, $col, $option);
 
+                            // Try to solve with lower levels
                             if ($this->shallowScan($sudoku)) {
                                 return true;
                             } else {
+
+                                // If they fail, restore the backup
                                 $sudoku = clone($backup);
                             }
                         }
