@@ -32,17 +32,32 @@ class TextAreaSudokuInputView extends TextSudokuInputView
      */
     protected function renderTextInput()
     {
-        return $this->template->render(array('sudokuName' => self::$inputTextName));
+        return $this->template->render(
+            array(
+                'sudokuName' => self::$inputTextName,
+                'content' => $this->getText()
+            )
+        );
+    }
+
+    /**
+     * Gets the text from the textarea
+     * @return string empty if nothing has been sent
+     */
+    private function getText()
+    {
+        return isset($_POST[self::$inputTextName]) ? $_POST[self::$inputTextName] : '';
     }
 
     /**
      * Sudoku input text
      * @return string
+     * @throws Exception If nothing has been sent
      */
     protected function getTextInput()
     {
-        if (isset($_POST[self::$inputTextName]) && $_POST[self::$inputTextName]) {
-            return $_POST[self::$inputTextName];
+        if ($this->getText()) {
+            return $this->getText();
         }
         throw new Exception('You must input a sudoku');
     }
