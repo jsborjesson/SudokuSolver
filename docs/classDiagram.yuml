@@ -2,8 +2,8 @@
 [App{bg:green}]->[AppView{bg:yellow}]
 [App{bg:green}]-.->[SolveHandler{bg:green}]
 // SolveHandler
-[SolveHandler{bg:green}]-.->[SudokuInputView<<abstract>>{bg:orange}]
-[SolveHandler{bg:green}]-.->[MultipleSudokuInputView<<abstract>>{bg:orange}]
+[SolveHandler{bg:green}]-.->[SudokuInputView{bg:orange}]
+[SolveHandler{bg:green}]-.->[MultipleSudokuInputView{bg:orange}]
 [SolveHandler{bg:green}]-.->[VisualSudokuInputView{bg:yellow}]
 [SolveHandler{bg:green}]-.->[TextAreaSudokuInputView{bg:yellow}]
 [SolveHandler{bg:green}]-.->[TextFileSudokuInputView{bg:yellow}]
@@ -21,19 +21,19 @@
 [SudokuReader{bg:blue}]-.->[Sudoku{bg:blue}]
 // --- VIEWS ---
 // Superclasses
-[SudokuInputView<<abstract>>{bg:orange}]->[SudokuInputTypeView{bg:yellow}]
-[SudokuInputView<<abstract>>{bg:orange}]-.->[Sudoku]
-[MultipleSudokuInputView<<abstract>>{bg:orange}]-^[SudokuInputView<<abstract>>{bg:orange}]
-[MultipleSudokuInputView<<abstract>>{bg:orange}]-.->[Sudoku{bg:blue}]
+[SudokuInputView{bg:orange}]->[SudokuInputTypeView{bg:yellow}]
+[SudokuInputView{bg:orange}]-.->[Sudoku]
+[MultipleSudokuInputView{bg:orange}]-^[SudokuInputView{bg:orange}]
+[MultipleSudokuInputView{bg:orange}]-.->[Sudoku{bg:blue}]
 // Visual
-[VisualSudokuInputView{bg:yellow}]-^[SudokuInputView<<abstract>>{bg:orange}]
+[VisualSudokuInputView{bg:yellow}]-^[SudokuInputView{bg:orange}]
 [VisualSudokuInputView{bg:yellow}]->[SudokuGridHelper{bg:yellow}]
 [VisualSudokuInputView{bg:yellow}]-.->[Sudoku{bg:blue}]
 // Text
-[TextSudokuInputView<<abstract>>{bg:orange}]->[SudokuReader{bg:blue}]
-[TextSudokuInputView<<abstract>>{bg:orange}]-^[MultipleSudokuInputView<<abstract>>{bg:orange}]
-[TextAreaSudokuInputView{bg:yellow}]-^[TextSudokuInputView<<abstract>>{bg:orange}]
-[TextFileSudokuInputView{bg:yellow}]-^[TextSudokuInputView<<abstract>>{bg:orange}]
+[TextSudokuInputView{bg:orange}]->[SudokuReader{bg:blue}]
+[TextSudokuInputView{bg:orange}]-^[MultipleSudokuInputView{bg:orange}]
+[TextAreaSudokuInputView{bg:yellow}]-^[TextSudokuInputView{bg:orange}]
+[TextFileSudokuInputView{bg:yellow}]-^[TextSudokuInputView{bg:orange}]
 // SolutionView
 [SolutionView{bg:yellow}]->[SudokuGridHelper{bg:yellow}]
 [SolutionView{bg:yellow}]->[Solution{bg:blue}]
