@@ -5,6 +5,7 @@ namespace SudokuSolver\View;
 use SudokuSolver\Model\Solution;
 use SudokuSolver\View\SudokuGridHelper;
 use SudokuSolver\View\SudokuInputTypeView;
+use SudokuSolver\View\Template;
 
 /**
  * Displays an immutable solution where cells are marked as
