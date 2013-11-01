@@ -15,14 +15,20 @@ use Exception;
 
 class SolveHandler
 {
+
+    /**
+     * @var SudokuInputView
+     */
+    private $inputView;
+
     /**
      * @return string HTML
      */
     public function visualAction()
     {
         // FIXME: Remove testing value 3
-        $inputView = new VisualSudokuInputView(3);
-        return $this->handleInput($inputView);
+        $this->inputView = new VisualSudokuInputView(3);
+        return $this->handleInput();
     }
 
     /**
@@ -30,8 +36,8 @@ class SolveHandler
      */
     public function textAction()
     {
-        $inputView = new TextAreaSudokuInputView();
-        return $this->handleInput($inputView);
+        $this->inputView = new TextAreaSudokuInputView();
+        return $this->handleMultipleInput();
     }
 
     /**
@@ -39,87 +45,78 @@ class SolveHandler
      */
     public function fileAction()
     {
-        $inputView = new TextFileSudokuInputView();
-        return $this->handleInput($inputView);
+        $this->inputView = new TextFileSudokuInputView();
+        return $this->handleMultipleInput();
     }
 
-    /**
-     * Passes the request on to the correct handler, if nothing has been submitted,
-     * just show the input page normally
-     * @param  SudokuInputView $inputView
-     * @return string                       HTML
-     */
-    private function handleInput(SudokuInputView $inputView)
-    {
-        if ($inputView->isSubmitted()) {
-            if ($inputView instanceof MultipleSudokuInputView &&
-                $inputView->hasMultipleSudokus()
-            ) {
-                // Multiple sudokus
-                return $this->handleMultipleInput($inputView);
-            } else {
-                // Single sudoku
-                return $this->handleSingleInput($inputView);
-            }
-        } else {
-            // Show normal input
-            return $inputView->render();
-        }
-    }
 
     /**
      * Handle a single submitted sudoku
      * @param  SudokuInputView $inputView
      * @return string HTML
      */
-    private function handleSingleInput(SudokuInputView $inputView)
+    private function handleInput()
     {
-        // Get sudoku
-        try {
-            $sudoku = $inputView->getSudoku();
-        } catch (Exception $e) {
-            return $inputView->renderError($e);
+        if ($this->inputView->isSubmitted()) {
+
+            // Get sudoku or show error
+            try {
+                $sudoku = $this->inputView->getSudoku();
+            } catch (Exception $e) {
+                return $this->inputView->renderError($e);
+            }
+
+            // Solve the sudoku
+            $solver = $this->getSolverInstance();
+            $solution = Solution::getSolution($sudoku, $solver);
+
+            // Show solution
+            $solutionView = new SolutionView($solution);
+            return $solutionView->render();
+        } else {
+            return $this->inputView->render();
         }
-
-        $solver = $this->getSolverInstance($inputView);
-        $solution = Solution::getSolution($sudoku, $solver);
-
-        // show solution
-        $solutionView = new SolutionView($solution);
-        return $solutionView->render();
-        // else show error
     }
 
     /**
      * Handle multiple submitted sudokus
-     * @param  MultipleSudokuInputView $inputView
+     * @param  MultipleSudokuInputView$this->inputView
      * @return string                               HTML
      */
-    private function handleMultipleInput(MultipleSudokuInputView $inputView)
+    private function handleMultipleInput()
     {
-        // Get sudokus
-        try {
-            // Already tested for hasMultiple in handleInput
-            $sudokus = $inputView->getSudokus();
-        } catch (Exception $e) {
-            return $inputView->renderError($e);
+        if ($this->inputView->isSubmitted() &&
+            $this->inputView->hasMultipleSudokus()) {
+
+            // Get sudokus
+            try {
+                // Already tested for hasMultiple in handleInput
+                $sudokus = $this->inputView->getSudokus();
+            } catch (Exception $e) {
+                return $this->inputView->renderError($e);
+            }
+
+            // FIXME: Code duplication
+            // TODO: Error handling
+            // Try to solve
+            $solver = $this->getSolverInstance();
+
+            // Solve all sudokus
+            $solutionHtml = '';
+            foreach ($sudokus as $sudoku) {
+                // TODO: What happens when not solved?
+                $solution = Solution::getSolution($sudoku, $solver);
+
+                $solutionView = new SolutionView($solution);
+                $solutionHtml .= $solutionView->render();
+            }
+            return $solutionHtml;
+
+        } else {
+
+            // If only one sudoku is sent, use the other method
+            return $this->handleInput();
         }
-
-        // FIXME: Code duplication
-        // TODO: Error handling
-        // Try to solve
-        $solver = $this->getSolverInstance($inputView);
-
-        // Solve all sudokus
-        $solutionHtml = '';
-        foreach ($sudokus as $sudoku) {
-            // TODO: What happens when not solved?
-            $solution = Solution::getSolution($sudoku, $solver);
-
-            $solutionView = new SolutionView($solution);
-            $solutionHtml .= $solutionView->render();
-        }
-        return $solutionHtml;
     }
 
     /**
@@ -127,9 +124,9 @@ class SolveHandler
      * @param  SudokuInputView $inputView
      * @return SolverInterface
      */
-    private function getSolverInstance(SudokuInputView $inputView)
+    private function getSolverInstance()
     {
-        $solver = $inputView->getAlgorithm();
+        $solver = $this->inputView->getAlgorithm();
 
         if ($solver == SudokuInputView::SOLVER_AI) {
             return new AiSolver();
