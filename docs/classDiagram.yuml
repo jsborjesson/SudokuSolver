@@ -1,15 +1,39 @@
 // App
 [App]->[AppView]
-[App]-.->[SolveSudokuHandler]
-// SolveSudokuHandler
-[SolveSudokuHandler]-.->[SudokuInputView<<abstract>>]
-[SolveSudokuHandler]-.->[VisualSudokuInputView]
-[SolveSudokuHandler]-.->[SolutionView]
-[SolveSudokuHandler]-.->[AiSolver]
-[SolveSudokuHandler]-.->[NorvigSolver]
-// SudokuInputView
+[App]-.->[SolveHandler]
+// SolveHandler
+[SolveHandler]-.->[SudokuInputView<<abstract>>]
+[SolveHandler]-.->[MultipleSudokuInputView<<abstract>>]
+[SolveHandler]-.->[VisualSudokuInputView]
+[SolveHandler]-.->[TextAreaSudokuInputView]
+[SolveHandler]-.->[TextFileSudokuInputView]
+[SolveHandler]-.->[SolutionView]
+[SolveHandler]-.->[Solution]
+[SolveHandler]-.->[AiSolver]
+[SolveHandler]-.->[NorvigSolver]
+// --- MODELS ---
+[AiSolver]-.-^[SolverInterface]
+[NorvigSolver]-.-^[SolverInterface]
+[AiSolver]-.->[Sudoku]
+[NorvigSolver]-.->[Sudoku]
+[Solution]->2[Sudoku]
+[Solution]-.->[SolverInterface]
+[SudokuReader]-.->[Sudoku]
+// --- VIEWS ---
+// Superclasses
 [SudokuInputView<<abstract>>]->[SudokuInputTypeView]
+[SudokuInputView<<abstract>>]->[Sudoku]
+[MultipleSudokuInputView<<abstract>>]-^[SudokuInputView<<abstract>>]
+[MultipleSudokuInputView<<abstract>>]-.->[Sudoku]
+// Visual
 [VisualSudokuInputView]-^[SudokuInputView<<abstract>>]
 [VisualSudokuInputView]->[SudokuGridHelper]
-[VisualSudokuInputView]-.-[Sudoku]
-// TODO: Template
+[VisualSudokuInputView]-.->[Sudoku]
+// Text
+[TextSudokuInputView<<abstract>>]->[SudokuReader]
+[TextSudokuInputView<<abstract>>]-^[MultipleSudokuInputView<<abstract>>]
+[TextAreaSudokuInputView]-^[TextSudokuInputView<<abstract>>]
+[TextFileSudokuInputView]-^[TextSudokuInputView<<abstract>>]
+// SolutionView
+[SolutionView]->[SudokuGridHelper]
+[SolutionView]->[Solution]
