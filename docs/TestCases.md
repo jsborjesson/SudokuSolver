@@ -29,12 +29,11 @@ Same input type but without content is shown
 
 Precondition: Viewing successful solution
 
-1. Click clear/return
+1. Click clear
 2. You should be asked to confirm
 3. Confirm
 
 Same input type but without content is shown
-
 
 ## Testcases 2: Visual input
 
