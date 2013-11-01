@@ -4,7 +4,6 @@ namespace SudokuSolver\View;
 
 use SudokuSolver\View\TextSudokuInputView;
 use SudokuSolver\View\Template;
-use SudokuSolver\Model\SudokuReader;
 use Exception;
 
 class TextAreaSudokuInputView extends TextSudokuInputView
