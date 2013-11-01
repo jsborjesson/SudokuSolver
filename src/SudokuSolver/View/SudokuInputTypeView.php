@@ -3,7 +3,6 @@
 namespace SudokuSolver\View;
 
 use SudokuSolver\View\Template;
-use SudokuSolver\Common\Router;
 
 class SudokuInputTypeView
 {
