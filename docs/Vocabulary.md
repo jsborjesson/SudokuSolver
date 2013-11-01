@@ -2,7 +2,7 @@
 
 sudoku
 : a valid sudoku has only one possible solution, science has determined
-that the least amount of given cells that can produce this is [17](http://arxiv.org/abs/1201.0749).
+that the least amount of given cells that can meet this criteria is [17](http://arxiv.org/abs/1201.0749).
 
 grid
 : the 9x9 sudoku
