@@ -52,7 +52,6 @@ class SolveHandler
 
     /**
      * Handle a single submitted sudoku
-     * @param  SudokuInputView $inputView
      * @return string HTML
      */
     private function handleInput()
@@ -80,8 +79,7 @@ class SolveHandler
 
     /**
      * Handle multiple submitted sudokus
-     * @param  MultipleSudokuInputView$this->inputView
-     * @return string                               HTML
+     * @return string HTML
      */
     private function handleMultipleInput()
     {
@@ -121,7 +119,6 @@ class SolveHandler
 
     /**
      * An instance of the chosen solving algorithm
-     * @param  SudokuInputView $inputView
      * @return SolverInterface
      */
     private function getSolverInstance()
