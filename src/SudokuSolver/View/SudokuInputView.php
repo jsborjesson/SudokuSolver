@@ -4,7 +4,6 @@ namespace SudokuSolver\View;
 
 use SudokuSolver\View\Template;
 use SudokuSolver\View\SudokuInputTypeView;
-use SudokuSolver\View\SudokuInputViewInterface;
 use Exception;
 
 /**
