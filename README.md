@@ -98,7 +98,7 @@ with local path set to `./` and ignoring files in donot-deploy.txt
 
 All that is needed to deploy for the first time, or deploy updates is to put
 that script in the root of this repo, set the settings-variables in the file
-and run it.
+and run it. It keeps tracks of what has changed and only uploads what is needed.
 
     cd path/to/SudokuSolver
     bash rsync-deploy.sh
