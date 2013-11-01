@@ -54,7 +54,7 @@ class SudokuReader
      * @return Sudoku
      * @throws Exception If invalid string
      */
-    public static function fromString($str, $zeroChar = '')
+    public function fromString($str, $zeroChar = '')
     {
         // Convert zeroChars to zeros
         $str = str_replace($zeroChar, '0', $str);

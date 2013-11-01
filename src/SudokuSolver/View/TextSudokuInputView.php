@@ -15,6 +15,15 @@ abstract class TextSudokuInputView extends MultipleSudokuInputView
      */
     private $template;
 
+    /**
+     * @var SudokuReader
+     */
+    private $reader;
+
+    /**
+     * Names of form elements
+     * @var string
+     */
     private static $zeroCharName = 'zeroChar';
     private static $delimiterName = 'sudokuDelimiter';
 
@@ -22,6 +31,7 @@ abstract class TextSudokuInputView extends MultipleSudokuInputView
     {
         parent::__construct();
         $this->template = Template::getTemplate('sudokuTextInputLayout');
+        $this->reader = new SudokuReader();
     }
 
     // ---------- Abstract methods ----------
@@ -125,11 +135,7 @@ abstract class TextSudokuInputView extends MultipleSudokuInputView
     private function parseSudoku($str)
     {
         $zeroChar = $this->getZeroChar();
-        if ($zeroChar !== '') {
-            return SudokuReader::fromString($str, $zeroChar);
-        } else {
-            return SudokuReader::fromString($str);
-        }
+        return $this->reader->fromString($str, $zeroChar);
     }
 
     /**
