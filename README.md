@@ -103,6 +103,15 @@ and run it. It keeps tracks of what has changed and only uploads what is needed.
     cd path/to/SudokuSolver
     bash rsync-deploy.sh
 
+## To do
+
+As always, there has not been quite enough time to really polish this project,
+so I will list the biggest missing pieces here in case I (or someone else) decide
+to keep working on it.
+
+- Styling, the solution and visual input type really need to look more like a real sudoku.
+- The back/clear-buttons should not be repeated when showing multiple solutions
+
 ## Credits
 
 Huge thanks to Peter Norvig for writing the [great article](http://norvig.com/sudoku.html).
