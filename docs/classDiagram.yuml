@@ -22,7 +22,7 @@
 // --- VIEWS ---
 // Superclasses
 [SudokuInputView<<abstract>>{bg:orange}]->[SudokuInputTypeView{bg:yellow}]
-[SudokuInputView<<abstract>>{bg:orange}]->[Sudoku]
+[SudokuInputView<<abstract>>{bg:orange}]-.->[Sudoku]
 [MultipleSudokuInputView<<abstract>>{bg:orange}]-^[SudokuInputView<<abstract>>{bg:orange}]
 [MultipleSudokuInputView<<abstract>>{bg:orange}]-.->[Sudoku{bg:blue}]
 // Visual
