@@ -50,7 +50,9 @@ abstract class TextSudokuInputView extends MultipleSudokuInputView
             array(
                 'sudoku' => $this->renderTextInput(),
                 'zeroCharName' => self::$zeroCharName,
-                'sudokuDelimiterName' => self::$delimiterName
+                'delimiterName' => self::$delimiterName,
+                'zeroCharValue' => $this->getZeroChar(),
+                'delimiterValue' => $this->getDelimiter()
             )
         );
     }
@@ -122,16 +124,21 @@ abstract class TextSudokuInputView extends MultipleSudokuInputView
      */
     private function parseSudoku($str)
     {
-        return SudokuReader::fromString($str, $this->getZeroChar());
+        $zeroChar = $this->getZeroChar();
+        if ($zeroChar !== '') {
+            return SudokuReader::fromString($str, $zeroChar);
+        } else {
+            return SudokuReader::fromString($str);
+        }
     }
 
     /**
-     * Returns input zeroChar or 0 if empty
+     * Returns input zeroChar or empty string if not sent
      * @return string char
      */
     private function getZeroChar()
     {
-        return isset($_POST[self::$zeroCharName]) ? $_POST[self::$zeroCharName] : '0';
+        return isset($_POST[self::$zeroCharName]) ? $_POST[self::$zeroCharName] : '';
     }
 
     /**
