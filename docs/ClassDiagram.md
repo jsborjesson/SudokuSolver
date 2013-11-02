@@ -10,4 +10,4 @@
 _The `Template` class is not shown here, as it made things too messy. All view-classes
 have a dependency on `Template`._
 
-![](http://yuml.me/b0f1dcab)
+![](http://yuml.me/086d0881)
