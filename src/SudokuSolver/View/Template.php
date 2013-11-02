@@ -69,7 +69,6 @@ class Template
      */
     public static function getTemplate($templateName)
     {
-        // TODO: Allow using fileSuffix manually
         return new Template(TEMPLATE_DIR . $templateName . TEMPLATE_SUFFIX);
     }
 
