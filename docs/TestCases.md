@@ -54,7 +54,7 @@ Precondition: Visual input screen active
 
 1. Enter a sudoku with duplicate digits in a region
 
-"Invalid sudoku"
+"Duplicate value in ****"
 
 ### TC2.4: Solve sudoku
 
@@ -91,3 +91,5 @@ All of these should work fine
 1. Enter invalid sudoku string
 
 "Invalid sudoku", the string is still there
+
+# Report
