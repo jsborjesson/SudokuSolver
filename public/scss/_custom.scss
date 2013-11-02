@@ -76,11 +76,6 @@ textarea.sudoku {
     font-family: monospace;
 }
 
-// Fix clear-button style
-input[type="clear"] {
-    text-align: center;
-    // TODO: Fix clear button blinking cursor
-}
 // Make textarea bigger
 textarea.sudoku {
     height: 300px !important;
