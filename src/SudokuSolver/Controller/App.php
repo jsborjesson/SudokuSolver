@@ -39,6 +39,7 @@ class App
     public function shutdown()
     {
         if (! $this->successfullCompletion) {
+            // TODO: Show nice error-message
             print 'Could not solve the sudoku in time.';
         }
     }
