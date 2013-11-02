@@ -1,7 +1,5 @@
 # SudokuSolver
 
-Should eventually solve sudoku puzzles.
-
 ## Standards
 
 - HTML5
