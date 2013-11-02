@@ -14,6 +14,9 @@ class TextFileSudokuInputView extends TextSudokuInputView
      */
     private $template;
 
+    /**
+     * @var string
+     */
     private static $fileInputName = 'sudokuFile';
 
     public function __construct()
