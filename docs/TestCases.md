@@ -65,7 +65,6 @@ You see:
 
 - Solution
 - Time it took to solve
-- Algorithm used
 
 ## Testcases 3: Text input
 
@@ -93,3 +92,8 @@ All of these should work fine
 "Invalid sudoku", the string is still there
 
 # Report
+
+All of these tests pass. There is however some performance issues with the solving
+algorithms, they cannot solve the really tough puzzles within the timeframe they
+get before the script is aborted. As of now, the error message for this is not
+very nice.
