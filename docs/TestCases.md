@@ -1,5 +1,7 @@
 # Manual tests
 
+These are very briefly written, but it should still be pretty straight forward.
+
 Steps to perform tests are written as ordered lists. Expected results are
 written in plain text directly after. Tests are to be considered passed if
 the system shows an appropriate result, even if the phrasing differs
