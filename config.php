@@ -15,3 +15,6 @@ set_time_limit(5); // TODO: Show nice error when this is hit
 
 // Stop on error
 assert_options(ASSERT_BAIL, true);
+
+// Needed to "catch" the fatal execution time error
+error_reporting(0);

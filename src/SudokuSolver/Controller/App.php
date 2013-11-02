@@ -15,6 +15,13 @@ class App
     private $view;
 
     /**
+     * If the program finished in time - this is used to show the execution
+     * time error.
+     * @var boolean
+     */
+    private $successfullCompletion = false;
+
+    /**
      * Redirect here if no route is matched
      * @var string
      */
@@ -23,6 +30,17 @@ class App
     public function __construct()
     {
         $this->view = new AppView();
+        register_shutdown_function(array($this, 'shutdown'));
+    }
+
+    /**
+     * Black magic to "catch" the execution time error
+     */
+    public function shutdown()
+    {
+        if (! $this->successfullCompletion) {
+            print 'Could not solve the sudoku in time.';
+        }
     }
 
     /**
@@ -32,6 +50,7 @@ class App
     {
         $html = $this->dispatch();
         $this->renderPage($html);
+        $this->successfullCompletion = true;
     }
 
     /**
