@@ -73,6 +73,7 @@ class SolveHandler
             $solutionView = new SolutionView($solution);
             return $solutionView->render();
         } else {
+            // Show the normal input screen
             return $this->inputView->render();
         }
     }
