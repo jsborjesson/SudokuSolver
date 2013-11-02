@@ -7,10 +7,6 @@ written in plain text directly after. Tests are to be considered passed if
 the system shows an appropriate result, even if the phrasing differs
 the expected results here.
 
-## Requirements
-
-- Solving a sudoku should always take less than a second.
-
 ## Testcase 1.1: Navigate to page
 
 1. Navigate to the page
