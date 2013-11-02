@@ -106,10 +106,7 @@ class VisualSudokuInputView extends SudokuInputView
      */
     private function getCellInput($row, $col)
     {
-        // TODO: Validation
-        if (isset($_POST[$row . $col])) {
-            return $_POST[$row . $col];
-        }
+        return isset($_POST[$row . $col]) ? $_POST[$row . $col] : '';
     }
 
     /**
@@ -122,6 +119,11 @@ class VisualSudokuInputView extends SudokuInputView
     private function getCellInputDigit($row, $col)
     {
         $input = $this->getCellInput($row, $col);
-        return preg_match('/^[1-9]$/', $input) ? intval($input) : 0;
+
+        if ($input === '' or preg_match('/^[0-9\ ]$/', $input)) {
+            return intval($input);
+        } else {
+            throw new Exception("Invalid digit: $input");
+        }
     }
 }
