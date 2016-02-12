@@ -61,10 +61,10 @@ I use Gumby framework for styles. It has a couple of dependencies. To generate
 the CSS-files required for the live site:
 
     # Make sure the dependancies are installed
-    gem install compass modular-scale sass
+    bundle install
 
     # Compile the css...
-    compass compile
+    bundle exec compass compile
 
     # ...or compile them on save
     compass watch

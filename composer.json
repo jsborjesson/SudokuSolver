@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "gumbyframework/gumby": "*",
+        "gumbyframework/gumby": "2.5.14",
         "rhumsaa/array_column": "~1.1"
     },
     "require-dev": {
