@@ -15,7 +15,6 @@ tests/unit/CodeGuy.php
 tests/unit/_bootstrap.php
 
 # Styles
-/public/css/
 .sass-cache
 
 # Files that need not be versioned
