@@ -101,6 +101,10 @@ and run it. It keeps tracks of what has changed and only uploads what is needed.
     cd path/to/SudokuSolver
     bash rsync-deploy.sh
 
+### Heroku
+
+    heroku buildpacks:set heroku/php
+
 ## To do
 
 As always, there has not been quite enough time to really polish this project,
