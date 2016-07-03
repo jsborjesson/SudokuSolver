@@ -3,7 +3,7 @@
 ## Standards
 
 - HTML5
-- [PHP-FIG](www.php-fig.org)
+- [PHP-FIG](http://www.php-fig.org/)
 
 ## Goals
 
